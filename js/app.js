@@ -98,7 +98,7 @@
       subs: [
         { id:"metodos-diseno", label:"Diseño, fuentes y regla de citación" },
         { id:"metodos-prisma", label:"Selección de estudios (diagrama PRISMA)" },
-        { id:"metodos-estudios", label:"Estudios incluidos (n = 14)" },
+        { id:"metodos-estudios", label:"Estudios incluidos (n = "+DATA.studies.length+")" },
         { id:"metodos-fuentes", label:"Fuentes consultadas y limitaciones" },
       ] },
     { id:"resultados", num:"05", title:"Resultados", sub:"Evaluación de calidad y ejes de convergencia temática", open:false,
@@ -298,6 +298,12 @@
       el("h4",{},["Regla de citación y verificación"]),
       el("p",{},[DATA.methods.citationRule]),
     ]));
+    if(DATA.methods.citationRuleUpdate){
+      body.appendChild(el("div",{class:"card"},[
+        el("strong",{},["Actualización posterior a la publicación"]),
+        el("p",{style:"margin:6px 0 0"},[DATA.methods.citationRuleUpdate]),
+      ]));
+    }
 
     body.appendChild(el("h4",{style:"font-size:.86rem;margin-top:18px"},["Evaluación de calidad y síntesis"]));
     body.appendChild(el("p",{},[DATA.methods.qualityApproach]));
@@ -310,10 +316,16 @@
   function renderPrisma(){
     const body = document.getElementById("body-metodos");
     sectionDivider(body, "metodos-prisma", "Selección de estudios",
-      "45 registros identificados → 32 examinados → 14 incluidos. Diagrama de flujo PRISMA construido con las cifras reales del documento.");
+      "45 registros identificados → 32 examinados → "+DATA.methods.prisma.includedTotal+" incluidos. Diagrama de flujo PRISMA construido con las cifras reales del documento.");
     body.appendChild(el("p",{},[
       "Diagrama de flujo PRISMA 2020 de la selección de estudios. Toca o pasa el cursor sobre cada caja para ver el detalle si aplica; la tabla debajo desagrega el proceso por fuente de información."
     ]));
+    if(DATA.methods.prisma.updateNote){
+      body.appendChild(el("div",{class:"card"},[
+        el("strong",{},["Actualización posterior a la publicación"]),
+        el("p",{style:"margin:6px 0 0"},[DATA.methods.prisma.updateNote]),
+      ]));
+    }
     const wrap = el("div",{class:"diagram-wrap prisma-wrap"});
     wrap.appendChild(buildPrismaSVG(DATA.methods.prisma));
     body.appendChild(wrap);
@@ -465,10 +477,10 @@
      ============================================================ */
   function renderEstudios(){
     const body = document.getElementById("body-metodos");
-    sectionDivider(body, "metodos-estudios", "Estudios y documentos incluidos (n = 14)",
+    sectionDivider(body, "metodos-estudios", "Estudios y documentos incluidos (n = "+DATA.studies.length+")",
       "Extracción de datos completa, con el título enlazado a su fuente verificable.");
     body.appendChild(el("p",{},[
-      "Cinco estudios cualitativos indexados en PubMed centrados en el sector salud, un estudio de caso institucional de la OPS/OMS, siete registros de Google Scholar (cuatro de los cuales documentan mecanismos de gobernanza intersectorial en sectores distintos al de la salud, incluidos como evidencia comparativa) y una revisión de alcance regional."
+      "Cinco estudios cualitativos indexados en PubMed centrados en el sector salud, un estudio de caso institucional de la OPS/OMS, ocho registros de Google Scholar (cinco de los cuales documentan mecanismos de gobernanza intersectorial en sectores distintos al de la salud, incluidos como evidencia comparativa) y una revisión de alcance regional."
     ]));
     const actions = el("div",{class:"data-table-actions"});
     actions.appendChild(makeDownloadLink("estudios_incluidos.csv",
@@ -479,7 +491,7 @@
 
     const tableWrap = el("div",{class:"table-wrap"});
     const table = el("table",{class:"data-table studies", id:"studies-table"},[
-      el("caption",{class:"sr-only"},["Extracción de datos de los 14 estudios y documentos incluidos"]),
+      el("caption",{class:"sr-only"},["Extracción de datos de los "+DATA.studies.length+" estudios y documentos incluidos"]),
       el("thead",{},[ el("tr",{},[
         el("th",{},["#"]), el("th",{},["Título"]), el("th",{},["Autor(es), año"]), el("th",{},["Tipo de estudio"]),
         el("th",{},["Resultado principal"]), el("th",{},["Base"]),
@@ -837,18 +849,42 @@
     const body = document.getElementById("body-marcos");
     const c = DATA.irFrameworks.continuum;
     sectionDivider(body, "marcos-continuo", c.title, c.text);
-    const track = el("div",{class:"continuum-track"});
+
+    const n = c.stages.length;
+    const stagePct = (i)=> 20 + Math.round((i/(n-1))*80);
+
+    const wrap = el("div",{class:"continuum-matrix-wrap"});
+    const table = el("table",{class:"continuum-matrix"},[
+      el("caption",{class:"sr-only"},["Matriz del continuo de la investigación de implementación, de prueba de concepto a informar la escala"]),
+    ]);
+    const headRow = el("tr",{},[ el("th",{class:"row-label"},["Etapa"]) ]);
     c.stages.forEach((s,i)=>{
-      track.appendChild(el("div",{class:"continuum-stage"},[
-        el("div",{class:"continuum-num"},["Etapa "+(i+1)]),
-        el("h4",{},[s.name]),
-        el("p",{class:"continuum-q"},[s.question]),
-        el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},["Implementación"]), s.implementation ]),
-        el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},["Contexto"]), s.context ]),
-        el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},["Ejemplos"]), s.examples ]),
-      ]));
+      const pct = stagePct(i);
+      const th = el("th",{class:"stage-head"+(pct>=60?" on-dark":"")});
+      th.style.backgroundColor = `color-mix(in srgb, var(--primary) ${pct}%, var(--surface))`;
+      th.appendChild(el("span",{class:"stage-num"},["Etapa "+(i+1)]));
+      th.appendChild(el("span",{class:"stage-name"},[s.name]));
+      headRow.appendChild(th);
     });
-    body.appendChild(track);
+    const rows = [
+      { label:"Pregunta", cls:"stage-q", get:(s)=>s.question },
+      { label:"Implementación", get:(s)=>s.implementation },
+      { label:"Contexto", get:(s)=>s.context },
+      { label:"Ejemplos", get:(s)=>s.examples },
+    ];
+    const bodyRows = rows.map(r=>{
+      const tr = el("tr",{},[ el("th",{class:"row-label", scope:"row"},[r.label]) ]);
+      c.stages.forEach(s=> tr.appendChild(el("td",{class:r.cls||""},[r.get(s)])));
+      return tr;
+    });
+    table.appendChild(el("thead",{},[headRow]));
+    table.appendChild(el("tbody",{}, bodyRows));
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+
+    body.appendChild(el("div",{class:"continuum-scale-legend"},[
+      "Implementación-ligera", el("span",{class:"grad"}), "Implementación-intensa",
+    ]));
     body.appendChild(el("p",{class:"indicator-source", style:"margin-top:10px"},[
       el("a",{href:c.citation.url, target:"_blank", rel:"noopener noreferrer"},[c.citation.label]),
     ]));
@@ -862,18 +898,34 @@
     const pf = DATA.irFrameworks.outcomes;
     sectionDivider(body, "marcos-resultados", pf.title,
       "El mismo marco ya usado como lente añadida en otras síntesis del autor — aquí, con su puente explícito hacia el acceso.");
-    body.appendChild(el("div",{class:"card"},[
-      el("p",{style:"margin:0 0 6px"},[pf.text]),
-      el("img",{src:"img/proctor-2011-framework.jpg", alt:"Marco de resultados de implementación de Proctor et al. (2011): resultados de implementación, de servicio y del cliente", style:"max-width:420px;border:1px solid var(--border);border-radius:8px;margin:8px 0"}),
+    body.appendChild(el("p",{},[pf.text]));
+
+    pf.levels.forEach((lvl,i)=>{
+      const tier = el("div",{class:"outcomes-tier tier-"+(i+1)});
+      tier.appendChild(el("h4",{},[lvl.name]));
+      const pillRow = el("div",{class:"pill-row"});
+      lvl.items.forEach(it=> pillRow.appendChild(el("span",{class:"chip chip-"+["a","d","c"][i]},[it])));
+      tier.appendChild(pillRow);
+      if(lvl.note) tier.appendChild(el("p",{class:"tier-note"},[lvl.note]));
+      body.appendChild(tier);
+    });
+    if(pf.levelsSourceNote) body.appendChild(el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:4px"},[pf.levelsSourceNote]));
+
+    body.appendChild(el("div",{class:"selective-box"},[
+      el("h4",{},["De \"penetración\" a \"cobertura\" a \"acceso\""]),
+      el("p",{},[pf.coverageNote]),
+    ]));
+
+    const details = el("details",{style:"margin-top:14px"});
+    details.appendChild(el("summary",{style:"cursor:pointer;font-weight:700;font-size:.82rem"},["Ver figura original (inglés) y cita completa"]));
+    details.appendChild(el("div",{class:"card", style:"margin-top:10px"},[
+      el("img",{src:"img/proctor-2011-framework.jpg", alt:"Marco de resultados de implementación de Proctor et al. (2011), figura original en inglés: implementation, service and client outcomes", style:"max-width:420px;border:1px solid var(--border);border-radius:8px;margin:8px 0"}),
       el("p",{class:"indicator-source"},[
         el("a",{href:pf.citation.url, target:"_blank", rel:"noopener noreferrer"},[pf.citation.label]),
       ]),
       el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:4px"},[pf.imageSourceNote]),
     ]));
-    body.appendChild(el("div",{class:"selective-box"},[
-      el("h4",{},["De \"penetración\" a \"cobertura\" a \"acceso\""]),
-      el("p",{},[pf.coverageNote]),
-    ]));
+    body.appendChild(details);
   }
 
   /* ============================================================
@@ -922,9 +974,26 @@
     const fr = DATA.irFrameworks.access;
     sectionDivider(body, "marcos-acceso", fr.title,
       "El punto de llegada de todo lo anterior: qué condiciones determinan que un servicio o una tecnología efectivamente lleguen a quien los necesita.");
-    body.appendChild(el("div",{class:"card"},[
-      el("p",{style:"margin:0 0 6px"},[fr.text]),
-      el("img",{src:"img/frost-reich-2008-framework.png", alt:"Marco de acceso de Frost & Reich (2008): arquitectura, disponibilidad, asequibilidad y adopción", style:"max-width:420px;border:1px solid var(--border);border-radius:8px;margin:8px 0"}),
+    body.appendChild(el("p",{},[fr.text]));
+
+    const arch = fr.factors[0];
+    body.appendChild(el("div",{class:"access-arch-banner"},[
+      arch.name,
+      el("span",{class:"sub"},[arch.items[0]]),
+    ]));
+    const grid = el("div",{class:"access-factor-grid"});
+    fr.factors.slice(1).forEach(f=>{
+      grid.appendChild(el("div",{class:"access-factor"},[
+        el("h4",{},[f.name]),
+        el("ul",{}, f.items.map(it=> el("li",{},[it]))),
+      ]));
+    });
+    body.appendChild(grid);
+
+    const details = el("details",{style:"margin-top:14px"});
+    details.appendChild(el("summary",{style:"cursor:pointer;font-weight:700;font-size:.82rem"},["Ver figura original (inglés) y cita completa"]));
+    details.appendChild(el("div",{class:"card", style:"margin-top:10px"},[
+      el("img",{src:"img/frost-reich-2008-framework.png", alt:"Marco de acceso de Frost & Reich (2008), figura original en inglés: architecture, availability, affordability y adoption", style:"max-width:420px;border:1px solid var(--border);border-radius:8px;margin:8px 0"}),
       el("p",{class:"indicator-source"},[fr.citation.label]),
       el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:4px"},[fr.citationVerificationNote]),
       el("p",{class:"indicator-source", style:"margin-top:4px"},[
@@ -932,6 +1001,7 @@
         el("a",{href:fr.secondarySourceCitation.url, target:"_blank", rel:"noopener noreferrer"},[fr.secondarySourceCitation.label]),
       ]),
     ]));
+    body.appendChild(details);
   }
 
   /* ============================================================
@@ -1412,7 +1482,7 @@
       const text = (g.segments||[]).map(s=>s.text).join("");
       idx.push({ type:"Laguna", label: text.length>90? text.slice(0,90)+"…" : text, detail:"Lagunas de evidencia", sectionId:"discusion", anchorId:"discusion-lagunas" });
     });
-    idx.push({ type:"Sección", label:"Diagrama PRISMA", detail:"Selección de los 14 estudios incluidos", sectionId:"metodos", anchorId:"metodos-prisma" });
+    idx.push({ type:"Sección", label:"Diagrama PRISMA", detail:"Selección de los "+DATA.studies.length+" estudios incluidos", sectionId:"metodos", anchorId:"metodos-prisma" });
     idx.push({ type:"Sección", label:"El problema de implementación", detail:"Caso Foege/viruela y definición de Peters, Tran & Adam (2013)", sectionId:"problema", anchorId:"problema-narrativa" });
     idx.push({ type:"Sección", label:"El continuo de la investigación de implementación", detail:"Peters, Tran & Adam (2013), figura 3", sectionId:"marcos", anchorId:"marcos-continuo" });
     idx.push({ type:"Sección", label:"Resultados de implementación", detail:"Proctor et al. (2011)", sectionId:"marcos", anchorId:"marcos-resultados" });

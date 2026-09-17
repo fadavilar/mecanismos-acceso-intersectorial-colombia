@@ -828,18 +828,61 @@ body.summary-mode .container{ max-width: 760px; }
 .rec-board-cell .k{ font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; color: var(--text-muted); font-weight:700; margin-bottom:4px; }
 
 /* ============================================================
-   Continuum track (etapas de la investigación de implementación)
+   Continuum matrix (etapas de la investigación de implementación,
+   escala de tonos de "implementación-ligera" a "implementación-intensa")
    ============================================================ */
-.continuum-track{
-  display:grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-top:14px;
+.continuum-matrix-wrap{ overflow-x:auto; margin-top:14px; }
+.continuum-matrix{ width:100%; border-collapse:collapse; font-size:.82rem; min-width:640px; }
+.continuum-matrix th, .continuum-matrix td{
+  border:1px solid var(--border); padding:10px 12px; text-align:left; vertical-align:top;
 }
-.continuum-stage{
-  background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px;
-  display:flex; flex-direction:column; gap:6px;
+.continuum-matrix .row-label{
+  font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; font-weight:800;
+  color: var(--text-muted); background: var(--surface); white-space:nowrap; width:1%;
 }
-.continuum-stage h4{ margin:0; font-size:.92rem; }
-.continuum-num{ font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; color: var(--primary-2); font-weight:800; }
-.continuum-q{ font-size:.82rem; color: var(--text-muted); font-style:italic; margin:0 0 4px; }
+.continuum-matrix .stage-head{ color: var(--text); }
+.continuum-matrix .stage-head.on-dark{ color:#fff; }
+.continuum-matrix .stage-head .stage-num{ display:block; font-size:.64rem; opacity:.85; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+.continuum-matrix .stage-head .stage-name{ display:block; font-size:.88rem; font-weight:800; margin-top:2px; }
+.continuum-matrix .stage-q{ font-style:italic; color: var(--text-muted); }
+.continuum-scale-legend{ display:flex; align-items:center; gap:6px; margin-top:10px; font-size:.76rem; color: var(--text-muted); }
+.continuum-scale-legend .grad{
+  flex:1; max-width:220px; height:10px; border-radius:999px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--primary) 18%, var(--surface)),
+    color-mix(in srgb, var(--primary) 95%, var(--text) 15%));
+}
+
+/* ============================================================
+   Marcos de referencia — visuales adaptados al español
+   (resultados de implementación / marco de acceso)
+   ============================================================ */
+.outcomes-tier{
+  border-left: 4px solid var(--border); padding-left: 14px; margin-bottom: 16px;
+}
+.outcomes-tier:last-child{ margin-bottom:0; }
+.outcomes-tier.tier-1{ border-color: var(--chip-a); }
+.outcomes-tier.tier-2{ border-color: var(--chip-d); }
+.outcomes-tier.tier-3{ border-color: var(--chip-c); }
+.outcomes-tier h4{ font-size:.9rem; margin:0 0 8px; }
+.outcomes-tier .pill-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.outcomes-tier .pill-row .chip{ font-weight:700; }
+.outcomes-tier .tier-note{ font-size:.74rem; color: var(--text-muted); margin-top:6px; }
+
+.access-arch-banner{
+  background: var(--surface-2); border:1px solid var(--border); border-radius:12px;
+  padding:12px 16px; margin-top:14px; text-align:center; font-weight:700; font-size:.88rem;
+}
+.access-arch-banner .sub{ display:block; font-weight:400; font-size:.78rem; color: var(--text-muted); margin-top:3px; }
+.access-factor-grid{
+  display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-top:10px;
+}
+.access-factor{
+  background: var(--surface); border:1px solid var(--border); border-top:3px solid var(--primary-2);
+  border-radius:10px; padding:12px 14px;
+}
+.access-factor h4{ font-size:.86rem; margin:0 0 8px; }
+.access-factor ul{ margin:0; padding-left:18px; font-size:.8rem; display:flex; flex-direction:column; gap:4px; }
 
 /* ============================================================
    Print
