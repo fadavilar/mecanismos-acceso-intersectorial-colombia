@@ -19,7 +19,7 @@ const DATA = {
     affiliation: "Universidad de Navarra · Universidad de Bogotá Jorge Tadeo Lozano (Doctorado en Gestión y Modelado de Políticas Públicas)",
     period: "Revisión completada el 16 de septiembre de 2026 · horizonte de búsqueda 2021–2026",
     framework: "Revisión sistemática exploratoria · metodología PRISMA 2020 y su extensión PRISMA-ScR",
-    disclaimer: "Esta aplicación sintetiza una revisión sistemática exploratoria (scoping review) de autoría propia sobre los mecanismos de acceso intersectorial y su aplicación al contexto colombiano. Todas las cifras del proceso de selección, la tabla de estudios incluidos y las citas provienen del documento completo (PDF) y de las fuentes primarias que este verifica explícitamente. La clasificación por ejes temáticos, las recomendaciones y los marcos conceptuales añadidos (Proctor 2011, Frost & Reich 2008) son una elaboración propia del autor para facilitar la lectura — no sustituyen ni alteran los hallazgos originales del documento.",
+    disclaimer: "Esta aplicación sintetiza una revisión sistemática exploratoria (scoping review) de autoría propia sobre los mecanismos de acceso intersectorial y su aplicación al contexto colombiano, leída a través de la lente de la investigación de implementación (implementation research). Todas las cifras del proceso de selección, la tabla de estudios incluidos y las citas provienen del documento completo (PDF) y de las fuentes primarias que este verifica explícitamente. La clasificación por ejes temáticos, las recomendaciones, el diagrama de dinámica de sistemas y los marcos de referencia de implementación y acceso (Peters, Tran & Adam 2013; Proctor et al. 2011; CFIR; RE-AIM; difusión de innovaciones; TICD; Frost & Reich 2008) son una elaboración propia del autor para facilitar la lectura — no sustituyen ni alteran los hallazgos originales del documento.",
     license: {
       name: "Creative Commons Atribución 4.0 Internacional (CC BY 4.0)",
       url: "https://creativecommons.org/licenses/by/4.0/deed.es",
@@ -33,7 +33,7 @@ const DATA = {
       },
       {
         title: "XXI Congreso Nacional de Salud 2026 — Explorador interactivo",
-        text: "Síntesis del mismo autor sobre el XXI Congreso Nacional de Salud. Comparte con esta revisión el mismo marco de resultados de implementación de Proctor et al. (2011) como lente conceptual añadida.",
+        text: "Síntesis del mismo autor sobre el XXI Congreso Nacional de Salud. Comparte con esta revisión el mismo marco de resultados de implementación de Proctor et al. (2011) y la misma metodología de diagramación de dinámica de sistemas (Homer & Hirsch, 2006).",
         url: "https://fadavilar.github.io/xxi-congreso-nacional-salud-2026/"
       }
     ],
@@ -53,6 +53,26 @@ const DATA = {
   selectiveCategory: {
     title: "La brecha no es normativa, es de implementación",
     text: "Colombia dispone de una arquitectura institucional relevante para la acción intersectorial —la Comisión Intersectorial de Salud Pública, el Plan Decenal de Salud Pública 2022–2031, las redes integradas e integrales territoriales de salud—, pero los estudios primarios identificados en esta revisión documentan de manera consistente que esa arquitectura formal no siempre se traduce en coordinación operativa efectiva en el terreno. La ausencia de rectoría intersectorial efectiva, no la ausencia de normativa, es el obstáculo más citado."
+  },
+
+  // ------------------------------------------------------------------
+  // El problema de implementación — marco central de esta edición de la
+  // app (a solicitud del autor). Caso real (Foege, viruela en Nigeria) y
+  // definición tomados de Peters, Tran & Adam (2013), guía práctica de la
+  // OMS/Alianza para la Investigación en Políticas y Sistemas de Salud.
+  // ------------------------------------------------------------------
+  implementationProblem: {
+    caseTitle: "Por qué la eficacia no basta: el caso de la viruela en Nigeria",
+    caseText: [
+      "En diciembre de 1966 el doctor William Foege investigó un brote de viruela en el este de Nigeria. La vacuna liofilizada contra la viruela ya existía, era segura y eficaz, y la campaña mundial de erradicación llevaba siete años en marcha — pero a finales de 1966 la enfermedad seguía circulando en 31 países y territorios. El problema no era la vacuna: era alcanzar el 80% de cobertura necesario para la inmunidad de rebaño con los recursos realmente disponibles en el terreno.",
+      "Foege tenía vacunada solo al 35% de la población y los refuerzos tardarían semanas en llegar. En vez de esperar, trazó las rutas de transporte y los mercados que conectaban a las poblaciones afectadas y concentró la vacuna disponible en \"anillos de inmunidad\" alrededor de cada brote detectado — la estrategia de vigilancia-contención. Esa estrategia detuvo la transmisión en el este de Nigeria en cinco meses, vacunando solo a 750 000 personas de una población de 12 millones. Escalada globalmente, condujo a la erradicación mundial de la viruela en 1979.",
+      "En sentido estricto, no fue investigación de implementación — Foege respondía a un brote, no ejecutaba un protocolo de investigación —, pero el episodio ilustra con precisión la brecha que esta disciplina estudia: una intervención eficaz, respaldada por evidencia sólida, no llega automáticamente a quien la necesita. Entre la eficacia demostrada y el acceso real se interpone siempre un problema de implementación."
+    ],
+    caseCitation: { label: "Peters, D.H., Tran, N.T., & Adam, T. (2013). Implementation Research in Health: A Practical Guide. Alianza para la Investigación en Políticas y Sistemas de Salud (AHPSR), Organización Mundial de la Salud, capítulo 1.", url: "https://apps.who.int/iris/handle/10665/91758" },
+    definitionQuote: "La investigación de implementación es la indagación científica sobre preguntas relativas a la implementación.",
+    definitionCitation: { label: "Peters, D.H., Tran, N.T., & Adam, T. (2013). Implementation Research in Health: A Practical Guide, capítulo 3, p. 27.", url: "https://apps.who.int/iris/handle/10665/91758" },
+    definitionText: "Bajo esta definición deliberadamente amplia, la investigación de implementación puede abordar los factores que afectan la implementación (pobreza, lejanía geográfica, creencias locales), los procesos de implementación en sí mismos, o los resultados de la implementación. En la práctica suele enfocarse en identificar problemas de implementación comunes, entender los factores que facilitan o dificultan el acceso a una intervención de salud, desarrollar y probar soluciones a las barreras de implementación, y determinar la mejor manera de introducir innovaciones en un sistema de salud o de sostener su uso a escala.",
+    whyThisReview: "Esta revisión sobre mecanismos de acceso intersectorial es, ante todo, evidencia sobre un problema de implementación: Colombia ya cuenta con la \"intervención\" — una arquitectura normativa e institucional para la acción intersectorial (Comisión Intersectorial de Salud Pública, Plan Decenal de Salud Pública, redes territoriales) —, pero los estudios primarios identificados documentan de forma consistente que esa arquitectura no siempre se traduce en coordinación operativa efectiva ni en mejor acceso en el terreno. Leer esta revisión a través del lenguaje de la investigación de implementación —qué se está implementando, con qué estrategias, con qué resultados de implementación, y con qué barreras— es el propósito central de esta edición de la aplicación; la sección \"Marcos de referencia\" que sigue reúne las herramientas conceptuales para hacerlo, y la sección \"Dinámica de sistemas\" traduce los ejes de esta misma revisión en hipótesis causales explícitas sobre por qué persiste la brecha."
   },
 
   // ------------------------------------------------------------------
@@ -207,14 +227,30 @@ const DATA = {
   ],
 
   // ------------------------------------------------------------------
-  // Marcos conceptuales añadidos por el autor — no forman parte de los
-  // 14 estudios incluidos en la revisión, se incorporan como lente
-  // interpretativa adicional, cada uno con su cita verificada.
+  // Marcos de referencia de implementación y acceso — núcleo conceptual
+  // de esta edición de la app. Ninguno forma parte de los 14 estudios
+  // incluidos en la revisión; se incorporan como lente interpretativa
+  // del autor, cada uno con su cita verificada contra la fuente primaria
+  // (WHO/TDR, Implementation Science, o el artículo original).
   // ------------------------------------------------------------------
-  conceptualFrameworks: {
-    intro: "Dos marcos conceptuales, ninguno de los cuales forma parte de los 14 estudios incluidos en la revisión, ayudan a interpretar sus hallazgos: uno sobre cómo evaluar la implementación de un mecanismo de coordinación (Proctor et al., 2011 — el mismo marco ya usado como lente añadida en otras síntesis del autor), y otro sobre qué condiciones determinan el acceso a una tecnología o servicio (Frost & Reich, 2008). Ambos se presentan explícitamente como una capa interpretativa del autor, no como hallazgos de la revisión.",
-    proctor: {
-      title: "Marco de resultados de implementación (Proctor et al., 2011)",
+  irFrameworks: {
+    intro: "Seis piezas conceptuales, ninguna de las cuales forma parte de los 14 estudios incluidos en la revisión, ayudan a leerla a través del lenguaje de la investigación de implementación: cómo situar una pregunta de implementación en un continuo (Peters, Tran & Adam, 2013), cómo evaluar si una implementación funcionó (Proctor et al., 2011), qué teorías explican por qué una intervención se adopta o no (CFIR, RE-AIM, difusión de innovaciones), qué determinantes concretos de la práctica hay que revisar (TICD, Flottorp et al., 2013), y qué condiciones determinan el acceso a una tecnología o servicio (Frost & Reich, 2008). Todas se presentan explícitamente como una capa interpretativa del autor, no como hallazgos de la revisión.",
+
+    continuum: {
+      title: "El continuo de la investigación de implementación",
+      citation: { label: "Peters, D.H., Tran, N.T., & Adam, T. (2013). Implementation Research in Health: A Practical Guide, capítulo 3, figura 3 (\"The continuum of implementation research\").", url: "https://apps.who.int/iris/handle/10665/91758" },
+      text: "Una crítica frecuente a la investigación de implementación es que carece de una definición precisa como campo de estudio — en parte porque es aplicable en dominios muy distintos, y en parte porque, según el objeto de estudio, resulta \"pesada\" o \"ligera\" en implementación en grados muy diferentes. Peters, Tran y Adam proponen pensarla como un continuo: las preguntas de investigación se vuelven más intensivas en implementación a medida que la innovación avanza de la prueba de concepto a la información para la escala.",
+      stages: [
+        { name: "Prueba de concepto", question: "¿Es seguro y funciona?", implementation: "No relevante", context: "Controlado o no relacionado con implementación", examples: "Ciencia básica; ensayos clínicos fase I y II" },
+        { name: "Susceptible de implementación", question: "¿Puede funcionar en el mundo real?", implementation: "Relevante, pero no considerada", context: "Población altamente seleccionada, controlada", examples: "Estudios de eficacia; ensayo clínico aleatorizado fase III" },
+        { name: "Prueba de implementación", question: "¿Cómo funciona en entornos reales?", implementation: "Relevante, pero con efectos reducidos", context: "Entorno real, intervención parcialmente controlada", examples: "Ensayos pragmáticos; estudios cuasiexperimentales" },
+        { name: "Implementación estudiada como factor", question: "¿Qué papel juega la implementación en el efecto observado?", implementation: "Estudiada como factor contribuyente", context: "Entorno y población reales", examples: "Estudios observacionales que tratan la implementación como variable secundaria" },
+        { name: "Informando la escala", question: "¿Cómo cambian las partes del programa, y por qué?", implementation: "Foco primario", context: "Entorno y población reales, integración al sistema de salud", examples: "Estudios mixtos y cuasiexperimentales sobre adaptación, aprendizaje y escalamiento" },
+      ],
+    },
+
+    outcomes: {
+      title: "Resultados de implementación (Proctor et al., 2011)",
       citation: { label: "Proctor, E., Silmere, H., Raghavan, R., Hovmand, P., Aarons, G., Bunger, A., Griffey, R., & Hensley, M. (2011). Outcomes for implementation research: Conceptual distinctions, measurement challenges, and research agenda. Administration and Policy in Mental Health and Mental Health Services Research, 38, 65–76.", url: "https://pubmed.ncbi.nlm.nih.gov/20957426/" },
       text: "La revisión cita este marco (referencia [9] del documento) al señalar, en sus lagunas de evidencia, que ningún estudio aplicó de manera sistemática una taxonomía de resultados de implementación a los mecanismos intersectoriales colombianos existentes, pese a que ese marco conceptual está disponible en la literatura metodológica. Proctor y colaboradores proponen ocho resultados de implementación, organizados en tres niveles.",
       levels: [
@@ -222,14 +258,55 @@ const DATA = {
         { name: "Resultados de servicio", items: ["Eficiencia", "Seguridad", "Efectividad", "Equidad", "Centrado en el paciente", "Oportunidad"], note: "Estándares de calidad del Institute of Medicine (IOM)." },
         { name: "Resultados del cliente/usuario", items: ["Satisfacción", "Funcionamiento", "Sintomatología"] },
       ],
-      imageSourceNote: "El diagrama de este marco se reprodujo, en la fuente consultada para esta síntesis, a partir de la figura publicada en Brooks et al. (2012) — ver más abajo.",
+      imageSourceNote: "El diagrama de este marco se reprodujo, en la fuente consultada para esta síntesis, a partir de la figura publicada en Brooks et al. (2012) — ver el marco de acceso, más abajo.",
+      coverageNote: "La guía práctica de la OMS (Peters, Tran & Adam, 2013) adapta esta taxonomía para programas y políticas y sustituye \"penetración\" por \"cobertura\" (coverage): el grado en que la población elegible para beneficiarse de una intervención efectivamente la recibe — término que la propia guía asocia explícitamente con \"alcance\" (reach) y \"acceso\" (access). Es el puente conceptual directo entre los resultados de implementación y el marco de acceso de Frost & Reich que cierra esta sección.",
     },
-    frostReich: {
+
+    theories: {
+      title: "Teorías sobre por qué una intervención se adopta o no",
+      citation: { label: "Peters, D.H., Tran, N.T., & Adam, T. (2013). Implementation Research in Health: A Practical Guide, capítulo 5, recuadro 10 (\"Implementation theory\").", url: "https://apps.who.int/iris/handle/10665/91758" },
+      intro: "La guía de la OMS reúne tres teorías de uso frecuente en investigación de implementación para explicar el comportamiento individual o grupal frente a la implementación.",
+      items: [
+        {
+          name: "RE-AIM", full: "Reach, Efficacy, Adoption, Implementation, Maintenance",
+          citation: { label: "Glasgow, R.E., et al. (2009), citado en Peters, Tran & Adam (2013).", url: null },
+          text: "Marco de uso frecuente en intervenciones de promoción de la salud; ofrece un enfoque práctico para evaluar los efectos de una intervención a través de cambios en individuos, organizaciones y comunidades: alcance (reach), eficacia, adopción, implementación y mantenimiento.",
+        },
+        {
+          name: "Difusión de innovaciones", full: "Diffusion of Innovations Theory",
+          citation: { label: "Rogers, E.M. (2003), citado en Peters, Tran & Adam (2013).", url: null },
+          text: "Explica cómo se propagan las innovaciones, destacando los atributos percibidos de la innovación (ventaja relativa, compatibilidad con enfoques existentes, capacidad de observar resultados, capacidad de probarla y su complejidad), la disposición al cambio del adoptante, el sistema social, los procesos individuales de adopción y el sistema de difusión.",
+        },
+        {
+          name: "CFIR", full: "Consolidated Framework for Implementation Research",
+          citation: { label: "Damschroder, L.J., et al. (2009), citado en Peters, Tran & Adam (2013).", url: null },
+          text: "Desarrollado para consolidar las distintas teorías y términos usados en el campo. Comprende cinco dominios: (1) características de la intervención; (2) contexto externo; (3) contexto interno; (4) características de los individuos involucrados; y (5) el proceso de implementación.",
+          domains: ["Características de la intervención", "Contexto externo", "Contexto interno", "Características de los individuos involucrados", "Proceso de implementación"],
+        },
+      ],
+    },
+
+    determinants: {
+      title: "Determinantes concretos de la práctica (checklist TICD)",
+      citation: { label: "Flottorp, S.A., Oxman, A.D., Krause, J., Musila, N.R., Wensing, M., Godycki-Cwirko, M., Baker, R., & Eccles, M.P. (2013). A checklist for identifying determinants of practice: A systematic review and synthesis of frameworks and taxonomies of factors that prevent or enable improvements in healthcare professional practice. Implementation Science, 8:35.", url: "https://doi.org/10.1186/1748-5908-8-35" },
+      text: "A partir de una revisión sistemática y una síntesis de 12 listas de verificación existentes, Flottorp y colaboradores desarrollaron el checklist TICD (\"Tailored Implementation for Chronic Diseases\"): 57 determinantes potenciales de la práctica agrupados en siete dominios. Es una herramienta genérica, pensada tanto para investigadores de implementación como para quienes diseñan intervenciones — y es la base que esta app usa, en la sección \"Dinámica de sistemas\", para agrupar las barreras de acceso intersectorial identificadas en los ejes de esta revisión.",
+      domains: [
+        { name: "Factores de la guía/intervención", note: "Claridad, evidencia que la respalda, facilidad de uso." },
+        { name: "Factores individuales del profesional de salud", note: "Conocimiento, actitudes, motivación." },
+        { name: "Factores del paciente/usuario", note: "Conocimiento, actitudes, comportamiento." },
+        { name: "Interacciones profesionales", note: "Cultura de colaboración entre disciplinas y niveles." },
+        { name: "Incentivos y recursos", note: "Financiamiento, personal, tiempo, infraestructura." },
+        { name: "Capacidad de cambio organizacional", note: "Liderazgo, cultura institucional, gestión del cambio." },
+        { name: "Factores sociales, políticos y legales", note: "Normativa, prioridad política, contexto social." },
+      ],
+    },
+
+    access: {
       title: "Marco de acceso de Frost & Reich (2008)",
       citation: { label: "Frost, L. J., & Reich, M. R. (2008). Access: How Do Good Health Technologies Get to Poor People in Poor Countries? Harvard Center for Population and Development Studies.", url: null },
       citationVerificationNote: "El nombre del archivo de imagen original solo indicaba \"Reich, 2008\", sin coautoría ni datos completos. La cita se verificó y completó a partir de la referencia [8] de Brooks, A., Smith, T. A., de Savigny, D., & Lengeler, C. (2012), Implementing new health interventions in developing countries: why do we lose a decade or more?, BMC Public Health, 12:683 — artículo que reproduce la figura de Frost & Reich bajo licencia Creative Commons Atribución-NoComercial-CompartirIgual 3.0.",
       secondarySourceCitation: { label: "Brooks, A., Smith, T. A., de Savigny, D., & Lengeler, C. (2012). Implementing new health interventions in developing countries: why do we lose a decade or more? BMC Public Health, 12:683.", url: "https://doi.org/10.1186/1471-2458-12-683" },
-      text: "Frost y Reich analizaron el acceso a seis tecnologías de salud en países en desarrollo y propusieron que el acceso depende de una arquitectura coordinadora (architecture) que articula tres factores: disponibilidad (availability), asequibilidad (affordability) y adopción (adoption). Aunque este marco se desarrolló para tecnologías sanitarias específicas (vacunas, pruebas diagnósticas, anticonceptivos), su estructura —una instancia coordinadora que articula distintos factores de acceso— es conceptualmente análoga a lo que esta revisión documenta para el acceso intersectorial: la Comisión Intersectorial de Salud Pública como \"arquitectura\", y los mecanismos operativos (rutas, presupuestos, participación) como los factores que esa arquitectura debe coordinar.",
+      text: "Frost y Reich analizaron el acceso a seis tecnologías de salud en países en desarrollo y propusieron que el acceso depende de una arquitectura coordinadora (architecture) que articula tres factores: disponibilidad (availability), asequibilidad (affordability) y adopción (adoption). Aunque este marco se desarrolló para tecnologías sanitarias específicas (vacunas, pruebas diagnósticas, anticonceptivos), su estructura —una instancia coordinadora que articula distintos factores de acceso— es conceptualmente análoga a lo que esta revisión documenta para el acceso intersectorial: la Comisión Intersectorial de Salud Pública como \"arquitectura\", y los mecanismos operativos (rutas, presupuestos, participación) como los factores que esa arquitectura debe coordinar. Es, además, el mismo punto de llegada que la nota sobre \"cobertura\" del marco de resultados de implementación: acceso, alcance y cobertura son, en la literatura de implementación, tres caras del mismo resultado.",
       factors: [
         { name: "Arquitectura", items: ["Estructuras organizativas y relaciones establecidas para coordinar la disponibilidad, la asequibilidad y la adopción."] },
         { name: "Disponibilidad", items: ["Manufactura", "Proyección de demanda", "Adquisición", "Distribución", "Entrega"] },
@@ -238,6 +315,121 @@ const DATA = {
       ],
     },
   },
+
+  // ------------------------------------------------------------------
+  // Mapa mental interactivo — conecta las seis piezas de irFrameworks
+  // alrededor de un nodo central. Solo enlaza contenido ya presentado
+  // en "Marcos de referencia"; no añade ninguna afirmación nueva.
+  // ------------------------------------------------------------------
+  mindMap: {
+    hub: { id: "hub", label: "Investigación de implementación aplicada al acceso intersectorial" },
+    nodes: [
+      { id: "continuum", label: "Continuo de la IR", detail: "Peters, Tran & Adam (2013) — sitúa una pregunta de investigación entre \"prueba de concepto\" e \"informar la escala\".", jump: { sectionId: "marcos", anchorId: "marcos-continuo" } },
+      { id: "outcomes", label: "Resultados de implementación", detail: "Proctor et al. (2011) — ocho resultados para evaluar si una implementación funcionó: aceptabilidad, adopción, pertinencia, costos, factibilidad, fidelidad, penetración/cobertura, sostenibilidad.", jump: { sectionId: "marcos", anchorId: "marcos-resultados" } },
+      { id: "cfir", label: "CFIR", detail: "Damschroder et al. (2009) — cinco dominios que consolidan las teorías de implementación: intervención, contexto externo, contexto interno, individuos, proceso.", jump: { sectionId: "marcos", anchorId: "marcos-teorias" } },
+      { id: "reaim", label: "RE-AIM", detail: "Glasgow et al. (2009) — alcance, eficacia, adopción, implementación y mantenimiento.", jump: { sectionId: "marcos", anchorId: "marcos-teorias" } },
+      { id: "diffusion", label: "Difusión de innovaciones", detail: "Rogers (2003) — por qué y cómo se propaga (o no) una innovación entre adoptantes.", jump: { sectionId: "marcos", anchorId: "marcos-teorias" } },
+      { id: "ticd", label: "Determinantes TICD", detail: "Flottorp et al. (2013) — 57 determinantes de la práctica en 7 dominios; base del diagrama de dinámica de sistemas de esta app.", jump: { sectionId: "marcos", anchorId: "marcos-teorias" } },
+      { id: "access", label: "Marco de acceso", detail: "Frost & Reich (2008) — arquitectura, disponibilidad, asequibilidad y adopción como condiciones del acceso.", jump: { sectionId: "marcos", anchorId: "marcos-acceso" } },
+    ],
+  },
+
+  // ------------------------------------------------------------------
+  // Dinámica de sistemas — hipótesis causales del autor sobre por qué
+  // persiste la brecha de acceso intersectorial. Diagramación siguiendo
+  // Homer & Hirsch (2006); nodos y bucle de refuerzo (R1) construidos a
+  // partir de los ejes A, B y D ya documentados en "Resultados" (ver los
+  // estudios citados en cada nodo); el bucle de balance (B1) se apoya en
+  // el checklist de determinantes TICD (Flottorp et al., 2013). No es un
+  // modelo estadístico ajustado ni un hallazgo de los 14 estudios
+  // incluidos — es una síntesis interpretativa explícita del autor.
+  // ------------------------------------------------------------------
+  causalLoop: {
+    citation: "Diagramación siguiendo a Homer, J. B., & Hirsch, G. B. (2006). System dynamics modeling for public health. American Journal of Public Health, 96(3), 452–458. Nodos construidos a partir de los ejes A, B y D de esta misma revisión (ver estudios citados en cada nodo) y del checklist de determinantes TICD (Flottorp et al., 2013) — no de un modelo estadístico ajustado.",
+    nodes: [
+      { id: 1, label: "Débil rectoría intersectorial", studies: [2, 3, 4], confidence: "verificado" },
+      { id: 2, label: "Fragmentación institucional entre sectores", studies: [2, 3, 4], confidence: "nota-autor" },
+      { id: 3, label: "Déficit de coordinación operativa en el terreno", studies: [2, 3, 4], confidence: "verificado" },
+      { id: 4, label: "Resultados de implementación no medidos", studies: [], confidence: "nota-autor" },
+      { id: 5, label: "Brecha de acceso y bienestar persistente", studies: [], confidence: "nota-autor" },
+    ],
+    edges: [
+      { from: 1, to: 2, polarity: "+" },
+      { from: 2, to: 3, polarity: "+" },
+      { from: 3, to: 4, polarity: "+" },
+      { from: 4, to: 5, polarity: "+" },
+      { from: 5, to: 1, polarity: "+" },
+    ],
+    loops: [
+      {
+        id: "R1", title: "R1 · el vacío de rectoría se refuerza a sí mismo",
+        text: "Una rectoría intersectorial débil (eje A) favorece la fragmentación institucional entre sectores; ambas producen un déficit de coordinación operativa en el terreno —rutas, protocolos e intercambio de información que no llegan a funcionar (ejes A y D)—. Sin coordinación operativa medible, ningún actor aplica un marco de resultados de implementación como el de Proctor et al. (laguna de evidencia documentada en esta misma revisión), de modo que la brecha de acceso y bienestar persiste sin que se explique sistemáticamente por qué. Una brecha persistente y no explicada reduce, a su vez, el incentivo político para fortalecer la rectoría intersectorial — cerrando el ciclo de refuerzo.",
+        relatedInitiatives: ["Eje A", "Eje D", "Laguna de evidencia: taxonomía de Proctor no aplicada"],
+      },
+      {
+        id: "B1", title: "B1 · mecanismos operativos concretos, con demora institucional",
+        text: "El eje B de esta revisión documenta que la coordinación intersectorial sí funciona cuando se traduce en mecanismos operativos concretos —rutas de atención activas, protocolos de referencia, presupuestos y metas compartidas— articulados con participación comunitaria real. Un déficit de coordinación sostenido y documentado activa, con demora institucional, la decisión de construir esos mecanismos; una vez implementados y sostenidos, reducen directamente el déficit, actuando como bucle de balance frente al refuerzo de R1.",
+        relatedInitiatives: ["Eje B", "Checklist TICD: incentivos y recursos", "Checklist TICD: capacidad de cambio organizacional"],
+      },
+    ],
+    externalNode: { label: "Mecanismos operativos concretos", detail: "Rutas de atención activas, protocolos de referencia, presupuestos y metas compartidas, articulados con participación comunitaria (eje B)." },
+  },
+
+  // ------------------------------------------------------------------
+  // Autoevaluación de competencias en investigación de implementación —
+  // los 6 focos y 16 competencias son reales, del "IR Toolkit" del
+  // TDR/OMS (adphealth.org/irtoolkit/self-assessment-tool/), traducidos
+  // fielmente por el autor. La escala de 4 niveles usada en esta app es
+  // una adaptación propia para esta interfaz — no una reproducción de
+  // las opciones exactas del formulario original, que no se pudieron
+  // verificar en su totalidad a partir de la copia guardada de la
+  // herramienta.
+  // ------------------------------------------------------------------
+  irSelfAssessment: {
+    title: "Autoevaluación de competencias en investigación de implementación",
+    intro: "Herramienta de autoevaluación adaptada del \"IR Toolkit\" del Programa Especial de Investigaciones y Enseñanzas sobre Enfermedades Tropicales (TDR) y la Alianza para la Investigación en Políticas y Sistemas de Salud, ambos de la OMS. Los 6 focos y las 16 competencias centrales son los del marco original; la escala de 4 niveles usada aquí para calificarlas es una adaptación propia del autor para esta interfaz interactiva, no una reproducción literal del formulario original. Tus respuestas se guardan solo en este navegador (localStorage) — nunca se envían a ningún servidor.",
+    sourceCitation: { label: "IR Toolkit. Implementation Research Competency: Self-assessment tool. TDR/OMS y Alliance for Health Policy and Systems Research.", url: "https://adphealth.org/irtoolkit/self-assessment-tool/" },
+    scale: [
+      { value: 0, label: "Sin conocimiento" },
+      { value: 1, label: "Conocimiento limitado" },
+      { value: 2, label: "Con experiencia práctica" },
+      { value: 3, label: "Puedo liderar esto" },
+    ],
+    focusAreas: [
+      { id: "fa1", name: "Trabajar con otros actores", competences: [
+        { id: "c1", text: "Identificar los actores relevantes para planear y conducir investigación de implementación (e implementar intervenciones de salud con respaldo de evidencia)." },
+        { id: "c2", text: "Involucrar a los actores relevantes para planear y conducir investigación de implementación." },
+      ]},
+      { id: "fa2", name: "Reunir los recursos necesarios", competences: [
+        { id: "c3", text: "Construir un equipo de investigación de implementación para diseñar, planear y conducir un proyecto de forma conjunta." },
+        { id: "c4", text: "Movilizar y aprovechar los recursos necesarios para conducir investigación de implementación." },
+      ]},
+      { id: "fa3", name: "El proceso de indagación científica de la IR", competences: [
+        { id: "c5", text: "Formular preguntas apropiadas de investigación de implementación." },
+        { id: "c6", text: "Determinar las medidas o indicadores apropiados para conducir investigación de implementación." },
+        { id: "c7", text: "Determinar los diseños y métodos de estudio aplicables para conducir investigación de implementación." },
+        { id: "c8", text: "Conducir investigación de implementación de manera robusta y rigurosa." },
+      ]},
+      { id: "fa4", name: "Estrategias y pasos específicos de implementación", competences: [
+        { id: "c9", text: "Encontrar y sintetizar evidencia que respalde la implementación de una o varias intervenciones." },
+        { id: "c10", text: "Analizar los facilitadores y las barreras para la implementación de intervenciones." },
+        { id: "c11", text: "Desarrollar estrategias de implementación para abordar las barreras a la implementación de investigación e intervenciones con respaldo de evidencia." },
+        { id: "c12", text: "Analizar en profundidad y ajustar las estrategias de implementación." },
+      ]},
+      { id: "fa5", name: "Considerar el contexto y la ética", competences: [
+        { id: "c13", text: "Analizar los contextos (sistemas de salud, organizaciones o socios implementadores, entornos comunitarios) que afectan la implementación de intervenciones con respaldo de evidencia." },
+        { id: "c14", text: "Aplicar principios éticos al planear y conducir investigación de implementación." },
+      ]},
+      { id: "fa6", name: "Comunicación y abogacía", competences: [
+        { id: "c15", text: "Usar la información de la investigación de implementación de manera efectiva." },
+        { id: "c16", text: "Comunicar y abogar de manera efectiva a lo largo de todo el proceso de investigación de implementación." },
+      ]},
+    ],
+  },
+
+  // ------------------------------------------------------------------
+  // Discusión — texto real del documento, sección 4
+  // ------------------------------------------------------------------
 
   // ------------------------------------------------------------------
   // Discusión — texto real del documento, sección 4
@@ -312,7 +504,7 @@ const DATA = {
     ]},
     { segments: [
       { text: "No se identificaron estudios que apliquen de manera sistemática marcos de evaluación de resultados de implementación (como la taxonomía de Proctor y colaboradores: aceptabilidad, adopción, pertinencia, factibilidad, fidelidad, costo, penetración y sostenibilidad) a los mecanismos intersectoriales colombianos existentes, pese a que ese marco conceptual está disponible en la literatura metodológica de referencia — ver " },
-      { text: "\"Marcos conceptuales añadidos\"", jump: { sectionId: "discusion", anchorId: "discusion-marcos" } },
+      { text: "\"Resultados de implementación (Proctor et al., 2011)\"", jump: { sectionId: "marcos", anchorId: "marcos-resultados" } },
       { text: " en esta síntesis." },
     ]},
     { segments: [
@@ -354,7 +546,7 @@ const DATA = {
       "Google Scholar, SciELO, Cochrane Library y LILACS/BVS bloquean o restringen el acceso automatizado (robots.txt, control anti-bot, riesgo de bloqueo de IP); las búsquedas en estas cuatro fuentes se ejecutaron manualmente, lo que introduce un grado de dependencia del investigador en la reproducibilidad de esta revisión.",
       "Para los estudios de caso institucionales, las tesis de posgrado y los documentos de política no existe ninguna guía EQUATOR Network aplicable de manera directa; la calidad de estos documentos se valoró cualitativamente por transparencia y trazabilidad institucional, no con un instrumento validado externamente.",
       "Dos registros identificados por su cita en Google Scholar no pudieron recuperarse a texto completo ni verificarse mediante una URL primaria estable, por lo que se excluyeron del conjunto final y se documentan como hallazgo no verificado en vez de citarse con datos incompletos.",
-      "Los marcos conceptuales de Proctor et al. (2011) y Frost & Reich (2008) son una capa interpretativa añadida por el autor de esta síntesis — no forman parte de los 14 estudios incluidos en la revisión ni fueron aplicados empíricamente a los mecanismos intersectoriales colombianos por ningún estudio identificado (ver la laguna de evidencia correspondiente).",
+      "Los marcos de referencia reunidos en \"El problema de implementación\" y \"Marcos de referencia\" (Peters, Tran & Adam 2013; Proctor et al. 2011; CFIR; RE-AIM; difusión de innovaciones; TICD; Frost & Reich 2008), así como el diagrama de dinámica de sistemas, son una capa interpretativa añadida por el autor de esta síntesis — no forman parte de los 14 estudios incluidos en la revisión ni fueron aplicados empíricamente a los mecanismos intersectoriales colombianos por ningún estudio identificado (ver la laguna de evidencia correspondiente).",
     ]
   },
 };

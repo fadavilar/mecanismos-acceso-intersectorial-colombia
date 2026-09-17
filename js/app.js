@@ -80,29 +80,42 @@
      ============================================================ */
   const SECTIONS = [
     { id:"resumen", num:"01", title:"Resumen", sub:"Objetivo, métodos, resultados y conclusiones en un párrafo", open:true },
-    { id:"introduccion", num:"02", title:"Introducción", sub:"Por qué esta revisión, y cómo leer este documento", open:false },
-    { id:"metodos", num:"03", title:"Materiales y métodos", sub:"Diseño PRISMA-ScR, fuentes, estrategia de búsqueda y estudios incluidos", open:false,
+    { id:"problema", num:"02", title:"El problema de implementación", sub:"Por qué la eficacia no basta, y cómo leer este documento", open:false,
+      subs: [
+        { id:"problema-narrativa", label:"Por qué la eficacia no basta" },
+        { id:"problema-lectura", label:"Cómo leer este documento" },
+      ] },
+    { id:"marcos", num:"03", title:"Marcos de referencia: implementación y acceso", sub:"Seis piezas conceptuales para leer esta revisión como evidencia de implementación", open:false,
+      subs: [
+        { id:"marcos-continuo", label:"El continuo de la investigación de implementación" },
+        { id:"marcos-resultados", label:"Resultados de implementación (Proctor et al., 2011)" },
+        { id:"marcos-teorias", label:"Teorías y determinantes (CFIR, RE-AIM, difusión, TICD)" },
+        { id:"marcos-acceso", label:"Marco de acceso (Frost & Reich, 2008)" },
+        { id:"marcos-mapa", label:"Mapa mental interactivo" },
+        { id:"marcos-autoevaluacion", label:"Autoevaluación de competencias en IR" },
+      ] },
+    { id:"metodos", num:"04", title:"Materiales y métodos", sub:"Diseño PRISMA-ScR, fuentes, estrategia de búsqueda y estudios incluidos", open:false,
       subs: [
         { id:"metodos-diseno", label:"Diseño, fuentes y regla de citación" },
         { id:"metodos-prisma", label:"Selección de estudios (diagrama PRISMA)" },
         { id:"metodos-estudios", label:"Estudios incluidos (n = 14)" },
         { id:"metodos-fuentes", label:"Fuentes consultadas y limitaciones" },
       ] },
-    { id:"resultados", num:"04", title:"Resultados", sub:"Evaluación de calidad y ejes de convergencia temática", open:false,
+    { id:"resultados", num:"05", title:"Resultados", sub:"Evaluación de calidad y ejes de convergencia temática", open:false,
       subs: [
         { id:"resultados-calidad", label:"Evaluación de la calidad de la evidencia" },
         { id:"resultados-ejes", label:"Ejes de convergencia temática" },
         ...DATA.categories.map(c=>({ id:"eje-"+c.id, label:"Eje "+c.id+" — "+c.title })),
       ] },
-    { id:"discusion", num:"05", title:"Discusión y recomendaciones", sub:"Marcos conceptuales, integridad bibliográfica, recomendaciones y lagunas", open:false,
+    { id:"dinamica", num:"06", title:"Dinámica de sistemas", sub:"Hipótesis causales del autor sobre las barreras de acceso más frecuentes", open:false },
+    { id:"discusion", num:"07", title:"Discusión y recomendaciones", sub:"Integridad bibliográfica, recomendaciones y lagunas", open:false,
       subs: [
         { id:"discusion-texto", label:"Discusión" },
-        { id:"discusion-marcos", label:"Marcos conceptuales añadidos" },
         { id:"discusion-integridad", label:"Un caso de integridad bibliográfica" },
         { id:"discusion-recomendaciones", label:"Recomendaciones" },
         { id:"discusion-lagunas", label:"Lagunas de evidencia" },
       ] },
-    { id:"conclusion", num:"06", title:"Conclusión", sub:"Síntesis final de la revisión", open:false },
+    { id:"conclusion", num:"08", title:"Conclusión", sub:"Síntesis final de la revisión", open:false },
   ];
 
   function buildAccordionShell(){
@@ -198,16 +211,41 @@
   }
 
   /* ============================================================
-     RENDER: 02 Introducción
+     RENDER: 02 El problema de implementación
      ============================================================ */
-  function renderIntroduccion(){
-    const body = document.getElementById("body-introduccion");
-    body.appendChild(el("p",{},[DATA.introduction]));
+  function renderProblemaNarrativa(){
+    const body = document.getElementById("body-problema");
+    const ip = DATA.implementationProblem;
+    sectionDivider(body, "problema-narrativa", ip.caseTitle,
+      "Un caso real ilustra la brecha que estudia la investigación de implementación, antes de aplicarla a esta revisión.");
+    ip.caseText.forEach(p=> body.appendChild(el("p",{},[p])));
+    body.appendChild(el("p",{class:"indicator-source"},[
+      el("a",{href:ip.caseCitation.url, target:"_blank", rel:"noopener noreferrer"},[ip.caseCitation.label]),
+    ]));
+    body.appendChild(el("div",{class:"selective-box"},[
+      el("h4",{},["Definición"]),
+      el("h3",{},["“"+ip.definitionQuote+"”"]),
+      el("p",{},[ip.definitionText]),
+    ]));
+    body.appendChild(el("p",{class:"indicator-source"},[
+      el("a",{href:ip.definitionCitation.url, target:"_blank", rel:"noopener noreferrer"},[ip.definitionCitation.label]),
+    ]));
+    body.appendChild(el("div",{class:"card"},[
+      el("strong",{},["Por qué esta revisión es evidencia de un problema de implementación"]),
+      el("p",{style:"margin:6px 0 0"},[ip.whyThisReview]),
+    ]));
     body.appendChild(el("div",{class:"selective-box"},[
       el("h4",{},["Lo que atraviesa toda la revisión"]),
       el("h3",{},[DATA.selectiveCategory.title]),
       el("p",{},[DATA.selectiveCategory.text]),
     ]));
+  }
+
+  function renderProblemaLectura(){
+    const body = document.getElementById("body-problema");
+    sectionDivider(body, "problema-lectura", "Cómo leer este documento",
+      "Estructura, tipos de lector y la regla de citación que gobierna todo el contenido.");
+    body.appendChild(el("p",{},[DATA.introduction]));
     (DATA.meta.relatedWorks||[]).forEach(rw=>{
       body.appendChild(el("div",{class:"related-work-box"},[
         el("h4",{},["Análisis relacionado del autor"]),
@@ -548,6 +586,237 @@
   }
 
   /* ============================================================
+     RENDER: 06 Dinámica de sistemas — hipótesis causales (SVG diagram)
+     ============================================================ */
+  function renderDinamica(){
+    const body = document.getElementById("body-dinamica");
+    body.appendChild(el("p",{},[
+      "Diagrama de bucles causales — no un modelo estadístico ajustado, sino una síntesis interpretativa del autor que traduce los ejes A, B y D de la sección \"Resultados\" (arriba) en hipótesis causales explícitas sobre por qué persiste la brecha de acceso intersectorial. Toca o pasa el cursor sobre un nodo para ver los estudios que lo respaldan, o sobre las etiquetas R1 / B1 para leer la explicación completa de cada bucle."
+    ]));
+    const wrap = el("div",{class:"diagram-wrap"});
+    wrap.appendChild(buildCausalSVG());
+    const tooltipEl = el("div",{class:"diagram-tooltip",hidden:"hidden"});
+    tooltipEl.addEventListener("mouseenter", cancelHideTooltip);
+    tooltipEl.addEventListener("mouseleave", scheduleHideTooltip);
+    wrap.appendChild(tooltipEl);
+    body.appendChild(wrap);
+    addAccessibleListToggle(body, wrap, buildCausalAccessibleList());
+
+    body.appendChild(el("div",{class:"loop-legend"},[
+      el("span",{class:"swatch"},[el("span",{class:"sw sw-r"}), "R1 · bucle de refuerzo (el vacío de rectoría se refuerza a sí mismo)"]),
+      el("span",{class:"swatch"},[el("span",{class:"sw sw-b"}), "B1 · bucle de balance, con demora (mecanismos operativos concretos)"]),
+      el("span",{class:"swatch"},[el("span",{style:"color:var(--danger);font-weight:800"},["−"]), " las variables cambian en sentido opuesto"]),
+      el("span",{class:"swatch"},[el("span",{style:"color:var(--success);font-weight:800"},["+"]), " las variables cambian en el mismo sentido"]),
+    ]));
+
+    body.appendChild(el("p",{class:"diagram-hint"},["Consejo: los nodos y las etiquetas R1/B1 son interactivos — pasa el cursor o tócalos para ver el detalle sin perder de vista el resto del diagrama."]));
+    body.appendChild(el("p",{class:"indicator-source", style:"margin-top:8px"},[DATA.causalLoop.citation]));
+  }
+
+  function buildCausalSVG(){
+    const svgNS = "http://www.w3.org/2000/svg";
+    const W = 780, H = 640;
+    const cx = W/2, cy = 400, R = 175;
+    const nodes = DATA.causalLoop.nodes;
+    const n = nodes.length;
+    const pos = {};
+    nodes.forEach((node,i)=>{
+      const angle = -Math.PI/2 + (i * (2*Math.PI/n));
+      pos[node.id] = { x: cx + R*Math.cos(angle), y: cy + R*Math.sin(angle) };
+    });
+
+    const svg = document.createElementNS(svgNS,"svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("width","100%");
+    svg.setAttribute("role","img");
+    svg.setAttribute("aria-label","Diagrama de bucles causales de las barreras de acceso intersectorial: bucle de refuerzo del vacío de rectoría y bucle de balance de mecanismos operativos");
+
+    const defs = document.createElementNS(svgNS,"defs");
+    defs.innerHTML = `
+      <marker id="carrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"></path>
+      </marker>`;
+    svg.appendChild(defs);
+
+    const r1Loop = DATA.causalLoop.loops.find(l=>l.id==="R1");
+    const r1Group = document.createElementNS(svgNS,"g");
+    r1Group.setAttribute("class","loop-tag-group r");
+    r1Group.innerHTML = `
+      <rect x="${cx-70}" y="${cy-26}" width="140" height="46" rx="10"></rect>
+      <text x="${cx}" y="${cy-6}" text-anchor="middle" class="loop-tag r">R1</text>
+      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="10" style="fill:var(--text-muted)">vacío de rectoría</text>`;
+    if(r1Loop) attachLoopTooltip(r1Group, r1Loop);
+    svg.appendChild(r1Group);
+
+    DATA.causalLoop.edges.forEach(edge=>{
+      const a = pos[edge.from], b = pos[edge.to];
+      const mx = (a.x+b.x)/2, my=(a.y+b.y)/2;
+      const dx = mx-cx, dy = my-cy;
+      const dist = Math.sqrt(dx*dx+dy*dy) || 1;
+      const bow = 18;
+      const cxp = mx - (dx/dist)*bow, cyp = my - (dy/dist)*bow;
+
+      const path = document.createElementNS(svgNS,"path");
+      path.setAttribute("d", `M ${a.x} ${a.y} Q ${cxp} ${cyp} ${b.x} ${b.y}`);
+      path.setAttribute("class","edge-path");
+      path.setAttribute("marker-end","url(#carrow)");
+      svg.appendChild(path);
+
+      const label = document.createElementNS(svgNS,"text");
+      label.setAttribute("x", cxp); label.setAttribute("y", cyp);
+      label.setAttribute("text-anchor","middle");
+      label.setAttribute("class","edge-label "+(edge.polarity==="-"?"neg":"pos"));
+      label.textContent = edge.polarity;
+      svg.appendChild(label);
+    });
+
+    // B1 loop: node 3 (déficit de coordinación operativa) <-> external "Mecanismos operativos concretos"
+    const n3 = pos[3];
+    const bx = n3.x, by = n3.y - 170;
+    const ext = DATA.causalLoop.externalNode;
+    const bnode = document.createElementNS(svgNS,"g");
+    bnode.setAttribute("class","node-box");
+    const extWords = wrapLabel(ext.label, 20);
+    let extHtml = `<rect x="${bx-100}" y="${by-24}" width="200" height="48" rx="10"></rect>`;
+    extWords.forEach((w,i)=> extHtml += `<text x="${bx}" y="${by - 6 + i*13}" text-anchor="middle">${escapeXML(w)}</text>`);
+    bnode.innerHTML = extHtml;
+    attachCausalNodeTooltip(bnode, { label: ext.label, studies: [], confidence: "nota-autor", detailOverride: ext.detail });
+    svg.appendChild(bnode);
+
+    const pathToB = document.createElementNS(svgNS,"path");
+    pathToB.setAttribute("d", `M ${n3.x-40} ${n3.y-20} Q ${n3.x-95} ${by+40} ${bx-20} ${by+22}`);
+    pathToB.setAttribute("class","edge-path b1-edge");
+    pathToB.setAttribute("marker-end","url(#carrow)");
+    svg.appendChild(pathToB);
+    const lblToB = document.createElementNS(svgNS,"text");
+    lblToB.setAttribute("x", n3.x-100); lblToB.setAttribute("y", by+60);
+    lblToB.setAttribute("class","edge-label pos"); lblToB.textContent="+ (demora)";
+    svg.appendChild(lblToB);
+
+    const pathFromB = document.createElementNS(svgNS,"path");
+    pathFromB.setAttribute("d", `M ${bx+20} ${by+22} Q ${n3.x+95} ${by+40} ${n3.x+40} ${n3.y-20}`);
+    pathFromB.setAttribute("class","edge-path b1-edge");
+    pathFromB.setAttribute("marker-end","url(#carrow)");
+    svg.appendChild(pathFromB);
+    const lblFromB = document.createElementNS(svgNS,"text");
+    lblFromB.setAttribute("x", n3.x+100); lblFromB.setAttribute("y", by+60);
+    lblFromB.setAttribute("class","edge-label neg"); lblFromB.textContent="−";
+    svg.appendChild(lblFromB);
+
+    const b1Loop = DATA.causalLoop.loops.find(l=>l.id==="B1");
+    const bTagY = (by + n3.y) / 2 + 6;
+    const b1Group = document.createElementNS(svgNS,"g");
+    b1Group.setAttribute("class","loop-tag-group b");
+    b1Group.innerHTML = `
+      <rect x="${bx-24}" y="${bTagY-16}" width="48" height="26" rx="8"></rect>
+      <text x="${bx}" y="${bTagY}" text-anchor="middle" class="loop-tag b">B1</text>`;
+    if(b1Loop) attachLoopTooltip(b1Group, b1Loop);
+    svg.appendChild(b1Group);
+
+    nodes.forEach(node=>{
+      const p = pos[node.id];
+      const g = document.createElementNS(svgNS,"g");
+      g.setAttribute("class","node-box");
+      const words = wrapLabel(node.label, 20);
+      const boxW = 168, lineH = 13;
+      const boxH = 30 + words.length*lineH;
+      let html = `<rect x="${p.x-boxW/2}" y="${p.y-boxH/2}" width="${boxW}" height="${boxH}" rx="10"></rect>`;
+      words.forEach((w,i)=>{
+        html += `<text x="${p.x}" y="${p.y - boxH/2 + 16 + i*lineH}" text-anchor="middle">${escapeXML(w)}</text>`;
+      });
+      g.innerHTML = html;
+      attachCausalNodeTooltip(g, node);
+      svg.appendChild(g);
+    });
+
+    svg.addEventListener("mouseleave", scheduleHideTooltip);
+    return svg;
+  }
+  function causalNodeTooltipHTML(node){
+    let html = `<h5>${escapeXML(node.label)}</h5>`;
+    if(node.detailOverride){
+      html += `<p>${escapeXML(node.detailOverride)}</p>`;
+    } else if(node.studies && node.studies.length){
+      html += `<p>Respaldado por: ` + node.studies.map(n=>{
+        const s = studyById(n);
+        return s ? `#${n} (${escapeXML(s.author)})` : `estudio ${n}`;
+      }).join(", ") + `</p>`;
+    } else {
+      html += `<p style="color:var(--text-muted)">Nodo de enlace en la narrativa causal (síntesis del autor); no corresponde a una cifra citada individualmente.</p>`;
+    }
+    if(node.confidence){
+      html += `<p style="margin-top:4px"><span class="confidence-tag confidence-${escapeXML(node.confidence)}">${node.confidence==="verificado"?"Verificado en los estudios citados":"Síntesis del autor"}</span></p>`;
+    }
+    return html;
+  }
+  function attachCausalNodeTooltip(gEl, node){
+    const show = ()=>{
+      cancelHideTooltip();
+      document.querySelectorAll(".node-box, .loop-tag-group").forEach(n=>n.classList.remove("active"));
+      gEl.classList.add("active");
+      showDiagramTooltip(gEl, causalNodeTooltipHTML(node));
+    };
+    makeSvgFocusable(gEl, node.label);
+    gEl.addEventListener("mouseenter", show);
+    gEl.addEventListener("focus", show);
+    gEl.addEventListener("click", (e)=>{ e.stopPropagation(); show(); });
+    gEl.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); show(); } });
+  }
+  function loopTooltipHTML(loop){
+    let html = `<h5>${escapeXML(loop.title)}</h5><p>${escapeXML(loop.text)}</p>`;
+    if(loop.relatedInitiatives){
+      html += `<div class="initiatives">` +
+        loop.relatedInitiatives.map(t=>`<span class="tag-pill">${escapeXML(t)}</span>`).join("") + `</div>`;
+    }
+    return html;
+  }
+  function attachLoopTooltip(gEl, loop){
+    const show = ()=>{
+      cancelHideTooltip();
+      document.querySelectorAll(".node-box, .loop-tag-group").forEach(n=>n.classList.remove("active"));
+      gEl.classList.add("active");
+      showDiagramTooltip(gEl, loopTooltipHTML(loop));
+    };
+    makeSvgFocusable(gEl, loop.title);
+    gEl.addEventListener("mouseenter", show);
+    gEl.addEventListener("focus", show);
+    gEl.addEventListener("click", (e)=>{ e.stopPropagation(); show(); });
+    gEl.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); show(); } });
+  }
+  function buildCausalAccessibleList(){
+    const ul = el("ul",{class:"a11y-list"});
+    DATA.causalLoop.loops.forEach(loop=>{
+      ul.appendChild(el("li",{},[
+        el("div",{class:"a11y-title"},[loop.title]),
+        el("div",{},[loop.text]),
+      ]));
+    });
+    DATA.causalLoop.nodes.forEach(node=>{
+      const li = el("li",{},[
+        el("div",{class:"a11y-title"},["Nodo "+node.id+": "+node.label]),
+      ]);
+      if(node.studies && node.studies.length){
+        li.appendChild(el("div",{class:"a11y-meta"},[
+          "Respaldado por: " + node.studies.map(n=>{ const s=studyById(n); return s?`#${n} (${s.author})`:`estudio ${n}`; }).join(", ")
+        ]));
+      }
+      ul.appendChild(li);
+    });
+    ul.appendChild(el("li",{},[
+      el("div",{class:"a11y-title"},["Nodo externo: "+DATA.causalLoop.externalNode.label]),
+      el("div",{class:"a11y-meta"},[DATA.causalLoop.externalNode.detail]),
+    ]));
+    DATA.causalLoop.edges.forEach(e=>{
+      const from = DATA.causalLoop.nodes.find(n=>n.id===e.from);
+      const to = DATA.causalLoop.nodes.find(n=>n.id===e.to);
+      ul.appendChild(el("li",{},[
+        el("div",{},[`${from.label} → ${to.label}`, el("span",{class:"chip-muted chip", style:"margin-left:8px"},[e.polarity==="-"?"sentido opuesto (−)":"mismo sentido (+)"])]),
+      ]));
+    });
+    return ul;
+  }
+
+  /* ============================================================
      RENDER: 05 Discusión — texto
      ============================================================ */
   function renderDiscusionTexto(){
@@ -558,29 +827,103 @@
   }
 
   /* ============================================================
-     RENDER: 05 Discusión — Marcos conceptuales añadidos
+     RENDER: 03 Marcos de referencia — intro + continuo (Fig. 3, Peters et al. 2013)
      ============================================================ */
-  function renderMarcos(){
-    const body = document.getElementById("body-discusion");
-    sectionDivider(body, "discusion-marcos", "Marcos conceptuales añadidos",
-      "Dos lentes interpretativas del autor, ninguna parte de los 14 estudios incluidos — cada una con su cita verificada.");
-    body.appendChild(el("p",{},[DATA.conceptualFrameworks.intro]));
+  function renderMarcosIntro(){
+    const body = document.getElementById("body-marcos");
+    body.appendChild(el("p",{},[DATA.irFrameworks.intro]));
+  }
+  function renderMarcosContinuo(){
+    const body = document.getElementById("body-marcos");
+    const c = DATA.irFrameworks.continuum;
+    sectionDivider(body, "marcos-continuo", c.title, c.text);
+    const track = el("div",{class:"continuum-track"});
+    c.stages.forEach((s,i)=>{
+      track.appendChild(el("div",{class:"continuum-stage"},[
+        el("div",{class:"continuum-num"},["Etapa "+(i+1)]),
+        el("h4",{},[s.name]),
+        el("p",{class:"continuum-q"},[s.question]),
+        el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},["Implementación"]), s.implementation ]),
+        el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},["Contexto"]), s.context ]),
+        el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},["Ejemplos"]), s.examples ]),
+      ]));
+    });
+    body.appendChild(track);
+    body.appendChild(el("p",{class:"indicator-source", style:"margin-top:10px"},[
+      el("a",{href:c.citation.url, target:"_blank", rel:"noopener noreferrer"},[c.citation.label]),
+    ]));
+  }
 
-    const pf = DATA.conceptualFrameworks.proctor;
+  /* ============================================================
+     RENDER: 03 Marcos de referencia — Resultados de implementación (Proctor et al., 2011)
+     ============================================================ */
+  function renderMarcosResultados(){
+    const body = document.getElementById("body-marcos");
+    const pf = DATA.irFrameworks.outcomes;
+    sectionDivider(body, "marcos-resultados", pf.title,
+      "El mismo marco ya usado como lente añadida en otras síntesis del autor — aquí, con su puente explícito hacia el acceso.");
     body.appendChild(el("div",{class:"card"},[
-      el("strong",{},[pf.title]),
-      el("p",{style:"margin:6px 0"},[pf.text]),
+      el("p",{style:"margin:0 0 6px"},[pf.text]),
       el("img",{src:"img/proctor-2011-framework.jpg", alt:"Marco de resultados de implementación de Proctor et al. (2011): resultados de implementación, de servicio y del cliente", style:"max-width:420px;border:1px solid var(--border);border-radius:8px;margin:8px 0"}),
       el("p",{class:"indicator-source"},[
         el("a",{href:pf.citation.url, target:"_blank", rel:"noopener noreferrer"},[pf.citation.label]),
       ]),
       el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:4px"},[pf.imageSourceNote]),
     ]));
+    body.appendChild(el("div",{class:"selective-box"},[
+      el("h4",{},["De \"penetración\" a \"cobertura\" a \"acceso\""]),
+      el("p",{},[pf.coverageNote]),
+    ]));
+  }
 
-    const fr = DATA.conceptualFrameworks.frostReich;
+  /* ============================================================
+     RENDER: 03 Marcos de referencia — Teorías y determinantes (CFIR, RE-AIM, difusión, TICD)
+     ============================================================ */
+  function renderMarcosTeorias(){
+    const body = document.getElementById("body-marcos");
+    const th = DATA.irFrameworks.theories;
+    sectionDivider(body, "marcos-teorias", th.title, th.intro);
+    th.items.forEach(t=>{
+      const card = el("div",{class:"card"});
+      card.appendChild(el("strong",{},[t.name+" — "+t.full]));
+      card.appendChild(el("p",{style:"margin:6px 0"},[t.text]));
+      if(t.domains){
+        const list = el("ul",{class:"gap-list"});
+        t.domains.forEach(d=> list.appendChild(el("li",{},[d])));
+        card.appendChild(list);
+      }
+      if(t.citation && t.citation.label){
+        card.appendChild(el("p",{class:"indicator-source", style:"margin-top:6px"},[t.citation.label]));
+      }
+      body.appendChild(card);
+    });
+    body.appendChild(el("p",{class:"indicator-source"},[
+      el("a",{href:th.citation.url, target:"_blank", rel:"noopener noreferrer"},[th.citation.label]),
+    ]));
+
+    const det = DATA.irFrameworks.determinants;
+    body.appendChild(el("h4",{style:"font-size:.86rem;margin-top:22px"},[det.title]));
+    body.appendChild(el("p",{},[det.text]));
+    const domGrid = el("div",{class:"rec-board-row"});
+    det.domains.forEach(d=>{
+      domGrid.appendChild(el("div",{class:"rec-board-cell"},[ el("div",{class:"k"},[d.name]), d.note ]));
+    });
+    body.appendChild(domGrid);
+    body.appendChild(el("p",{class:"indicator-source", style:"margin-top:10px"},[
+      el("a",{href:det.citation.url, target:"_blank", rel:"noopener noreferrer"},[det.citation.label]),
+    ]));
+  }
+
+  /* ============================================================
+     RENDER: 03 Marcos de referencia — Marco de acceso (Frost & Reich, 2008)
+     ============================================================ */
+  function renderMarcosAcceso(){
+    const body = document.getElementById("body-marcos");
+    const fr = DATA.irFrameworks.access;
+    sectionDivider(body, "marcos-acceso", fr.title,
+      "El punto de llegada de todo lo anterior: qué condiciones determinan que un servicio o una tecnología efectivamente lleguen a quien los necesita.");
     body.appendChild(el("div",{class:"card"},[
-      el("strong",{},[fr.title]),
-      el("p",{style:"margin:6px 0"},[fr.text]),
+      el("p",{style:"margin:0 0 6px"},[fr.text]),
       el("img",{src:"img/frost-reich-2008-framework.png", alt:"Marco de acceso de Frost & Reich (2008): arquitectura, disponibilidad, asequibilidad y adopción", style:"max-width:420px;border:1px solid var(--border);border-radius:8px;margin:8px 0"}),
       el("p",{class:"indicator-source"},[fr.citation.label]),
       el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:4px"},[fr.citationVerificationNote]),
@@ -589,6 +932,187 @@
         el("a",{href:fr.secondarySourceCitation.url, target:"_blank", rel:"noopener noreferrer"},[fr.secondarySourceCitation.label]),
       ]),
     ]));
+  }
+
+  /* ============================================================
+     RENDER: 03 Marcos de referencia — Mapa mental interactivo
+     ============================================================ */
+  function renderMarcosMapa(){
+    const body = document.getElementById("body-marcos");
+    sectionDivider(body, "marcos-mapa", "Mapa mental interactivo",
+      "Las seis piezas anteriores, conectadas alrededor de un mismo centro. Toca o pasa el cursor sobre un nodo para ver el detalle y saltar a su sección.");
+    const wrap = el("div",{class:"diagram-wrap"});
+    wrap.appendChild(buildMindMapSVG());
+    const tooltipEl = el("div",{class:"diagram-tooltip",hidden:"hidden"});
+    tooltipEl.addEventListener("mouseenter", cancelHideTooltip);
+    tooltipEl.addEventListener("mouseleave", scheduleHideTooltip);
+    wrap.appendChild(tooltipEl);
+    body.appendChild(wrap);
+    addAccessibleListToggle(body, wrap, buildMindMapAccessibleList());
+    body.appendChild(el("p",{class:"diagram-hint"},["Toca o pasa el cursor sobre un nodo para ver el detalle; usa el enlace del tooltip para saltar directamente a esa sección."]));
+  }
+
+  function buildMindMapSVG(){
+    const svgNS = "http://www.w3.org/2000/svg";
+    const W = 760, H = 640;
+    const cx = W/2, cy = H/2, R = 250;
+    const nodes = DATA.mindMap.nodes;
+    const n = nodes.length;
+    const pos = {};
+    nodes.forEach((node,i)=>{
+      const angle = -Math.PI/2 + (i * (2*Math.PI/n));
+      pos[node.id] = { x: cx + R*Math.cos(angle), y: cy + R*Math.sin(angle) };
+    });
+
+    const svg = document.createElementNS(svgNS,"svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("width","100%");
+    svg.setAttribute("role","img");
+    svg.setAttribute("aria-label","Mapa mental de los marcos de referencia de implementación y acceso, alrededor de un nodo central");
+
+    nodes.forEach(node=>{
+      const p = pos[node.id];
+      const path = document.createElementNS(svgNS,"path");
+      path.setAttribute("d", `M ${cx} ${cy} L ${p.x} ${p.y}`);
+      path.setAttribute("class","edge-path");
+      svg.appendChild(path);
+    });
+
+    const hub = DATA.mindMap.hub;
+    const hubG = document.createElementNS(svgNS,"g");
+    hubG.setAttribute("class","node-box mindmap-hub");
+    const hubWords = wrapLabel(hub.label, 18);
+    const hubW = 190, hubLineH = 14, hubH = 26 + hubWords.length*hubLineH;
+    let hubHtml = `<rect x="${cx-hubW/2}" y="${cy-hubH/2}" width="${hubW}" height="${hubH}" rx="12"></rect>`;
+    hubWords.forEach((w,i)=> hubHtml += `<text x="${cx}" y="${cy - hubH/2 + 18 + i*hubLineH}" text-anchor="middle">${escapeXML(w)}</text>`);
+    hubG.innerHTML = hubHtml;
+    svg.appendChild(hubG);
+
+    nodes.forEach(node=>{
+      const p = pos[node.id];
+      const g = document.createElementNS(svgNS,"g");
+      g.setAttribute("class","node-box");
+      const words = wrapLabel(node.label, 17);
+      const boxW = 172, lineH = 13, boxH = 24 + words.length*lineH;
+      let html = `<rect x="${p.x-boxW/2}" y="${p.y-boxH/2}" width="${boxW}" height="${boxH}" rx="10"></rect>`;
+      words.forEach((w,i)=> html += `<text x="${p.x}" y="${p.y - boxH/2 + 16 + i*lineH}" text-anchor="middle">${escapeXML(w)}</text>`);
+      g.innerHTML = html;
+      attachMindMapNodeTooltip(g, node);
+      svg.appendChild(g);
+    });
+
+    svg.addEventListener("mouseleave", scheduleHideTooltip);
+    return svg;
+  }
+  function mindMapNodeTooltipHTML(node){
+    let html = `<h5>${escapeXML(node.label)}</h5><p>${escapeXML(node.detail)}</p>`;
+    if(node.jump) html += `<p><a href="#" data-jump-section="${node.jump.sectionId}" data-jump-anchor="${node.jump.anchorId}">Ir a esta sección →</a></p>`;
+    return html;
+  }
+  function attachMindMapNodeTooltip(gEl, node){
+    const show = ()=>{
+      cancelHideTooltip();
+      document.querySelectorAll(".node-box, .loop-tag-group").forEach(n=>n.classList.remove("active"));
+      gEl.classList.add("active");
+      showDiagramTooltip(gEl, mindMapNodeTooltipHTML(node));
+    };
+    makeSvgFocusable(gEl, node.label);
+    gEl.addEventListener("mouseenter", show);
+    gEl.addEventListener("focus", show);
+    gEl.addEventListener("click", (e)=>{ e.stopPropagation(); show(); });
+    gEl.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); show(); } });
+  }
+  function buildMindMapAccessibleList(){
+    const ul = el("ul",{class:"a11y-list"});
+    ul.appendChild(el("li",{},[ el("div",{class:"a11y-title"},[DATA.mindMap.hub.label]) ]));
+    DATA.mindMap.nodes.forEach(node=>{
+      ul.appendChild(el("li",{},[
+        el("div",{class:"a11y-title"},[node.label]),
+        el("div",{class:"a11y-meta"},[node.detail]),
+      ]));
+    });
+    return ul;
+  }
+
+  /* ============================================================
+     RENDER: 03 Marcos de referencia — Autoevaluación de competencias en IR
+     ============================================================ */
+  const SELFCHECK_KEY = "aic_ir_selfcheck_v1";
+  function loadSelfCheckAnswers(){
+    try{ return JSON.parse(localStorage.getItem(SELFCHECK_KEY) || "{}"); }catch(e){ return {}; }
+  }
+  function saveSelfCheckAnswers(answers){
+    try{ localStorage.setItem(SELFCHECK_KEY, JSON.stringify(answers)); }catch(e){}
+  }
+  function renderMarcosAutoevaluacion(){
+    const body = document.getElementById("body-marcos");
+    const sa = DATA.irSelfAssessment;
+    sectionDivider(body, "marcos-autoevaluacion", sa.title, null);
+    body.appendChild(el("p",{},[sa.intro]));
+    body.appendChild(el("p",{class:"indicator-source"},[
+      el("a",{href:sa.sourceCitation.url, target:"_blank", rel:"noopener noreferrer"},[sa.sourceCitation.label]),
+    ]));
+
+    const answers = loadSelfCheckAnswers();
+    const wrap = el("div",{class:"selfcheck-wrap"});
+
+    sa.focusAreas.forEach(fa=>{
+      wrap.appendChild(el("h4",{style:"font-size:.86rem;margin-top:14px"},[fa.name]));
+      fa.competences.forEach(comp=>{
+        const item = el("div",{class:"selfcheck-item"});
+        item.appendChild(el("div",{class:"selfcheck-statement"},[comp.text]));
+        const opts = el("div",{class:"selfcheck-options"});
+        sa.scale.forEach(level=>{
+          const inputId = "sc-"+comp.id+"-"+level.value;
+          const input = el("input",{type:"radio", name:"sc-"+comp.id, id:inputId, value:String(level.value)});
+          if(String(answers[comp.id])===String(level.value)) input.setAttribute("checked","checked");
+          input.addEventListener("change", ()=>{
+            answers[comp.id] = level.value;
+            saveSelfCheckAnswers(answers);
+            updateSelfCheckSummary(wrap, sa, answers);
+          });
+          const label = el("label",{for:inputId},[level.label]);
+          opts.appendChild(el("span",{class:"selfcheck-opt"},[input, label]));
+        });
+        item.appendChild(opts);
+        wrap.appendChild(item);
+      });
+    });
+
+    const summary = el("div",{class:"selfcheck-result card"});
+    wrap.appendChild(summary);
+    body.appendChild(wrap);
+
+    const clearBtn = el("button",{class:"btn", type:"button", style:"margin-top:10px"},["Borrar mis respuestas"]);
+    clearBtn.addEventListener("click", ()=>{
+      Object.keys(answers).forEach(k=> delete answers[k]);
+      saveSelfCheckAnswers(answers);
+      wrap.querySelectorAll("input[type=radio]").forEach(i=> i.checked=false);
+      updateSelfCheckSummary(wrap, sa, answers);
+    });
+    body.appendChild(clearBtn);
+    body.appendChild(el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:8px"},[
+      "Los cortes de este resumen (alta/media/baja) son una referencia orientativa propia del autor, no un estándar externo validado."
+    ]));
+    updateSelfCheckSummary(wrap, sa, answers);
+  }
+  function updateSelfCheckSummary(wrap, sa, answers){
+    const summary = wrap.querySelector(".selfcheck-result");
+    if(!summary) return;
+    const totalComp = sa.focusAreas.reduce((n,fa)=>n+fa.competences.length,0);
+    const answered = Object.keys(answers).filter(k=>answers[k]!=null).length;
+    summary.innerHTML = "";
+    summary.appendChild(el("strong",{},["Progreso: "+answered+" de "+totalComp+" competencias calificadas"]));
+    if(answered>0){
+      const maxLevel = Math.max(...sa.scale.map(l=>l.value));
+      const sum = Object.values(answers).reduce((s,v)=> s+(Number(v)||0), 0);
+      const pct = Math.round((sum/(answered*maxLevel))*100);
+      const level = pct>=66 ? "alta" : pct>=33 ? "media" : "baja";
+      summary.appendChild(el("p",{style:"margin:6px 0 0"},[
+        "Promedio de las competencias calificadas hasta ahora: ",
+        el("span",{class:"level-pill "+levelClass(level)},[pct+"%"]),
+      ]));
+    }
   }
 
   /* ============================================================
@@ -706,11 +1230,53 @@
   }
 
   /* ============================================================
-     Diagram tooltip system (reservado para futuros diagramas)
+     Diagram tooltip system (mapa mental + dinámica de sistemas)
      ============================================================ */
+  function showDiagramTooltip(targetEl, html){
+    const wrap = targetEl.closest(".diagram-wrap");
+    const tooltip = wrap ? wrap.querySelector(".diagram-tooltip") : null;
+    if(!tooltip || !wrap) return;
+    tooltip.innerHTML = html;
+    tooltip.hidden = false;
+    const wrapRect = wrap.getBoundingClientRect();
+    const elRect = targetEl.getBoundingClientRect();
+    const cx = elRect.left - wrapRect.left + wrap.scrollLeft + elRect.width/2;
+    const topOfEl = elRect.top - wrapRect.top + wrap.scrollTop;
+    const bottomOfEl = elRect.bottom - wrapRect.top + wrap.scrollTop;
+    requestAnimationFrame(()=>{
+      const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+      let left = cx - tw/2;
+      let top = topOfEl - th - 10;
+      if(top < wrap.scrollTop + 4) top = bottomOfEl + 10;
+      left = Math.max(wrap.scrollLeft + 6, Math.min(left, wrap.scrollLeft + wrapRect.width - tw - 6));
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
+    });
+  }
   function hideDiagramTooltip(){
     document.querySelectorAll(".diagram-tooltip").forEach(t=> t.hidden = true);
-    document.querySelectorAll(".node-box").forEach(n=>n.classList.remove("active"));
+    document.querySelectorAll(".node-box, .loop-tag-group").forEach(n=>n.classList.remove("active"));
+  }
+  let tooltipHideTimer = null;
+  function scheduleHideTooltip(){ clearTimeout(tooltipHideTimer); tooltipHideTimer = setTimeout(hideDiagramTooltip, 300); }
+  function cancelHideTooltip(){ clearTimeout(tooltipHideTimer); }
+  function makeSvgFocusable(gEl, label){
+    gEl.setAttribute("tabindex","0");
+    gEl.setAttribute("role","button");
+    gEl.setAttribute("aria-label", label);
+  }
+  function addAccessibleListToggle(body, wrap, listEl){
+    listEl.hidden = true;
+    const btn = el("button",{class:"btn", type:"button", "aria-pressed":"false"},["Ver como lista (accesible)"]);
+    btn.addEventListener("click", ()=>{
+      const showingList = listEl.hidden;
+      listEl.hidden = !showingList;
+      wrap.hidden = showingList;
+      btn.setAttribute("aria-pressed", showingList?"true":"false");
+      btn.textContent = showingList ? "Ver como diagrama" : "Ver como lista (accesible)";
+    });
+    body.appendChild(el("div",{class:"a11y-list-toggle"},[btn]));
+    body.appendChild(listEl);
   }
 
   /* ============================================================
@@ -847,7 +1413,14 @@
       idx.push({ type:"Laguna", label: text.length>90? text.slice(0,90)+"…" : text, detail:"Lagunas de evidencia", sectionId:"discusion", anchorId:"discusion-lagunas" });
     });
     idx.push({ type:"Sección", label:"Diagrama PRISMA", detail:"Selección de los 14 estudios incluidos", sectionId:"metodos", anchorId:"metodos-prisma" });
-    idx.push({ type:"Sección", label:"Marcos conceptuales añadidos", detail:"Proctor et al. (2011) y Frost & Reich (2008)", sectionId:"discusion", anchorId:"discusion-marcos" });
+    idx.push({ type:"Sección", label:"El problema de implementación", detail:"Caso Foege/viruela y definición de Peters, Tran & Adam (2013)", sectionId:"problema", anchorId:"problema-narrativa" });
+    idx.push({ type:"Sección", label:"El continuo de la investigación de implementación", detail:"Peters, Tran & Adam (2013), figura 3", sectionId:"marcos", anchorId:"marcos-continuo" });
+    idx.push({ type:"Sección", label:"Resultados de implementación", detail:"Proctor et al. (2011)", sectionId:"marcos", anchorId:"marcos-resultados" });
+    idx.push({ type:"Sección", label:"Teorías y determinantes", detail:"CFIR, RE-AIM, difusión de innovaciones, checklist TICD", sectionId:"marcos", anchorId:"marcos-teorias" });
+    idx.push({ type:"Sección", label:"Marco de acceso", detail:"Frost & Reich (2008)", sectionId:"marcos", anchorId:"marcos-acceso" });
+    idx.push({ type:"Sección", label:"Mapa mental interactivo", detail:"Los seis marcos de referencia conectados", sectionId:"marcos", anchorId:"marcos-mapa" });
+    idx.push({ type:"Sección", label:"Autoevaluación de competencias en IR", detail:"IR Toolkit (TDR/OMS) — 16 competencias en 6 focos", sectionId:"marcos", anchorId:"marcos-autoevaluacion" });
+    idx.push({ type:"Sección", label:"Dinámica de sistemas", detail:"Bucles R1 (vacío de rectoría) y B1 (mecanismos operativos)", sectionId:"dinamica", anchorId:"sec-dinamica" });
     idx.push({ type:"Sección", label:"Caso de integridad bibliográfica", detail:"Corrección de una cita mal atribuida (PMID 20957426)", sectionId:"discusion", anchorId:"discusion-integridad" });
     return idx;
   }
@@ -978,11 +1551,16 @@
     if(studySources.length) groups.push({ title:"Estudios incluidos con URL pública verificable", items: studySources });
     const relatedItems = (DATA.meta.relatedWorks||[]).map(rw=>({ label: rw.title, url: rw.url }));
     if(relatedItems.length) groups.push({ title:"Análisis relacionado del autor", items: relatedItems });
-    const cf = DATA.conceptualFrameworks;
+    const ip = DATA.implementationProblem;
+    const irf = DATA.irFrameworks;
     const frameworkItems = [];
-    if(cf.proctor.citation.url) frameworkItems.push({ label: cf.proctor.citation.label, url: cf.proctor.citation.url });
-    if(cf.frostReich.secondarySourceCitation.url) frameworkItems.push({ label: cf.frostReich.secondarySourceCitation.label, url: cf.frostReich.secondarySourceCitation.url });
-    if(frameworkItems.length) groups.push({ title:"Marcos conceptuales añadidos", items: frameworkItems });
+    if(ip.caseCitation.url) frameworkItems.push({ label: ip.caseCitation.label, url: ip.caseCitation.url });
+    if(irf.continuum.citation.url) frameworkItems.push({ label: irf.continuum.citation.label, url: irf.continuum.citation.url });
+    if(irf.outcomes.citation.url) frameworkItems.push({ label: irf.outcomes.citation.label, url: irf.outcomes.citation.url });
+    if(irf.determinants.citation.url) frameworkItems.push({ label: irf.determinants.citation.label, url: irf.determinants.citation.url });
+    if(irf.access.secondarySourceCitation.url) frameworkItems.push({ label: irf.access.secondarySourceCitation.label, url: irf.access.secondarySourceCitation.url });
+    if(DATA.irSelfAssessment.sourceCitation.url) frameworkItems.push({ label: DATA.irSelfAssessment.sourceCitation.label, url: DATA.irSelfAssessment.sourceCitation.url });
+    if(frameworkItems.length) groups.push({ title:"Marcos de referencia de implementación y acceso", items: frameworkItems });
     if(!groups.length){
       body.appendChild(el("p",{style:"color:var(--text-muted);font-size:.85rem"},["No hay fuentes con URL pública verificable registradas."]));
       return;
@@ -1020,15 +1598,23 @@
     renderHero();
     buildAccordionShell();
     renderResumen();
-    renderIntroduccion();
+    renderProblemaNarrativa();
+    renderProblemaLectura();
+    renderMarcosIntro();
+    renderMarcosContinuo();
+    renderMarcosResultados();
+    renderMarcosTeorias();
+    renderMarcosAcceso();
+    renderMarcosMapa();
+    renderMarcosAutoevaluacion();
     renderMetodosDiseno();
     renderPrisma();
     renderEstudios();
     renderMetodologiaFuentes();
     renderCalidad();
     renderEjes();
+    renderDinamica();
     renderDiscusionTexto();
-    renderMarcos();
     renderIntegridad();
     renderRecomendaciones();
     renderLagunas();
@@ -1044,7 +1630,15 @@
     document.getElementById("section-count-hint").textContent = SECTIONS.length+" secciones · el resumen está abierto, el resto se expande a tu ritmo";
 
     document.addEventListener("click", (e)=>{
-      if(!e.target.closest || !e.target.closest(".node-box")) hideDiagramTooltip();
+      const jumpLink = e.target.closest && e.target.closest("[data-jump-section]");
+      if(jumpLink){
+        e.preventDefault();
+        openSection(jumpLink.getAttribute("data-jump-section"));
+        hideDiagramTooltip();
+        setTimeout(()=> scrollToId(jumpLink.getAttribute("data-jump-anchor")), 60);
+        return;
+      }
+      if(!e.target.closest || !e.target.closest(".node-box, .loop-tag-group, .diagram-tooltip")) hideDiagramTooltip();
     });
 
     initMobileSidebar();

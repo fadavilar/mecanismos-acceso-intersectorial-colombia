@@ -828,6 +828,20 @@ body.summary-mode .container{ max-width: 760px; }
 .rec-board-cell .k{ font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; color: var(--text-muted); font-weight:700; margin-bottom:4px; }
 
 /* ============================================================
+   Continuum track (etapas de la investigación de implementación)
+   ============================================================ */
+.continuum-track{
+  display:grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-top:14px;
+}
+.continuum-stage{
+  background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.continuum-stage h4{ margin:0; font-size:.92rem; }
+.continuum-num{ font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; color: var(--primary-2); font-weight:800; }
+.continuum-q{ font-size:.82rem; color: var(--text-muted); font-style:italic; margin:0 0 4px; }
+
+/* ============================================================
    Print
    ============================================================ */
 @media print{
