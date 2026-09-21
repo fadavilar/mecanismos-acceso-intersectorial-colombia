@@ -12,8 +12,8 @@
 const DATA = {
 
   meta: {
-    title: "Mecanismos de acceso intersectorial en Colombia",
-    subtitle: "Revisión sistemática exploratoria (scoping review, PRISMA-ScR) y su aplicación al contexto colombiano",
+    title: "Acceso e implementación en Colombia",
+    subtitle: "Del vacío de implementación a las estrategias de acceso — revisión sistemática exploratoria (scoping review, PRISMA-ScR) sobre mecanismos de acceso intersectorial, leída desde la investigación de implementación",
     author: "Fabian Dávila Ramírez",
     credentials: "MD, MBA, PhD",
     affiliation: "Universidad de Navarra · Universidad de Bogotá Jorge Tadeo Lozano (Doctorado en Gestión y Modelado de Políticas Públicas)",

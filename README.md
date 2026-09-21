@@ -1,6 +1,6 @@
-# Mecanismos de acceso intersectorial — Explorador interactivo
+# Acceso e implementación en Colombia — Explorador interactivo
 
-Síntesis interactiva de una revisión sistemática exploratoria (scoping review, PRISMA-ScR) de autoría propia sobre los mecanismos de acceso intersectorial y su aplicación al contexto colombiano, leída a través del lenguaje de la investigación de implementación (implementation research).
+Síntesis interactiva de una revisión sistemática exploratoria (scoping review, PRISMA-ScR) de autoría propia sobre los mecanismos de acceso intersectorial en Colombia, reenfocada del vacío de implementación a las estrategias de acceso y leída de principio a fin a través del lenguaje de la investigación de implementación (implementation research).
 
 **Vista en vivo:** se publica con GitHub Pages desde la rama `main` (carpeta raíz). Actívalo en *Settings → Pages* si aún no está activo.
 
@@ -12,12 +12,12 @@ Síntesis interactiva de una revisión sistemática exploratoria (scoping review
 4. **Materiales y métodos** — diseño PCC (no PICO), las 6 fuentes consultadas con sus ecuaciones de búsqueda reales, la regla de citación y verificación que gobernó toda la revisión, un diagrama de flujo PRISMA construido con las cifras reales del proceso de selección, la tabla completa de los 15 estudios incluidos, y las fuentes/limitaciones declaradas.
 5. **Resultados** — evaluación de la calidad de la evidencia por tipo de diseño (herramientas EQUATOR) y 4 ejes de convergencia temática, cada hallazgo citando el estudio incluido que lo respalda.
 6. **Dinámica de sistemas** — un diagrama de bucles causales (metodología de Homer & Hirsch, 2006) con las hipótesis del autor sobre por qué persiste la brecha de acceso intersectorial: un bucle de refuerzo (R1, "el vacío de rectoría se refuerza a sí mismo", construido a partir de los ejes A y D) y un bucle de balance con demora (B1, "mecanismos operativos concretos", construido a partir del eje B y del checklist TICD).
-7. **Discusión y recomendaciones** — el texto de discusión del documento original, el caso de integridad bibliográfica documentado dentro de la propia revisión, un tablero de recomendaciones y las 6 lagunas de evidencia explícitas.
+7. **Discusión y estrategias de acceso** — el texto de discusión del documento original, el caso de integridad bibliográfica documentado dentro de la propia revisión, un tablero de **estrategias de acceso** (el cierre del recorrido IR → vacío de implementación → acceso: cada estrategia responde a un punto de apalancamiento de los bucles R1/B1 de la sección anterior) y las 6 lagunas de evidencia explícitas.
 8. **Conclusión** — el texto de conclusión del documento original.
 
 ## Nota sobre el alcance de esta app
 
-Todas las cifras del proceso de selección PRISMA, la tabla de estudios incluidos y las citas provienen del documento completo de la revisión (PDF) y de las fuentes primarias que este mismo verifica explícitamente. La clasificación por ejes temáticos, el tablero de recomendaciones, el diagrama de dinámica de sistemas y los marcos de referencia de implementación y acceso (Peters, Tran & Adam 2013; Proctor et al. 2011; CFIR; RE-AIM; difusión de innovaciones; TICD; Frost & Reich 2008) son una elaboración propia del autor para facilitar la lectura — no forman parte de los 15 estudios incluidos en la revisión ni alteran sus hallazgos originales.
+Todas las cifras del proceso de selección PRISMA, la tabla de estudios incluidos y las citas provienen del documento completo de la revisión (PDF) y de las fuentes primarias que este mismo verifica explícitamente. La clasificación por ejes temáticos, el tablero de estrategias de acceso, el diagrama de dinámica de sistemas y los marcos de referencia de implementación y acceso (Peters, Tran & Adam 2013; Proctor et al. 2011; CFIR; RE-AIM; difusión de innovaciones; TICD; Frost & Reich 2008) son una elaboración propia del autor para facilitar la lectura — no forman parte de los 15 estudios incluidos en la revisión ni alteran sus hallazgos originales.
 
 ## Marcos de referencia — procedencia de cada fuente
 

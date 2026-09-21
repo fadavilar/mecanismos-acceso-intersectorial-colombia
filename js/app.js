@@ -107,12 +107,12 @@
         { id:"resultados-ejes", label:"Ejes de convergencia temática" },
         ...DATA.categories.map(c=>({ id:"eje-"+c.id, label:"Eje "+c.id+" — "+c.title })),
       ] },
-    { id:"dinamica", num:"06", title:"Dinámica de sistemas", sub:"Hipótesis causales del autor sobre las barreras de acceso más frecuentes", open:false },
-    { id:"discusion", num:"07", title:"Discusión y recomendaciones", sub:"Integridad bibliográfica, recomendaciones y lagunas", open:false,
+    { id:"dinamica", num:"06", title:"Dinámica de sistemas", sub:"El vacío de implementación: hipótesis causales del autor sobre las barreras de acceso más frecuentes", open:false },
+    { id:"discusion", num:"07", title:"Discusión y estrategias de acceso", sub:"De la discusión al cierre del vacío de implementación: integridad bibliográfica, estrategias de acceso y lagunas", open:false,
       subs: [
         { id:"discusion-texto", label:"Discusión" },
         { id:"discusion-integridad", label:"Un caso de integridad bibliográfica" },
-        { id:"discusion-recomendaciones", label:"Recomendaciones" },
+        { id:"discusion-recomendaciones", label:"Estrategias de acceso" },
         { id:"discusion-lagunas", label:"Lagunas de evidencia" },
       ] },
     { id:"conclusion", num:"08", title:"Conclusión", sub:"Síntesis final de la revisión", open:false },
@@ -1210,10 +1210,10 @@
      ============================================================ */
   function renderRecomendaciones(){
     const body = document.getElementById("body-discusion");
-    sectionDivider(body, "discusion-recomendaciones", "Recomendaciones",
-      "Tablero de acción — síntesis propia, ancladas en la discusión y en las lagunas de evidencia.");
+    sectionDivider(body, "discusion-recomendaciones", "Estrategias de acceso",
+      "El cierre del recorrido de esta app: del problema de implementación (sección 02) y sus marcos de referencia (03), pasando por la evidencia (04-05) y las hipótesis causales de \"Dinámica de sistemas\" (06), a estrategias concretas para cerrar el vacío de implementación y mejorar el acceso.");
     body.appendChild(el("p",{},[
-      "Síntesis propia del autor. No son conclusiones de los estudios incluidos ni posiciones oficiales de ninguna de las instituciones citadas."
+      "Síntesis propia del autor. No son conclusiones de los estudios incluidos ni posiciones oficiales de ninguna de las instituciones citadas. Cada estrategia responde a un punto de apalancamiento distinto del bucle de refuerzo R1 (\"el vacío de rectoría se refuerza a sí mismo\") o del bucle de balance B1 (\"mecanismos operativos concretos\") descritos en la sección 06."
     ]));
     DATA.recommendations.forEach(rec=>{
       const card = el("div",{class:"rec-card"});
@@ -1476,7 +1476,7 @@
       });
     });
     DATA.recommendations.forEach(r=>{
-      idx.push({ type:"Recomendación", label:r.title, detail:r.leverage, sectionId:"discusion", anchorId:"discusion-recomendaciones" });
+      idx.push({ type:"Estrategia de acceso", label:r.title, detail:r.leverage, sectionId:"discusion", anchorId:"discusion-recomendaciones" });
     });
     DATA.gaps.forEach(g=>{
       const text = (g.segments||[]).map(s=>s.text).join("");
