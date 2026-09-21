@@ -83,6 +83,7 @@
     { id:"problema", num:"02", title:"El problema de implementación", sub:"Por qué la eficacia no basta, y cómo leer este documento", open:false,
       subs: [
         { id:"problema-narrativa", label:"Por qué la eficacia no basta" },
+        { id:"problema-modelo", label:"Modelo de recorrido: etapas, actores y RACI" },
         { id:"problema-lectura", label:"Cómo leer este documento" },
       ] },
     { id:"mecanismos", num:"03", title:"Mecanismos de acceso intersectorial: qué documenta la evidencia", sub:"Ejes de convergencia temática — qué facilita y qué bloquea la coordinación intersectorial en el terreno", open:false,
@@ -239,6 +240,120 @@
       el("h3",{},[DATA.selectiveCategory.title]),
       el("p",{},[DATA.selectiveCategory.text]),
     ]));
+  }
+
+  /* ============================================================
+     RENDER: 02 El problema de implementación — Modelo de recorrido (journey + RACI)
+     ============================================================ */
+  function renderProblemaModelo(){
+    const body = document.getElementById("body-problema");
+    const jm = DATA.journeyModel;
+    sectionDivider(body, "problema-modelo", jm.title, jm.intro);
+    body.appendChild(el("p",{style:"font-size:.78rem;color:var(--text-muted)"},[jm.methodNote]));
+
+    const wrap = el("div",{class:"journey-wrap"});
+    body.appendChild(wrap);
+
+    const jState = { stage: 0, actor: null };
+
+    function actorColorVar(actor){ return "var(--chip-"+actor.color+")"; }
+
+    function renderJourney(){
+      wrap.innerHTML = "";
+
+      // Actor filter pills
+      const pillsRow = el("div",{class:"journey-actor-pills"});
+      jm.actors.forEach(a=>{
+        const pressed = jState.actor === a.key;
+        const pill = el("button",{class:"journey-actor-pill", type:"button", "aria-pressed": pressed?"true":"false", style:"color:"+actorColorVar(a)},[
+          el("span",{class:"dot", style:"background:"+actorColorVar(a)}),
+          a.name,
+        ]);
+        pill.addEventListener("click", ()=>{ jState.actor = pressed ? null : a.key; renderJourney(); });
+        pillsRow.appendChild(pill);
+      });
+      wrap.appendChild(pillsRow);
+
+      // Stage stations
+      const stationsWrap = el("div",{class:"journey-stations"},[ el("div",{class:"journey-station-line"}) ]);
+      jm.stages.forEach((s,i)=>{
+        const btn = el("button",{class:"journey-station", type:"button", "aria-pressed": jState.stage===i?"true":"false"},[
+          el("span",{class:"journey-station-num"},[String(s.num).padStart(2,"0")]),
+          el("span",{class:"journey-station-label"},[s.name]),
+        ]);
+        btn.addEventListener("click", ()=>{ jState.stage = i; renderJourney(); });
+        stationsWrap.appendChild(btn);
+      });
+      wrap.appendChild(stationsWrap);
+
+      // RACI tracks grid
+      const tracksWrap = el("div",{class:"journey-tracks-wrap"});
+      const tracks = el("div",{class:"journey-tracks"});
+      jm.actors.forEach(a=>{
+        const row = el("div",{class:"journey-track-row"+((jState.actor && jState.actor!==a.key)?" dimmed":"")});
+        row.appendChild(el("div",{class:"journey-track-name", style:"color:"+actorColorVar(a)},[a.name]));
+        jm.stages.forEach((s,i)=>{
+          const role = s.roles[a.key];
+          const cell = el("div",{class:"journey-track-cell"+(i===jState.stage?" active-col":"")});
+          const badge = el("span",{class:"journey-raci-badge level-"+(role?role.level:"I"), style:"color:"+actorColorVar(a)},[
+            el("span",{},[role?role.level:"–"]),
+          ]);
+          badge.title = a.name+" — "+(role ? DATA.journeyModel.raciLegend.find(l=>l.level===role.level).label : "sin rol definido");
+          cell.appendChild(badge);
+          row.appendChild(cell);
+        });
+        tracks.appendChild(row);
+      });
+      tracksWrap.appendChild(tracks);
+      wrap.appendChild(tracksWrap);
+
+      // RACI legend
+      const legend = el("div",{class:"journey-legend"});
+      jm.raciLegend.forEach(l=> legend.appendChild(el("span",{},[ el("b",{},[l.level]), l.label ])));
+      wrap.appendChild(legend);
+
+      // Detail panel for selected stage
+      const s = jm.stages[jState.stage];
+      const detail = el("div",{class:"journey-detail"});
+      detail.appendChild(el("p",{class:"journey-detail-eyebrow"},["Etapa "+s.num+" de "+jm.stages.length]));
+      detail.appendChild(el("h4",{class:"journey-detail-title"},[s.name]));
+      detail.appendChild(el("p",{class:"journey-detail-objetivo"},[s.objetivo]));
+
+      const touchRow = el("div",{class:"journey-touchpoints"});
+      s.touchpoints.forEach(t=> touchRow.appendChild(el("span",{class:"chip chip-muted"},[t])));
+      detail.appendChild(touchRow);
+
+      const roleGrid = el("div",{class:"journey-role-grid"});
+      jm.actors.forEach(a=>{
+        const role = s.roles[a.key];
+        if(!role) return;
+        const focus = jState.actor === a.key;
+        const card = el("div",{class:"journey-role-card"+(focus?" focus":"")});
+        card.appendChild(el("div",{class:"journey-role-top"},[
+          el("span",{class:"journey-role-name", style:"color:"+actorColorVar(a)},[a.name]),
+          el("span",{class:"journey-raci-badge level-"+role.level, style:"color:"+actorColorVar(a)},[ el("span",{},[role.level]) ]),
+        ]));
+        card.appendChild(el("p",{class:"journey-role-desc"},[role.desc]));
+        roleGrid.appendChild(card);
+      });
+      detail.appendChild(roleGrid);
+
+      detail.appendChild(el("div",{class:"selective-box"},[
+        el("h4",{},["Riesgo / laguna en esta etapa"]),
+        el("p",{},[s.riesgo]),
+      ]));
+
+      if(s.studies && s.studies.length){
+        detail.appendChild(el("p",{},[
+          "Respaldado por: ",
+          studyRefs(s.studies),
+        ]));
+      }
+
+      wrap.appendChild(detail);
+    }
+
+    renderJourney();
   }
 
   function renderProblemaLectura(){
@@ -1512,6 +1627,7 @@
     });
     idx.push({ type:"Sección", label:"Diagrama PRISMA", detail:"Selección de los "+DATA.studies.length+" estudios incluidos", sectionId:"metodos", anchorId:"metodos-prisma" });
     idx.push({ type:"Sección", label:"El problema de implementación", detail:"Caso Foege/viruela y definición de Peters, Tran & Adam (2013)", sectionId:"problema", anchorId:"problema-narrativa" });
+    idx.push({ type:"Sección", label:"Modelo de recorrido: etapas, actores y RACI", detail:"4 etapas, 5 actores, responsabilidad RACI del problema de implementación", sectionId:"problema", anchorId:"problema-modelo" });
     idx.push({ type:"Sección", label:"El continuo de la investigación de implementación", detail:"Peters, Tran & Adam (2013), figura 3", sectionId:"marcos", anchorId:"marcos-continuo" });
     idx.push({ type:"Sección", label:"Resultados de implementación", detail:"Proctor et al. (2011)", sectionId:"marcos", anchorId:"marcos-resultados" });
     idx.push({ type:"Sección", label:"Teorías y determinantes", detail:"CFIR, RE-AIM, difusión de innovaciones, checklist TICD", sectionId:"marcos", anchorId:"marcos-teorias" });
@@ -1698,6 +1814,7 @@
     buildAccordionShell();
     renderResumen();
     renderProblemaNarrativa();
+    renderProblemaModelo();
     renderProblemaLectura();
     renderEjes();
     renderMarcosIntro();

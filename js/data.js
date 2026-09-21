@@ -72,7 +72,96 @@ const DATA = {
     definitionQuote: "La investigación de implementación es la indagación científica sobre preguntas relativas a la implementación.",
     definitionCitation: { label: "Peters, D.H., Tran, N.T., & Adam, T. (2013). Implementation Research in Health: A Practical Guide, capítulo 3, p. 27.", url: "https://apps.who.int/iris/handle/10665/91758" },
     definitionText: "Bajo esta definición deliberadamente amplia, la investigación de implementación puede abordar los factores que afectan la implementación (pobreza, lejanía geográfica, creencias locales), los procesos de implementación en sí mismos, o los resultados de la implementación. En la práctica suele enfocarse en identificar problemas de implementación comunes, entender los factores que facilitan o dificultan el acceso a una intervención de salud, desarrollar y probar soluciones a las barreras de implementación, y determinar la mejor manera de introducir innovaciones en un sistema de salud o de sostener su uso a escala.",
-    whyThisReview: "Esta revisión sobre mecanismos de acceso intersectorial es, ante todo, evidencia sobre un problema de implementación: Colombia ya cuenta con la \"intervención\" — una arquitectura normativa e institucional para la acción intersectorial (Comisión Intersectorial de Salud Pública, Plan Decenal de Salud Pública, redes territoriales) —, pero los estudios primarios identificados documentan de forma consistente que esa arquitectura no siempre se traduce en coordinación operativa efectiva ni en mejor acceso en el terreno. Leer esta revisión a través del lenguaje de la investigación de implementación —qué se está implementando, con qué estrategias, con qué resultados de implementación, y con qué barreras— es el propósito central de esta edición de la aplicación; la sección \"Marcos de referencia\" que sigue reúne las herramientas conceptuales para hacerlo, y la sección \"Dinámica de sistemas\" traduce los ejes de esta misma revisión en hipótesis causales explícitas sobre por qué persiste la brecha."
+    whyThisReview: "Esta revisión sobre mecanismos de acceso intersectorial es, ante todo, evidencia sobre un problema de implementación: Colombia ya cuenta con la \"intervención\" — una arquitectura normativa e institucional para la acción intersectorial (Comisión Intersectorial de Salud Pública, Plan Decenal de Salud Pública, redes territoriales) —, pero los estudios primarios identificados documentan de forma consistente que esa arquitectura no siempre se traduce en coordinación operativa efectiva ni en mejor acceso en el terreno. Leer esta revisión a través del lenguaje de la investigación de implementación —qué se está implementando, con qué estrategias, con qué resultados de implementación, y con qué barreras— es el propósito central de esta edición de la aplicación; el modelo de recorrido que sigue muestra ese mismo problema como una secuencia de etapas, actores y responsabilidades; la sección \"Marcos de referencia\" reúne las herramientas conceptuales para interpretarlo, y la sección \"Dinámica de sistemas\" traduce los ejes de esta misma revisión en hipótesis causales explícitas sobre por qué persiste la brecha."
+  },
+
+  // ------------------------------------------------------------------
+  // Modelo de recorrido (journey map) del problema de implementación —
+  // síntesis interpretativa propia del autor, en el mismo patrón de
+  // mapa de ruta + RACI usado en el caso aplicado de "Marco de acceso"
+  // (acceso-estrategico-medicamentos.html), aplicado aquí al problema
+  // central de esta revisión. Las 4 etapas siguen la secuencia de Frost
+  // & Reich (2008): arquitectura → disponibilidad/asequibilidad →
+  // adopción. Actores, touchpoints y niveles RACI se derivan de los
+  // ejes A-D y de las recomendaciones de esta misma revisión — no son
+  // un hallazgo de los estudios incluidos ni un instrumento validado
+  // externamente.
+  // ------------------------------------------------------------------
+  journeyModel: {
+    title: "El recorrido del acceso intersectorial: etapas, actores y responsabilidad",
+    intro: "El mismo patrón de mapa de ruta y matriz RACI usado en el caso aplicado de acceso a medicamentos (ver \"Marco de acceso\"), aplicado aquí al problema central de esta revisión: cómo se supone que un mecanismo de acceso intersectorial recorre el camino entre la arquitectura normativa y el acceso efectivo, y qué actor tiene qué grado de responsabilidad en cada etapa, según la evidencia reunida.",
+    methodNote: "Síntesis interpretativa propia del autor — no un hallazgo de los estudios incluidos ni un instrumento validado externamente. Las 4 etapas siguen la secuencia de Frost & Reich (2008, ver \"Marco de acceso\"): arquitectura → disponibilidad/asequibilidad → adopción; los actores, los touchpoints y los niveles de responsabilidad (RACI) se derivan de los ejes A–D y de las estrategias de acceso de esta misma revisión.",
+    raciLegend: [
+      { level: "R", label: "Responsable", desc: "Ejecuta la etapa." },
+      { level: "A", label: "Aprueba / rinde cuentas", desc: "Respalda o responde por el resultado de la etapa." },
+      { level: "C", label: "Consultado", desc: "Su opinión se recoge antes de actuar." },
+      { level: "I", label: "Informado", desc: "Se le comunica el avance, sin incidencia directa." },
+    ],
+    actors: [
+      { key: "comision", name: "Comisión Intersectorial de Salud Pública", color: "a" },
+      { key: "minsalud", name: "Ministerio de Salud (rectoría nacional)", color: "b" },
+      { key: "territorial", name: "Entes territoriales", color: "c" },
+      { key: "sectores", name: "Sectores participantes", color: "d" },
+      { key: "comunidad", name: "Comunidad y participación social", color: "e" },
+    ],
+    stages: [
+      {
+        num: 1, name: "Arquitectura normativa",
+        objetivo: "Contar con instancias formales de gobernanza, planes y redes que declaren la intersectorialidad como principio orientador.",
+        touchpoints: ["Comisión Intersectorial de Salud Pública", "Plan Decenal de Salud Pública 2022–2031", "Redes integradas e integrales territoriales de salud"],
+        roles: {
+          comision: { level: "R", desc: "Es la instancia formal de gobernanza intersectorial en salud." },
+          minsalud: { level: "A", desc: "Lidera su diseño y expedición normativa." },
+          territorial: { level: "C", desc: "Consultados en el diseño de las redes territoriales." },
+          sectores: { level: "I", desc: "Informados de la arquitectura disponible." },
+          comunidad: { level: "I", desc: "Sin rol formal documentado en esta etapa." },
+        },
+        riesgo: "La arquitectura existe, pero el hallazgo transversal de esta revisión (\"La brecha no es normativa, es de implementación\") documenta que no siempre se traduce en coordinación operativa.",
+        studies: [],
+      },
+      {
+        num: 2, name: "Rectoría y coordinación intersectorial",
+        objetivo: "Ejercer la rectoría que activa y sostiene la coordinación entre sectores en el terreno.",
+        touchpoints: ["Liderazgo definido y no disputado", "Calendario de sesiones activo", "Mandato de coordinación con capacidad real de decisión"],
+        roles: {
+          comision: { level: "R", desc: "Debe activar y sostener la coordinación entre sectores." },
+          minsalud: { level: "R", desc: "Comparte la responsabilidad de rectoría; su debilidad es el obstáculo más citado por los estudios incluidos." },
+          territorial: { level: "C", desc: "Consultados, pero sin mandato claro en varios de los casos documentados." },
+          sectores: { level: "C", desc: "Consultados; su participación depende de la convocatoria de la instancia coordinadora." },
+          comunidad: { level: "I", desc: "Informada, sin incidencia formal en esta etapa." },
+        },
+        riesgo: "La debilidad de rectoría intersectorial es la barrera más citada en esta revisión (estudios #2, #3, #4); el caso de la Comisión Intersectorial de Participación de Bogotá (#15) documenta liderazgo disputado entre dos entidades, sin claridad de mando.",
+        studies: [2, 3, 4, 15],
+      },
+      {
+        num: 3, name: "Mecanismos operativos concretos",
+        objetivo: "Traducir la coordinación declarada en rutas, protocolos y presupuestos que efectivamente operen.",
+        touchpoints: ["Rutas de atención activas", "Protocolos de referencia", "Presupuestos y metas compartidas", "Participación comunitaria con incidencia real"],
+        roles: {
+          comision: { level: "A", desc: "Aprueba y respalda los mecanismos operativos acordados." },
+          minsalud: { level: "I", desc: "Informado del avance operativo territorial." },
+          territorial: { level: "R", desc: "Ejecuta las rutas y protocolos en el terreno." },
+          sectores: { level: "R", desc: "Co-ejecutan los mecanismos operativos según su competencia." },
+          comunidad: { level: "R", desc: "La coordinación intersectorial funciona cuando se articula con participación comunitaria real (eje B)." },
+        },
+        riesgo: "Sin estos mecanismos, la coordinación se queda en un ejercicio declarativo — el hallazgo central del eje B de esta revisión.",
+        studies: [1, 5, 11],
+      },
+      {
+        num: 4, name: "Acceso y resultado",
+        objetivo: "Que la coordinación intersectorial se traduzca en acceso efectivo, medido con un marco explícito.",
+        touchpoints: ["Cobertura y equidad de acceso", "Resultados de implementación medidos (Proctor et al., 2011)", "Evaluación sistemática de los mecanismos existentes"],
+        roles: {
+          comision: { level: "I", desc: "Informada de los resultados de acceso alcanzados." },
+          minsalud: { level: "A", desc: "Rinde cuentas por el acceso efectivo logrado a través del sistema." },
+          territorial: { level: "C", desc: "Consultados sobre los resultados de acceso en su territorio." },
+          sectores: { level: "I", desc: "Informados de los resultados finales." },
+          comunidad: { level: "C", desc: "Consultada como usuaria final del acceso logrado." },
+        },
+        riesgo: "Ningún estudio identificado en esta revisión aplicó sistemáticamente un marco de resultados de implementación a estos mecanismos — la laguna de evidencia más citada (ver \"Marcos de referencia\" y la primera estrategia de acceso).",
+        studies: [],
+      },
+    ],
   },
 
   // ------------------------------------------------------------------

@@ -828,6 +828,72 @@ body.summary-mode .container{ max-width: 760px; }
 .rec-board-cell .k{ font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; color: var(--text-muted); font-weight:700; margin-bottom:4px; }
 
 /* ============================================================
+   Journey model (mapa de ruta + RACI) del problema de implementación
+   ============================================================ */
+.journey-wrap{ margin-top:16px; display:flex; flex-direction:column; gap:14px; }
+
+.journey-actor-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+.journey-actor-pill{
+  display:inline-flex; align-items:center; gap:7px; padding:7px 12px 7px 9px; border-radius:999px;
+  border:1px solid var(--border); background:var(--surface); color:var(--text);
+  font-family:inherit; font-weight:600; font-size:.78rem; cursor:pointer;
+  transition:border-color .15s ease, background .15s ease, transform .1s ease;
+}
+.journey-actor-pill:hover{ transform:translateY(-1px); }
+.journey-actor-pill:focus-visible{ outline:2px solid var(--primary-2); outline-offset:2px; }
+.journey-actor-pill .dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+.journey-actor-pill[aria-pressed="true"]{ border-color:currentColor; }
+
+.journey-stations{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(120px,1fr)); gap:0; padding:6px 0 4px; }
+.journey-station-line{ position:absolute; left:6%; right:6%; top:28px; height:2px; background:var(--border); z-index:0; }
+.journey-station{
+  position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:6px;
+  background:none; border:none; font-family:inherit; color:var(--text); cursor:pointer; padding:0;
+}
+.journey-station-num{
+  width:44px; height:44px; border-radius:50%; background:var(--surface); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; color:var(--text-muted);
+  transition:border-color .15s ease, color .15s ease, background .15s ease, transform .15s ease;
+}
+.journey-station-label{ font-size:.74rem; font-weight:600; text-align:center; color:var(--text-muted); max-width:130px; line-height:1.25; }
+.journey-station[aria-pressed="true"] .journey-station-num{ background:var(--primary-2); border-color:var(--primary-2); color:#fff; transform:scale(1.06); }
+.journey-station[aria-pressed="true"] .journey-station-label{ color:var(--text); }
+.journey-station:focus-visible .journey-station-num{ outline:2px solid var(--primary-2); outline-offset:3px; }
+
+.journey-tracks-wrap{ overflow-x:auto; }
+.journey-tracks{ display:flex; flex-direction:column; gap:8px; min-width:560px; }
+.journey-track-row{ display:grid; grid-template-columns:170px repeat(4,minmax(100px,1fr)); align-items:center; gap:0; }
+.journey-track-row.dimmed{ opacity:.3; }
+.journey-track-name{ font-size:.76rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.journey-track-cell{ display:flex; align-items:center; justify-content:center; padding:2px 4px; }
+.journey-raci-badge{
+  display:inline-flex; align-items:center; justify-content:center; width:30px; height:26px; border-radius:7px;
+  font-weight:800; font-size:.76rem; border:1.5px solid currentColor; background:transparent;
+  transition:background .15s ease;
+}
+.journey-raci-badge.level-R{ background: currentColor; }
+.journey-raci-badge.level-R span{ color:#fff; }
+.journey-raci-badge.level-A{ background: color-mix(in srgb, currentColor 22%, transparent); }
+.journey-raci-badge.level-C{ background: transparent; }
+.journey-raci-badge.level-I{ opacity:.55; border-style:dashed; }
+.journey-track-cell.active-col .journey-raci-badge{ box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent); }
+
+.journey-legend{ display:flex; flex-wrap:wrap; gap:14px; font-size:.78rem; color:var(--text-muted); }
+.journey-legend b{ color:var(--text); margin-right:3px; }
+
+.journey-detail{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; display:flex; flex-direction:column; gap:14px; }
+.journey-detail-eyebrow{ font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--primary-2); font-weight:700; margin:0; }
+.journey-detail-title{ font-size:1.15rem; font-weight:800; margin:2px 0 0; }
+.journey-detail-objetivo{ font-size:.9rem; color:var(--text-muted); margin:0; }
+.journey-touchpoints{ display:flex; flex-wrap:wrap; gap:6px; }
+.journey-role-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+.journey-role-card{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:11px 13px; }
+.journey-role-card.focus{ border-color: var(--primary-2); box-shadow: 0 0 0 2px var(--primary-tint); }
+.journey-role-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:4px; }
+.journey-role-name{ font-size:.78rem; font-weight:700; }
+.journey-role-desc{ font-size:.78rem; line-height:1.45; color:var(--text-muted); margin:0; }
+
+/* ============================================================
    Continuum matrix (etapas de la investigación de implementación,
    escala de tonos de "implementación-ligera" a "implementación-intensa")
    ============================================================ */
