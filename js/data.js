@@ -13,7 +13,7 @@ const DATA = {
 
   meta: {
     title: "Acceso e implementación en Colombia",
-    subtitle: "El vacío entre la arquitectura normativa y la coordinación operativa — y los mecanismos que sí funcionan cuando el acceso intersectorial se vuelve una estrategia concreta, no solo una declaración. Evidencia propia (scoping review, PRISMA-ScR) leída de principio a fin desde la investigación de implementación.",
+    subtitle: "El acceso no se decide solo en la mesa de negociación con EPS y aseguradores: se juega también en la arquitectura normativa, la rectoría intersectorial y los mecanismos operativos que la sostienen — el mismo territorio donde ya operan INVIMA, ADRES, las sociedades científicas y de pacientes, y los equipos de acceso de la industria. Esta app trata el acceso intersectorial como lo que es: un problema de implementación. Evidencia propia (scoping review, PRISMA-ScR) leída de principio a fin desde la investigación de implementación.",
     author: "Fabian Dávila Ramírez",
     credentials: "MD, MBA, PhD",
     affiliation: "Universidad de Navarra · Universidad de Bogotá Jorge Tadeo Lozano (Doctorado en Gestión y Modelado de Políticas Públicas)",
@@ -39,12 +39,11 @@ const DATA = {
     ],
   },
 
-  stats: [
-    { value: "4", label: "Mecanismos de acceso documentados", detail: "Ejes de convergencia temática — qué facilita y qué bloquea la coordinación intersectorial en el terreno" },
-    { value: "2", label: "Bucles causales del vacío de implementación", detail: "R1 (vacío de rectoría) y B1 (mecanismos operativos) — dinámica de sistemas" },
-    { value: "3", label: "Estrategias de acceso propuestas", detail: "Cada una vinculada a un punto de apalancamiento de los bucles causales" },
-    { value: "15", label: "Estudios que sustentan el diagnóstico", detail: "45 registros identificados, 14 de bases de datos + 1 de búsqueda dirigida — ver Metodología y evidencia" },
-  ],
+  citation: {
+    text: "Dávila Ramírez, F. (2026). Mecanismos de acceso intersectorial y su aplicación al contexto colombiano. Revisión sistemática exploratoria (scoping review, PRISMA-ScR).",
+    linkLabel: "Repositorio público con la metodología completa, el código y los 15 estudios incluidos",
+    url: "https://github.com/fadavilar/mecanismos-acceso-intersectorial-colombia",
+  },
 
   intro: "Objetivo: sintetizar la evidencia sobre los mecanismos de acceso intersectorial —arreglos de gobernanza que articulan sectores distintos al de la salud para garantizar el acceso a servicios y al bienestar— y examinar su aplicación al contexto colombiano. Métodos: se realizó una revisión sistemática exploratoria siguiendo la metodología PRISMA 2020 y su extensión para revisiones de alcance (PRISMA-ScR), a partir de una pregunta en formato Población-Concepto-Contexto (PCC). Se consultaron PubMed/MEDLINE, LILACS/BVS, SciELO, Cochrane Library, Google Scholar y literatura gris institucional, con ecuaciones booleanas adaptadas a cada fuente y un horizonte de 2021 a 2026. La calidad se evaluó con las herramientas EQUATOR Network pertinentes a cada diseño (SRQR, PRISMA-ScR), declarando los documentos sin checklist aplicable. Resultados: de 45 registros identificados (44 en bases de datos, 1 en literatura gris), se eliminaron 13 duplicados, se examinaron 32 y se incluyeron 15 estudios y documentos: cinco cualitativos indexados en PubMed, un estudio de caso institucional de la OPS/OMS, ocho registros de Google Scholar y una revisión de alcance regional. (Cifras actualizadas tras la publicación inicial: una tesis de la Universidad Externado de Colombia, identificada originalmente sin URL verificable, fue localizada y verificada por el autor — ver la nota en \"Materiales y métodos\".) Los hallazgos convergen en que la gobernanza formal, el financiamiento compartido y la participación comunitaria determinan una acción intersectorial efectiva, mientras que la fragmentación institucional y la débil rectoría son las barreras más citadas. Conclusiones: Colombia dispone de una arquitectura normativa relevante, pero enfrenta brechas de implementación, financiamiento sostenido y evidencia de efectividad medida con rigor.",
 
@@ -89,8 +88,17 @@ const DATA = {
   // ------------------------------------------------------------------
   journeyModel: {
     title: "El recorrido del acceso intersectorial: etapas, actores y responsabilidad",
-    intro: "El mismo patrón de mapa de ruta y matriz RACI usado en el caso aplicado de acceso a medicamentos (ver \"Marco de acceso\"), aplicado aquí al problema central de esta revisión: cómo se supone que un mecanismo de acceso intersectorial recorre el camino entre la arquitectura normativa y el acceso efectivo, y qué actor tiene qué grado de responsabilidad en cada etapa, según la evidencia reunida.",
-    methodNote: "Síntesis interpretativa propia del autor — no un hallazgo de los estudios incluidos ni un instrumento validado externamente. Las 4 etapas siguen la secuencia de Frost & Reich (2008, ver \"Marco de acceso\"): arquitectura → disponibilidad/asequibilidad → adopción; los actores, los touchpoints y los niveles de responsabilidad (RACI) se derivan de los ejes A–D y de las estrategias de acceso de esta misma revisión.",
+    intro: "El mismo patrón de mapa de ruta y matriz RACI usado en el caso aplicado de acceso a medicamentos (ver \"Marco de acceso\"), aplicado aquí al problema central de esta revisión: cómo se supone que un mecanismo de acceso intersectorial recorre el camino entre la arquitectura normativa y el acceso efectivo, y qué actor tiene qué grado de responsabilidad en cada etapa, según la evidencia reunida. El acceso no depende solo de la negociación comercial con aseguradores: el regulador, la rectoría intersectorial, los entes territoriales y la voz del paciente tienen, cada uno, un papel distinto en etapas distintas.",
+    methodNote: "Síntesis interpretativa propia del autor — no un hallazgo de los estudios incluidos ni un instrumento validado externamente. Las 4 etapas siguen la secuencia de Frost & Reich (2008): arquitectura → disponibilidad/asequibilidad → adopción (ver el marco completo más adelante, en la sección \"Marco de acceso\"). Los actores y touchpoints combinan los ejes A–D y las estrategias de acceso de esta misma revisión con los actores reales del caso aplicado de acceso a medicamentos (ver \"Marco de acceso\"); la selección de actores se apoya además en dos guías metodológicas de mapeo de partes interesadas.",
+    methodCitations: [
+      { label: "World Bank Group, Disaster Risk Financing & Insurance Program. Stakeholder Mapping.", url: "https://www.worldbank.org/en/programs/disaster-risk-financing-and-insurance-program" },
+      { label: "Implementation Guide Toolkit. Stakeholder Mapping Guide (2018).", url: null },
+    ],
+    raciDefinition: {
+      title: "¿Qué es una matriz RACI?",
+      text: "RACI es un acrónimo de Responsible, Accountable, Consulted, Informed (responsable, quien rinde cuentas, consultado, informado): una matriz de asignación de responsabilidades que describe el nivel de participación de cada actor en una tarea o etapa de un proceso. El PMBOK® Guide del Project Management Institute (PMI) la define como \"un tipo común de matriz de asignación de responsabilidades que usa los estados responsable, quien rinde cuentas, consultado e informado para definir la participación de los interesados en las actividades del proyecto\".",
+      citation: { label: "Responsibility assignment matrix (RACI). Wikipedia, con referencia al PMBOK® Guide del Project Management Institute.", url: "https://en.wikipedia.org/wiki/Responsibility_assignment_matrix" },
+    },
     raciLegend: [
       { level: "R", label: "Responsable", desc: "Ejecuta la etapa." },
       { level: "A", label: "Aprueba / rinde cuentas", desc: "Respalda o responde por el resultado de la etapa." },
@@ -98,23 +106,23 @@ const DATA = {
       { level: "I", label: "Informado", desc: "Se le comunica el avance, sin incidencia directa." },
     ],
     actors: [
-      { key: "comision", name: "Comisión Intersectorial de Salud Pública", color: "a" },
-      { key: "minsalud", name: "Ministerio de Salud (rectoría nacional)", color: "b" },
-      { key: "territorial", name: "Entes territoriales", color: "c" },
-      { key: "sectores", name: "Sectores participantes", color: "d" },
-      { key: "comunidad", name: "Comunidad y participación social", color: "e" },
+      { key: "comision", name: "Comisión Intersectorial y rectoría en salud (MinSalud)", color: "a" },
+      { key: "regulador", name: "Regulador (INVIMA)", color: "b" },
+      { key: "financiador", name: "Asegurador y financiador (EPS / ADRES)", color: "c" },
+      { key: "territorial", name: "Entes territoriales y sectores participantes", color: "d" },
+      { key: "comunidad", name: "Comunidad, sociedades de pacientes y participación social", color: "e" },
     ],
     stages: [
       {
         num: 1, name: "Arquitectura normativa",
-        objetivo: "Contar con instancias formales de gobernanza, planes y redes que declaren la intersectorialidad como principio orientador.",
-        touchpoints: ["Comisión Intersectorial de Salud Pública", "Plan Decenal de Salud Pública 2022–2031", "Redes integradas e integrales territoriales de salud"],
+        objetivo: "Contar con instancias formales de gobernanza, planes, redes y marco regulatorio que declaren la intersectorialidad como principio orientador.",
+        touchpoints: ["Comisión Intersectorial de Salud Pública", "Plan Decenal de Salud Pública 2022–2031", "Redes integradas e integrales territoriales de salud", "Marco regulatorio de INVIMA para registro sanitario"],
         roles: {
-          comision: { level: "R", desc: "Es la instancia formal de gobernanza intersectorial en salud." },
-          minsalud: { level: "A", desc: "Lidera su diseño y expedición normativa." },
+          comision: { level: "R", desc: "Es la instancia formal de gobernanza intersectorial en salud y lidera su diseño normativo." },
+          regulador: { level: "A", desc: "Define el marco regulatorio (registro sanitario) que toda tecnología en salud debe cumplir para poder circular." },
+          financiador: { level: "C", desc: "Consultado en el diseño de las reglas de financiamiento del sistema." },
           territorial: { level: "C", desc: "Consultados en el diseño de las redes territoriales." },
-          sectores: { level: "I", desc: "Informados de la arquitectura disponible." },
-          comunidad: { level: "I", desc: "Sin rol formal documentado en esta etapa." },
+          comunidad: { level: "I", desc: "Informada de la arquitectura disponible; sin rol formal documentado en esta etapa." },
         },
         riesgo: "La arquitectura existe, pero el hallazgo transversal de esta revisión (\"La brecha no es normativa, es de implementación\") documenta que no siempre se traduce en coordinación operativa.",
         studies: [],
@@ -124,10 +132,10 @@ const DATA = {
         objetivo: "Ejercer la rectoría que activa y sostiene la coordinación entre sectores en el terreno.",
         touchpoints: ["Liderazgo definido y no disputado", "Calendario de sesiones activo", "Mandato de coordinación con capacidad real de decisión"],
         roles: {
-          comision: { level: "R", desc: "Debe activar y sostener la coordinación entre sectores." },
-          minsalud: { level: "R", desc: "Comparte la responsabilidad de rectoría; su debilidad es el obstáculo más citado por los estudios incluidos." },
+          comision: { level: "R", desc: "Debe activar y sostener la coordinación entre sectores; su debilidad es el obstáculo más citado por los estudios incluidos." },
+          regulador: { level: "I", desc: "Informado del ejercicio de rectoría; su función regulatoria opera en paralelo, no como coordinador intersectorial." },
+          financiador: { level: "C", desc: "Consultado: sus reglas de pago condicionan lo que la coordinación intersectorial puede lograr en la práctica." },
           territorial: { level: "C", desc: "Consultados, pero sin mandato claro en varios de los casos documentados." },
-          sectores: { level: "C", desc: "Consultados; su participación depende de la convocatoria de la instancia coordinadora." },
           comunidad: { level: "I", desc: "Informada, sin incidencia formal en esta etapa." },
         },
         riesgo: "La debilidad de rectoría intersectorial es la barrera más citada en esta revisión (estudios #2, #3, #4); el caso de la Comisión Intersectorial de Participación de Bogotá (#15) documenta liderazgo disputado entre dos entidades, sin claridad de mando.",
@@ -135,13 +143,13 @@ const DATA = {
       },
       {
         num: 3, name: "Mecanismos operativos concretos",
-        objetivo: "Traducir la coordinación declarada en rutas, protocolos y presupuestos que efectivamente operen.",
-        touchpoints: ["Rutas de atención activas", "Protocolos de referencia", "Presupuestos y metas compartidas", "Participación comunitaria con incidencia real"],
+        objetivo: "Traducir la coordinación declarada en rutas, protocolos, presupuestos y mecanismos especiales que efectivamente operen.",
+        touchpoints: ["Rutas de atención activas", "Protocolos de referencia", "Presupuestos y metas compartidas", "Participación comunitaria con incidencia real", "Mecanismos especiales del SGSSS (Giro Directo, Vital No Disponible, UNIRS — ver \"Marco de acceso\")"],
         roles: {
           comision: { level: "A", desc: "Aprueba y respalda los mecanismos operativos acordados." },
-          minsalud: { level: "I", desc: "Informado del avance operativo territorial." },
-          territorial: { level: "R", desc: "Ejecuta las rutas y protocolos en el terreno." },
-          sectores: { level: "R", desc: "Co-ejecutan los mecanismos operativos según su competencia." },
+          regulador: { level: "C", desc: "Consultado cuando el mecanismo operativo requiere una vía regulatoria especial (Vital No Disponible, UNIRS)." },
+          financiador: { level: "R", desc: "Ejecuta mecanismos de pago como el Giro Directo, que sostienen la disponibilidad de tratamientos en el terreno." },
+          territorial: { level: "R", desc: "Ejecuta las rutas y protocolos, y co-ejecuta los mecanismos operativos según su competencia sectorial." },
           comunidad: { level: "R", desc: "La coordinación intersectorial funciona cuando se articula con participación comunitaria real (eje B)." },
         },
         riesgo: "Sin estos mecanismos, la coordinación se queda en un ejercicio declarativo — el hallazgo central del eje B de esta revisión.",
@@ -153,10 +161,10 @@ const DATA = {
         touchpoints: ["Cobertura y equidad de acceso", "Resultados de implementación medidos (Proctor et al., 2011)", "Evaluación sistemática de los mecanismos existentes"],
         roles: {
           comision: { level: "I", desc: "Informada de los resultados de acceso alcanzados." },
-          minsalud: { level: "A", desc: "Rinde cuentas por el acceso efectivo logrado a través del sistema." },
+          regulador: { level: "I", desc: "Informado de los resultados de acceso ligados al marco regulatorio que administra." },
+          financiador: { level: "A", desc: "Rinde cuentas por el acceso efectivo financiado a través del sistema." },
           territorial: { level: "C", desc: "Consultados sobre los resultados de acceso en su territorio." },
-          sectores: { level: "I", desc: "Informados de los resultados finales." },
-          comunidad: { level: "C", desc: "Consultada como usuaria final del acceso logrado." },
+          comunidad: { level: "C", desc: "Consultada como usuaria final del acceso logrado — incluidas las sociedades de pacientes." },
         },
         riesgo: "Ningún estudio identificado en esta revisión aplicó sistemáticamente un marco de resultados de implementación a estos mecanismos — la laguna de evidencia más citada (ver \"Marcos de referencia\" y la primera estrategia de acceso).",
         studies: [],
@@ -326,7 +334,7 @@ const DATA = {
   // (WHO/TDR, Implementation Science, o el artículo original).
   // ------------------------------------------------------------------
   irFrameworks: {
-    intro: "Seis piezas conceptuales, ninguna de las cuales forma parte de los 15 estudios incluidos en la revisión, ayudan a leerla a través del lenguaje de la investigación de implementación: cómo situar una pregunta de implementación en un continuo (Peters, Tran & Adam, 2013), cómo evaluar si una implementación funcionó (Proctor et al., 2011), qué teorías explican por qué una intervención se adopta o no (CFIR, RE-AIM, difusión de innovaciones), qué determinantes concretos de la práctica hay que revisar (TICD, Flottorp et al., 2013), y qué condiciones determinan el acceso a una tecnología o servicio (Frost & Reich, 2008). Todas se presentan explícitamente como una capa interpretativa del autor, no como hallazgos de la revisión.",
+    intro: "Cinco piezas conceptuales, ninguna de las cuales forma parte de los 15 estudios incluidos en la revisión, ayudan a leerla a través del lenguaje de la investigación de implementación: cómo situar una pregunta de implementación en un continuo (Peters, Tran & Adam, 2013), cómo evaluar si una implementación funcionó (Proctor et al., 2011), qué teorías explican por qué una intervención se adopta o no (CFIR, RE-AIM, difusión de innovaciones), qué determinantes concretos de la práctica hay que revisar (TICD, Flottorp et al., 2013), y qué condiciones determinan el acceso a una tecnología o servicio (Frost & Reich, 2008). Todas se presentan explícitamente como una capa interpretativa del autor, no como hallazgos de la revisión.",
 
     continuum: {
       title: "El continuo de la investigación de implementación",
@@ -362,17 +370,17 @@ const DATA = {
       items: [
         {
           name: "RE-AIM", full: "Reach, Efficacy, Adoption, Implementation, Maintenance",
-          citation: { label: "Glasgow, R.E., et al. (2009), citado en Peters, Tran & Adam (2013).", url: null },
+          citation: { label: "Glasgow, R.E., Vogt, T.M., & Boles, S.M. (1999). Evaluating the public health impact of health promotion interventions: the RE-AIM framework. American Journal of Public Health, 89(9), 1322–1327. Citado en Peters, Tran & Adam (2013).", url: "https://doi.org/10.2105/ajph.89.9.1322" },
           text: "Marco de uso frecuente en intervenciones de promoción de la salud; ofrece un enfoque práctico para evaluar los efectos de una intervención a través de cambios en individuos, organizaciones y comunidades: alcance (reach), eficacia, adopción, implementación y mantenimiento.",
         },
         {
           name: "Difusión de innovaciones", full: "Diffusion of Innovations Theory",
-          citation: { label: "Rogers, E.M. (2003), citado en Peters, Tran & Adam (2013).", url: null },
+          citation: { label: "Rogers, E.M. (2003). Diffusion of Innovations (5.ª ed.). Free Press. Citado en Peters, Tran & Adam (2013).", url: "https://www.simonandschuster.com/books/Diffusion-of-Innovations-5th-Edition/Everett-M-Rogers/9780743258234" },
           text: "Explica cómo se propagan las innovaciones, destacando los atributos percibidos de la innovación (ventaja relativa, compatibilidad con enfoques existentes, capacidad de observar resultados, capacidad de probarla y su complejidad), la disposición al cambio del adoptante, el sistema social, los procesos individuales de adopción y el sistema de difusión.",
         },
         {
           name: "CFIR", full: "Consolidated Framework for Implementation Research",
-          citation: { label: "Damschroder, L.J., et al. (2009), citado en Peters, Tran & Adam (2013).", url: null },
+          citation: { label: "Damschroder, L.J., Aron, D.C., Keith, R.E., Kirsh, S.R., Alexander, J.A., & Lowery, J.C. (2009). Fostering implementation of health services research findings into practice: a consolidated framework for advancing implementation science. Implementation Science, 4:50. Citado en Peters, Tran & Adam (2013).", url: "https://doi.org/10.1186/1748-5908-4-50" },
           text: "Desarrollado para consolidar las distintas teorías y términos usados en el campo. Comprende cinco dominios: (1) características de la intervención; (2) contexto externo; (3) contexto interno; (4) características de los individuos involucrados; y (5) el proceso de implementación.",
           domains: ["Características de la intervención", "Contexto externo", "Contexto interno", "Características de los individuos involucrados", "Proceso de implementación"],
         },
@@ -408,7 +416,7 @@ const DATA = {
       ],
       appliedCase: {
         title: "Caso aplicado: acceso estratégico a medicamentos en Colombia",
-        intro: "Herramienta interactiva propia del autor (no un marco académico externo) que operacionaliza disponibilidad, asequibilidad y adopción en cuatro etapas operativas, para dos mercados —Institucional (general y especializado) y Retail (OTC y ético/Rx)— y seis equipos de una organización farmacéutica. Se incluye aquí porque hace tangible, con un caso real del sector salud colombiano, lo que el marco de Frost & Reich describe en abstracto.",
+        intro: "Herramienta interactiva propia del autor (no un marco académico externo) que operacionaliza disponibilidad, asequibilidad y adopción en cuatro etapas operativas, para dos mercados —Institucional (general y especializado) y Retail (OTC y ético/Rx)— y seis equipos de una organización farmacéutica (Medical, Acceso, Marketing, Comercial, Regulatorio/GA, Finanzas). Además de las EPS y ADRES, la ruta involucra actores externos que suelen quedar fuera de la conversación de acceso: INVIMA, sociedades científicas, sociedades de pacientes, programas de soporte al paciente (PSP), importadores, gestores farmacéuticos y centros de dispensación. Se incluye aquí porque hace tangible, con un caso real del sector salud colombiano, lo que el marco de Frost & Reich describe en abstracto.",
         stages: [
           { name: "Priorización", desc: "Identificar y priorizar instituciones o canales (hospitales, centros de referencia, cadenas, farmacias) según pertinencia clínica, volumen y relación contractual — la primera decisión de disponibilidad: dónde enfocar el esfuerzo de acceso." },
           { name: "Codificación", desc: "Formalizar el registro sanitario (INVIMA) y la homologación administrativa del medicamento (CUM/IUM/CUPS o EAN/UPC), el precio y las condiciones de pago — habilita su circulación y es donde se juega buena parte de la asequibilidad." },
@@ -416,9 +424,9 @@ const DATA = {
           { name: "Continuidad", desc: "Sostener la disponibilidad y la adherencia en el tiempo, evitando interrupciones por desabastecimiento, cartera o discontinuidad entre el manejo hospitalario y el ambulatorio — el mismo problema de sostenibilidad que documenta el eje B de esta revisión para la coordinación intersectorial." },
         ],
         mechanisms: [
-          { name: "Vital No Disponible (VNP)", desc: "Mecanismo administrado por INVIMA que permite el ingreso y uso de un medicamento sin registro sanitario vigente en Colombia cuando constituye la única alternativa terapéutica disponible para una condición que pone en riesgo la vida." },
-          { name: "Giro Directo", desc: "Mecanismo de ADRES que gira los recursos directamente a la IPS o al prestador, sin pasar por la EPS, para reducir los tiempos de pago y la cartera que puede afectar la disponibilidad de tratamientos de alto costo." },
-          { name: "UNIRS (Uso No Incluido en Registro Sanitario)", desc: "Mecanismo del Ministerio de Salud e INVIMA que permite prescribir un medicamento ya registrado en una indicación, dosis, vía o población distinta a la aprobada, cuando existe evidencia de eficacia y seguridad." },
+          { name: "Vital No Disponible (VNP)", desc: "Mecanismo administrado por INVIMA que permite el ingreso y uso de un medicamento sin registro sanitario vigente en Colombia cuando constituye la única alternativa terapéutica disponible para una condición que pone en riesgo la vida.", citation: { label: "INVIMA. Medicamentos Vitales No Disponibles.", url: "https://www.invima.gov.co/productos-vigilados/medicamentos-y-productos-biologicos/medicamentos-vitales-no-disponibles" } },
+          { name: "Giro Directo", desc: "Mecanismo de ADRES que gira los recursos directamente a la IPS o al prestador, sin pasar por la EPS, para reducir los tiempos de pago y la cartera que puede afectar la disponibilidad de tratamientos de alto costo.", citation: { label: "ADRES. Giro Directo.", url: "https://www.adres.gov.co/ips-y-proveedores/giro-directo" } },
+          { name: "UNIRS (Uso No Incluido en Registro Sanitario)", desc: "Mecanismo del Ministerio de Salud e INVIMA que permite prescribir un medicamento ya registrado en una indicación, dosis, vía o población distinta a la aprobada, cuando existe evidencia de eficacia y seguridad.", citation: { label: "Ministerio de Salud y Protección Social. ABECÉ sobre medicamentos con usos no incluidos en el registro sanitario (UNIRS).", url: "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/MET/abc-medicamentos-con-unirs.pdf" } },
         ],
         link: { label: "Abrir la herramienta interactiva completa (mapa de ruta por mercado, segmento y equipo, con roles RACI)", href: "acceso-estrategico-medicamentos.html" },
       },
@@ -482,58 +490,6 @@ const DATA = {
       },
     ],
     externalNode: { label: "Mecanismos operativos concretos", detail: "Rutas de atención activas, protocolos de referencia, presupuestos y metas compartidas, articulados con participación comunitaria (eje B)." },
-  },
-
-  // ------------------------------------------------------------------
-  // Autoevaluación de competencias en investigación de implementación —
-  // los 6 focos y 16 competencias son reales, del "IR Toolkit" del
-  // TDR/OMS (adphealth.org/irtoolkit/self-assessment-tool/), traducidos
-  // fielmente por el autor. La escala de 4 niveles usada en esta app es
-  // una adaptación propia para esta interfaz — no una reproducción de
-  // las opciones exactas del formulario original, que no se pudieron
-  // verificar en su totalidad a partir de la copia guardada de la
-  // herramienta.
-  // ------------------------------------------------------------------
-  irSelfAssessment: {
-    title: "Autoevaluación de competencias en investigación de implementación",
-    intro: "Herramienta de autoevaluación adaptada del \"IR Toolkit\" del Programa Especial de Investigaciones y Enseñanzas sobre Enfermedades Tropicales (TDR) y la Alianza para la Investigación en Políticas y Sistemas de Salud, ambos de la OMS. Los 6 focos y las 16 competencias centrales son los del marco original; la escala de 4 niveles usada aquí para calificarlas es una adaptación propia del autor para esta interfaz interactiva, no una reproducción literal del formulario original. Tus respuestas se guardan solo en este navegador (localStorage) — nunca se envían a ningún servidor.",
-    sourceCitation: { label: "IR Toolkit. Implementation Research Competency: Self-assessment tool. TDR/OMS y Alliance for Health Policy and Systems Research.", url: "https://adphealth.org/irtoolkit/self-assessment-tool/" },
-    scale: [
-      { value: 0, label: "Sin conocimiento" },
-      { value: 1, label: "Conocimiento limitado" },
-      { value: 2, label: "Con experiencia práctica" },
-      { value: 3, label: "Puedo liderar esto" },
-    ],
-    focusAreas: [
-      { id: "fa1", name: "Trabajar con otros actores", competences: [
-        { id: "c1", text: "Identificar los actores relevantes para planear y conducir investigación de implementación (e implementar intervenciones de salud con respaldo de evidencia)." },
-        { id: "c2", text: "Involucrar a los actores relevantes para planear y conducir investigación de implementación." },
-      ]},
-      { id: "fa2", name: "Reunir los recursos necesarios", competences: [
-        { id: "c3", text: "Construir un equipo de investigación de implementación para diseñar, planear y conducir un proyecto de forma conjunta." },
-        { id: "c4", text: "Movilizar y aprovechar los recursos necesarios para conducir investigación de implementación." },
-      ]},
-      { id: "fa3", name: "El proceso de indagación científica de la IR", competences: [
-        { id: "c5", text: "Formular preguntas apropiadas de investigación de implementación." },
-        { id: "c6", text: "Determinar las medidas o indicadores apropiados para conducir investigación de implementación." },
-        { id: "c7", text: "Determinar los diseños y métodos de estudio aplicables para conducir investigación de implementación." },
-        { id: "c8", text: "Conducir investigación de implementación de manera robusta y rigurosa." },
-      ]},
-      { id: "fa4", name: "Estrategias y pasos específicos de implementación", competences: [
-        { id: "c9", text: "Encontrar y sintetizar evidencia que respalde la implementación de una o varias intervenciones." },
-        { id: "c10", text: "Analizar los facilitadores y las barreras para la implementación de intervenciones." },
-        { id: "c11", text: "Desarrollar estrategias de implementación para abordar las barreras a la implementación de investigación e intervenciones con respaldo de evidencia." },
-        { id: "c12", text: "Analizar en profundidad y ajustar las estrategias de implementación." },
-      ]},
-      { id: "fa5", name: "Considerar el contexto y la ética", competences: [
-        { id: "c13", text: "Analizar los contextos (sistemas de salud, organizaciones o socios implementadores, entornos comunitarios) que afectan la implementación de intervenciones con respaldo de evidencia." },
-        { id: "c14", text: "Aplicar principios éticos al planear y conducir investigación de implementación." },
-      ]},
-      { id: "fa6", name: "Comunicación y abogacía", competences: [
-        { id: "c15", text: "Usar la información de la investigación de implementación de manera efectiva." },
-        { id: "c16", text: "Comunicar y abogar de manera efectiva a lo largo de todo el proceso de investigación de implementación." },
-      ]},
-    ],
   },
 
   // ------------------------------------------------------------------

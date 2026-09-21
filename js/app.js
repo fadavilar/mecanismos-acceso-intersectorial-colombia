@@ -98,7 +98,6 @@
         { id:"marcos-teorias", label:"Teorías y determinantes (CFIR, RE-AIM, difusión, TICD)" },
         { id:"marcos-acceso", label:"Marco de acceso (Frost & Reich, 2008)" },
         { id:"marcos-mapa", label:"Mapa mental interactivo" },
-        { id:"marcos-autoevaluacion", label:"Autoevaluación de competencias en IR" },
       ] },
     { id:"dinamica", num:"05", title:"Dinámica de sistemas", sub:"El vacío de implementación: hipótesis causales del autor sobre las barreras de acceso más frecuentes", open:false },
     { id:"discusion", num:"06", title:"Discusión y estrategias de acceso", sub:"De la discusión al cierre del vacío de implementación: integridad bibliográfica, estrategias de acceso y lagunas", open:false,
@@ -172,13 +171,10 @@
       `<strong>${DATA.meta.author}</strong>${DATA.meta.credentials ? ", "+DATA.meta.credentials : ""} · ${DATA.meta.affiliation}`;
 
     const grid = document.getElementById("stat-grid");
-    DATA.stats.forEach(s=>{
-      grid.appendChild(el("div",{class:"stat-card"},[
-        el("div",{class:"value"},[s.value]),
-        el("div",{class:"label"},[s.label]),
-        el("div",{class:"detail"},[s.detail]),
-      ]));
-    });
+    grid.classList.add("hero-citation");
+    const c = DATA.citation;
+    grid.appendChild(el("p",{class:"hero-citation-text"},[c.text]));
+    grid.appendChild(el("a",{class:"hero-citation-link", href:c.url, target:"_blank", rel:"noopener noreferrer"},[c.linkLabel+" →"]));
 
     document.getElementById("footer-disclaimer").textContent = DATA.meta.disclaimer;
     document.getElementById("footer-author").textContent =
@@ -249,7 +245,27 @@
     const body = document.getElementById("body-problema");
     const jm = DATA.journeyModel;
     sectionDivider(body, "problema-modelo", jm.title, jm.intro);
+
+    if(jm.raciDefinition){
+      const rd = jm.raciDefinition;
+      body.appendChild(el("div",{class:"selective-box"},[
+        el("h4",{},[rd.title]),
+        el("p",{},[rd.text]),
+        el("p",{class:"indicator-source", style:"margin-top:6px"},[
+          el("a",{href:rd.citation.url, target:"_blank", rel:"noopener noreferrer"},[rd.citation.label]),
+        ]),
+      ]));
+    }
+
     body.appendChild(el("p",{style:"font-size:.78rem;color:var(--text-muted)"},[jm.methodNote]));
+    if(jm.methodCitations && jm.methodCitations.length){
+      const srcWrap = el("div",{class:"indicator-source", style:"margin-top:2px"});
+      jm.methodCitations.forEach((c,i)=>{
+        if(i>0) srcWrap.appendChild(document.createTextNode(" · "));
+        srcWrap.appendChild(c.url ? el("a",{href:c.url, target:"_blank", rel:"noopener noreferrer"},[c.label]) : el("span",{},[c.label]));
+      });
+      body.appendChild(srcWrap);
+    }
 
     const wrap = el("div",{class:"journey-wrap"});
     body.appendChild(wrap);
@@ -1060,7 +1076,9 @@
         card.appendChild(list);
       }
       if(t.citation && t.citation.label){
-        card.appendChild(el("p",{class:"indicator-source", style:"margin-top:6px"},[t.citation.label]));
+        card.appendChild(el("p",{class:"indicator-source", style:"margin-top:6px"},[
+          t.citation.url ? el("a",{href:t.citation.url, target:"_blank", rel:"noopener noreferrer"},[t.citation.label]) : t.citation.label,
+        ]));
       }
       body.appendChild(card);
     });
@@ -1123,10 +1141,16 @@
       body.appendChild(el("h4",{style:"font-size:.86rem;margin-top:18px"},["Mecanismos especiales del SGSSS ilustrados en el caso"]));
       const mechList = el("div",{class:"mech-list"});
       ac.mechanisms.forEach(m=>{
-        mechList.appendChild(el("div",{class:"mech-item"},[
+        const item = el("div",{class:"mech-item"},[
           el("span",{class:"mech-name"},[m.name]),
           el("p",{class:"mech-desc"},[m.desc]),
-        ]));
+        ]);
+        if(m.citation){
+          item.appendChild(el("p",{class:"indicator-source", style:"margin-top:6px"},[
+            el("a",{href:m.citation.url, target:"_blank", rel:"noopener noreferrer"},[m.citation.label]),
+          ]));
+        }
+        mechList.appendChild(item);
       });
       body.appendChild(mechList);
 
@@ -1247,86 +1271,6 @@
     return ul;
   }
 
-  /* ============================================================
-     RENDER: 03 Marcos de referencia — Autoevaluación de competencias en IR
-     ============================================================ */
-  const SELFCHECK_KEY = "aic_ir_selfcheck_v1";
-  function loadSelfCheckAnswers(){
-    try{ return JSON.parse(localStorage.getItem(SELFCHECK_KEY) || "{}"); }catch(e){ return {}; }
-  }
-  function saveSelfCheckAnswers(answers){
-    try{ localStorage.setItem(SELFCHECK_KEY, JSON.stringify(answers)); }catch(e){}
-  }
-  function renderMarcosAutoevaluacion(){
-    const body = document.getElementById("body-marcos");
-    const sa = DATA.irSelfAssessment;
-    sectionDivider(body, "marcos-autoevaluacion", sa.title, null);
-    body.appendChild(el("p",{},[sa.intro]));
-    body.appendChild(el("p",{class:"indicator-source"},[
-      el("a",{href:sa.sourceCitation.url, target:"_blank", rel:"noopener noreferrer"},[sa.sourceCitation.label]),
-    ]));
-
-    const answers = loadSelfCheckAnswers();
-    const wrap = el("div",{class:"selfcheck-wrap"});
-
-    sa.focusAreas.forEach(fa=>{
-      wrap.appendChild(el("h4",{style:"font-size:.86rem;margin-top:14px"},[fa.name]));
-      fa.competences.forEach(comp=>{
-        const item = el("div",{class:"selfcheck-item"});
-        item.appendChild(el("div",{class:"selfcheck-statement"},[comp.text]));
-        const opts = el("div",{class:"selfcheck-options"});
-        sa.scale.forEach(level=>{
-          const inputId = "sc-"+comp.id+"-"+level.value;
-          const input = el("input",{type:"radio", name:"sc-"+comp.id, id:inputId, value:String(level.value)});
-          if(String(answers[comp.id])===String(level.value)) input.setAttribute("checked","checked");
-          input.addEventListener("change", ()=>{
-            answers[comp.id] = level.value;
-            saveSelfCheckAnswers(answers);
-            updateSelfCheckSummary(wrap, sa, answers);
-          });
-          const label = el("label",{for:inputId},[level.label]);
-          opts.appendChild(el("span",{class:"selfcheck-opt"},[input, label]));
-        });
-        item.appendChild(opts);
-        wrap.appendChild(item);
-      });
-    });
-
-    const summary = el("div",{class:"selfcheck-result card"});
-    wrap.appendChild(summary);
-    body.appendChild(wrap);
-
-    const clearBtn = el("button",{class:"btn", type:"button", style:"margin-top:10px"},["Borrar mis respuestas"]);
-    clearBtn.addEventListener("click", ()=>{
-      Object.keys(answers).forEach(k=> delete answers[k]);
-      saveSelfCheckAnswers(answers);
-      wrap.querySelectorAll("input[type=radio]").forEach(i=> i.checked=false);
-      updateSelfCheckSummary(wrap, sa, answers);
-    });
-    body.appendChild(clearBtn);
-    body.appendChild(el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:8px"},[
-      "Los cortes de este resumen (alta/media/baja) son una referencia orientativa propia del autor, no un estándar externo validado."
-    ]));
-    updateSelfCheckSummary(wrap, sa, answers);
-  }
-  function updateSelfCheckSummary(wrap, sa, answers){
-    const summary = wrap.querySelector(".selfcheck-result");
-    if(!summary) return;
-    const totalComp = sa.focusAreas.reduce((n,fa)=>n+fa.competences.length,0);
-    const answered = Object.keys(answers).filter(k=>answers[k]!=null).length;
-    summary.innerHTML = "";
-    summary.appendChild(el("strong",{},["Progreso: "+answered+" de "+totalComp+" competencias calificadas"]));
-    if(answered>0){
-      const maxLevel = Math.max(...sa.scale.map(l=>l.value));
-      const sum = Object.values(answers).reduce((s,v)=> s+(Number(v)||0), 0);
-      const pct = Math.round((sum/(answered*maxLevel))*100);
-      const level = pct>=66 ? "alta" : pct>=33 ? "media" : "baja";
-      summary.appendChild(el("p",{style:"margin:6px 0 0"},[
-        "Promedio de las competencias calificadas hasta ahora: ",
-        el("span",{class:"level-pill "+levelClass(level)},[pct+"%"]),
-      ]));
-    }
-  }
 
   /* ============================================================
      RENDER: 05 Discusión — Caso de integridad bibliográfica
@@ -1634,7 +1578,6 @@
     idx.push({ type:"Sección", label:"Marco de acceso", detail:"Frost & Reich (2008)", sectionId:"marcos", anchorId:"marcos-acceso" });
     idx.push({ type:"Sección", label:"Acceso estratégico a medicamentos", detail:"Caso aplicado: 4 etapas, herramienta interactiva del autor", sectionId:"marcos", anchorId:"marcos-acceso" });
     idx.push({ type:"Sección", label:"Mapa mental interactivo", detail:"Los seis marcos de referencia conectados", sectionId:"marcos", anchorId:"marcos-mapa" });
-    idx.push({ type:"Sección", label:"Autoevaluación de competencias en IR", detail:"IR Toolkit (TDR/OMS) — 16 competencias en 6 focos", sectionId:"marcos", anchorId:"marcos-autoevaluacion" });
     idx.push({ type:"Sección", label:"Dinámica de sistemas", detail:"Bucles R1 (vacío de rectoría) y B1 (mecanismos operativos)", sectionId:"dinamica", anchorId:"sec-dinamica" });
     idx.push({ type:"Sección", label:"Caso de integridad bibliográfica", detail:"Corrección de una cita mal atribuida (PMID 20957426)", sectionId:"discusion", anchorId:"discusion-integridad" });
     return idx;
@@ -1774,7 +1717,6 @@
     if(irf.outcomes.citation.url) frameworkItems.push({ label: irf.outcomes.citation.label, url: irf.outcomes.citation.url });
     if(irf.determinants.citation.url) frameworkItems.push({ label: irf.determinants.citation.label, url: irf.determinants.citation.url });
     if(irf.access.secondarySourceCitation.url) frameworkItems.push({ label: irf.access.secondarySourceCitation.label, url: irf.access.secondarySourceCitation.url });
-    if(DATA.irSelfAssessment.sourceCitation.url) frameworkItems.push({ label: DATA.irSelfAssessment.sourceCitation.label, url: DATA.irSelfAssessment.sourceCitation.url });
     if(frameworkItems.length) groups.push({ title:"Marcos de referencia de implementación y acceso", items: frameworkItems });
     if(!groups.length){
       body.appendChild(el("p",{style:"color:var(--text-muted);font-size:.85rem"},["No hay fuentes con URL pública verificable registradas."]));
@@ -1823,7 +1765,6 @@
     renderMarcosTeorias();
     renderMarcosAcceso();
     renderMarcosMapa();
-    renderMarcosAutoevaluacion();
     renderDinamica();
     renderDiscusionTexto();
     renderIntegridad();

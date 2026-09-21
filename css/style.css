@@ -271,6 +271,14 @@ p{ margin: 0 0 .8em; }
 .stat-card .label{ font-weight:600; font-size:.85rem; margin-top:2px; }
 .stat-card .detail{ font-size:.76rem; color: var(--text-muted); margin-top:4px; }
 
+.hero-citation{
+  display:block; grid-template-columns:none;
+  background: var(--surface); border:1px solid var(--border); border-left:3px solid var(--primary-2);
+  border-radius: var(--radius); padding:14px 18px; box-shadow: var(--shadow);
+}
+.hero-citation-text{ margin:0; font-size:.86rem; font-style:italic; color:var(--text); }
+.hero-citation-link{ display:inline-block; margin-top:8px; font-size:.82rem; font-weight:600; color:var(--primary-2); }
+
 /* ============================================================
    Toolbar (expand/collapse)
    ============================================================ */
