@@ -884,6 +884,22 @@ body.summary-mode .container{ max-width: 760px; }
 .access-factor h4{ font-size:.86rem; margin:0 0 8px; }
 .access-factor ul{ margin:0; padding-left:18px; font-size:.8rem; display:flex; flex-direction:column; gap:4px; }
 
+.access-stage-track{
+  display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-top:10px;
+}
+.access-stage{
+  background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px;
+  display:flex; flex-direction:column; gap:4px;
+}
+.access-stage-num{ font-family:inherit; font-size:.72rem; font-weight:800; color: var(--primary-2); }
+.access-stage h4{ margin:0; font-size:.9rem; }
+.access-stage p{ margin:0; font-size:.8rem; color: var(--text-muted); }
+
+.mech-list{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+.mech-item{ background: var(--surface-2); border-left:3px solid var(--primary-2); border-radius:8px; padding:11px 14px; }
+.mech-name{ font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.03em; color: var(--primary-2); display:block; margin-bottom:4px; }
+.mech-desc{ font-size:.82rem; line-height:1.5; color: var(--text); margin:0; }
+
 /* ============================================================
    Print
    ============================================================ */

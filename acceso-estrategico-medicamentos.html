@@ -1,0 +1,1069 @@
+<!doctype html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acceso Estratégico a Medicamentos</title>
+<meta name="description" content="Mapa de ruta operativo del acceso a medicamentos en Colombia — 4 etapas, 2 mercados, 6 equipos y mecanismos del SGSSS (VNP, Giro Directo, UNIRS). Herramienta interactiva del autor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F3EE;
+    --surface: #FFFFFF;
+    --surface-2: #EAE7DF;
+    --ink: #1C2126;
+    --ink-soft: #565D63;
+    --ink-faint: #8A9198;
+    --line: #D9D5CA;
+    --accent: #0E6E66;
+    --ring: #0E6E6633;
+
+    --team-medical: #2E6C97;
+    --team-medical-soft: #E3EDF5;
+    --team-acceso: #0E6E66;
+    --team-acceso-soft: #E1F0EC;
+    --team-marketing: #A34277;
+    --team-marketing-soft: #F5E6EF;
+    --team-comercial: #B47F1F;
+    --team-comercial-soft: #F6EDDA;
+    --team-regulatorio: #9C3B3B;
+    --team-regulatorio-soft: #F6E4E2;
+    --team-finanzas: #3B4C7A;
+    --team-finanzas-soft: #E6E9F3;
+
+    --ch-institucional: #0B4C91;
+    --ch-institucional-soft: #E5EDF7;
+    --ch-especializado: #B14A16;
+    --ch-especializado-soft: #F8EAE0;
+    --ch-retail: #1B7F5A;
+    --ch-retail-soft: #E4F2EB;
+    --ch-etico: #0E7A82;
+    --ch-etico-soft: #E1F1F1;
+
+    --ext: #565F82;
+    --ext-soft: #E7E8F1;
+    --mech: #6E56A3;
+    --mech-soft: #EEE9F6;
+
+    --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+    --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #14181A;
+      --surface: #1C2124;
+      --surface-2: #262B2E;
+      --ink: #ECEEEE;
+      --ink-soft: #ABB2B6;
+      --ink-faint: #767D81;
+      --line: #343A3D;
+      --accent: #57C2B4;
+
+      --team-medical: #7BB0DC;
+      --team-medical-soft: #1E2C37;
+      --team-acceso: #57C2B4;
+      --team-acceso-soft: #1B2E2A;
+      --team-marketing: #E092BE;
+      --team-marketing-soft: #33232C;
+      --team-comercial: #E7B75E;
+      --team-comercial-soft: #332A19;
+      --team-regulatorio: #E08F8F;
+      --team-regulatorio-soft: #34211F;
+      --team-finanzas: #94A8DE;
+      --team-finanzas-soft: #232A3E;
+
+      --ch-institucional: #6FA8DE;
+      --ch-institucional-soft: #1C2A38;
+      --ch-especializado: #E08A4F;
+      --ch-especializado-soft: #33241A;
+      --ch-retail: #5FBE93;
+      --ch-retail-soft: #1A2B22;
+      --ch-etico: #4FC2C9;
+      --ch-etico-soft: #17302F;
+
+      --ext: #A9AFD1;
+      --ext-soft: #262A3A;
+      --mech: #B79EE0;
+      --mech-soft: #2A2438;
+    }
+  }
+  :root[data-theme="dark"]{
+      --bg: #14181A;
+      --surface: #1C2124;
+      --surface-2: #262B2E;
+      --ink: #ECEEEE;
+      --ink-soft: #ABB2B6;
+      --ink-faint: #767D81;
+      --line: #343A3D;
+      --accent: #57C2B4;
+
+      --team-medical: #7BB0DC;
+      --team-medical-soft: #1E2C37;
+      --team-acceso: #57C2B4;
+      --team-acceso-soft: #1B2E2A;
+      --team-marketing: #E092BE;
+      --team-marketing-soft: #33232C;
+      --team-comercial: #E7B75E;
+      --team-comercial-soft: #332A19;
+      --team-regulatorio: #E08F8F;
+      --team-regulatorio-soft: #34211F;
+      --team-finanzas: #94A8DE;
+      --team-finanzas-soft: #232A3E;
+
+      --ch-institucional: #6FA8DE;
+      --ch-institucional-soft: #1C2A38;
+      --ch-especializado: #E08A4F;
+      --ch-especializado-soft: #33241A;
+      --ch-retail: #5FBE93;
+      --ch-retail-soft: #1A2B22;
+      --ch-etico: #4FC2C9;
+      --ch-etico-soft: #17302F;
+
+      --ext: #A9AFD1;
+      --ext-soft: #262A3A;
+      --mech: #B79EE0;
+      --mech-soft: #2A2438;
+  }
+
+  *{box-sizing:border-box;}
+  body{ background: var(--bg); color: var(--ink); font-family: var(--font-body); margin:0; }
+  .page{ max-width: 1040px; margin: 0 auto; padding: 40px 20px 56px; display:flex; flex-direction:column; gap:26px; }
+
+  /* ---- Header ---- */
+  .hero{ display:flex; flex-direction:column; gap:10px; max-width:820px; }
+  .eyebrow{ font-family: var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color: var(--accent); margin:0; }
+  h1{ font-family: var(--font-display); font-weight:800; font-size: clamp(32px, 5.6vw, 50px); line-height:0.98; margin:0; text-wrap:balance; color: var(--ink); }
+  .lead{ font-size:15.5px; line-height:1.55; color: var(--ink-soft); margin:0; }
+  .lead strong{ color:var(--ink); font-weight:600; }
+
+  /* ---- Market / segment selector (two-level) ---- */
+  .markets{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .market-group{
+    border:1.5px solid var(--line); border-radius:16px; padding:14px 16px 16px; background:var(--surface);
+    display:flex; flex-direction:column; gap:10px; transition:border-color .15s ease;
+  }
+  .market-group.is-active{ border-color:var(--mc); }
+  .market-label{ display:flex; align-items:center; gap:8px; font-weight:700; font-size:14px; color:var(--ink); }
+  .market-label .mk-icon{ font-size:17px; }
+  .segment-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .segment-btn{
+    flex:1 1 130px; text-align:left; cursor:pointer; padding:10px 12px; border-radius:11px;
+    border:1.5px solid var(--line); background:var(--bg); color:var(--ink); font-family:var(--font-body);
+    display:flex; flex-direction:column; gap:2px; transition:border-color .15s ease, background .15s ease, transform .12s ease;
+  }
+  .segment-btn:hover{ transform:translateY(-1px); }
+  .segment-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .seg-name{ font-weight:700; font-size:13px; }
+  .seg-sub{ font-size:11.5px; color:var(--ink-faint); }
+  .segment-btn[aria-pressed="true"]{ border-color:var(--sc); background:var(--ss); }
+  .segment-btn[aria-pressed="true"] .seg-name{ color:var(--sc); }
+  .channel-intro{ font-size:13.5px; line-height:1.55; color:var(--ink-soft); margin:0; max-width:78ch; }
+
+  /* ---- Controls: team pills + RACI key ---- */
+  .controls{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;
+    padding:14px 16px; background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  }
+  .team-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    display:inline-flex; align-items:center; gap:7px; padding:7px 12px 7px 9px; border-radius:999px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    font-family:var(--font-body); font-weight:600; font-size:13px; cursor:pointer;
+    transition: border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .pill:hover{ transform: translateY(-1px); }
+  .pill:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .pill .dot{ width:9px; height:9px; border-radius:50%; background: var(--dot); flex:none; }
+  .pill[aria-pressed="true"]{ background: var(--soft); border-color: var(--dot); color: var(--ink); }
+  .raci-key{ display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--ink-soft); font-family:var(--font-mono); }
+  .raci-key b{ color:var(--ink); margin-right:4px; font-family:var(--font-mono); }
+
+  /* ---- Map ---- */
+  .map-wrap{ display:flex; flex-direction:column; gap:8px; }
+  .map-scroll{ overflow-x:auto; padding-bottom:4px; }
+  .map{ min-width: 660px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px 20px 18px; }
+  .stations{ position:relative; display:grid; grid-template-columns: repeat(4, minmax(150px,1fr)); padding-bottom:18px; }
+  .station-line{ position:absolute; left:6%; right:6%; top:24px; height:2px; background:var(--line); z-index:0; }
+  .station{
+    position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:8px;
+    background:none; border:none; font-family:var(--font-body); color:var(--ink); cursor:pointer; padding:0;
+  }
+  .station-num{
+    width:48px; height:48px; border-radius:50%; background:var(--surface); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:800;
+    font-size:19px; color:var(--ink-faint); transition: border-color .15s ease, color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .station-label{ font-size:12.5px; font-weight:600; text-align:center; color:var(--ink-soft); max-width:130px; line-height:1.25; }
+  .station[aria-pressed="true"] .station-num{ background:var(--sc); border-color:var(--sc); color:#fff; transform:scale(1.06); }
+  .station[aria-pressed="true"] .station-label{ color:var(--ink); }
+  .station:focus-visible .station-num{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  .tracks{ display:flex; flex-direction:column; gap:12px; }
+  .track-row{ display:grid; grid-template-columns: 108px repeat(4, minmax(150px,1fr)); align-items:center; gap:0; }
+  .track-name{ font-size:11.5px; font-weight:600; font-family:var(--font-mono); color:var(--tcolor); white-space:nowrap; }
+  .track-cell{ display:flex; align-items:center; justify-content:center; padding:0 6px; }
+  .plus{
+    font-family:var(--font-mono); font-weight:700; font-size:15px; letter-spacing:2px;
+    color:var(--tcolor); background:transparent; padding:5px 12px; border-radius:8px;
+    min-width:64px; text-align:center; transition: background .15s ease;
+  }
+  .plus.active-col{ background:var(--tsoft); }
+  .plus.none{ color:var(--ink-faint); font-weight:400; letter-spacing:0; }
+  .track-row.dimmed .plus{ opacity:.25; }
+  .track-row.dimmed .track-name{ opacity:.35; }
+
+  .hint{ margin:0; font-size:12px; color:var(--ink-faint); text-align:center; }
+
+  /* ---- Detail panel ---- */
+  .detail{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:26px 26px 24px; display:flex; flex-direction:column; gap:20px; }
+  .detail-head{ display:flex; flex-direction:column; gap:6px; }
+  .detail-eyebrow{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sc); margin:0; }
+  .detail-title{ font-family:var(--font-display); font-weight:800; font-size: clamp(22px, 3.2vw, 30px); margin:0; color:var(--ink); }
+  .detail-objetivo{ font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:70ch; }
+
+  .cols2{ display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
+  .block h3{ font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); font-family:var(--font-mono); margin:0 0 10px; font-weight:500; }
+  .block ul{ margin:0; padding-left:18px; display:flex; flex-direction:column; gap:7px; }
+  .block li{ font-size:13.5px; line-height:1.5; color:var(--ink); }
+
+  .badges{ display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+  .badge{ font-family:var(--font-mono); font-size:11px; font-weight:600; padding:4px 10px; border-radius:999px; background:var(--ss); color:var(--sc); border:1px solid var(--sc); }
+
+  .roles-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:10px; }
+  .role-card{
+    background:var(--soft); border:1px solid var(--line); border-radius:12px; padding:13px 14px;
+    display:flex; flex-direction:column; gap:6px; transition: box-shadow .15s ease, border-color .15s ease, transform .12s ease;
+  }
+  .role-card.focus{ border-color:var(--dot); box-shadow: 0 0 0 3px var(--ring-local, transparent); transform: translateY(-2px); }
+  .role-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .role-team{ font-size:12.5px; font-weight:700; color:var(--ink); }
+  .role-badge{ font-family:var(--font-mono); font-size:11px; font-weight:600; color:#fff; background:var(--dot); border-radius:6px; padding:2px 6px; white-space:nowrap; }
+  .role-desc{ font-size:12.5px; line-height:1.45; color:var(--ink-soft); margin:0; }
+
+  .ext-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:10px; }
+  .ext-card{ background:var(--ext-soft); border:1px solid var(--line); border-radius:12px; padding:12px 14px; display:flex; flex-direction:column; gap:5px; }
+  .ext-name{ font-size:12.5px; font-weight:700; color:var(--ext); }
+  .ext-desc{ font-size:12.5px; line-height:1.45; color:var(--ink-soft); margin:0; }
+
+  .mech-list{ display:flex; flex-direction:column; gap:10px; }
+  .mech-item{ background:var(--mech-soft); border-left:3px solid var(--mech); border-radius:8px; padding:11px 14px; }
+  .mech-name{ font-family:var(--font-mono); font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--mech); display:block; margin-bottom:4px; }
+  .mech-desc{ font-size:13px; line-height:1.5; color:var(--ink); margin:0; }
+
+  .risks{ background:var(--surface-2); border-radius:12px; padding:16px 18px; }
+  .risks h3{ font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); font-weight:500; margin:0 0 10px; }
+  .risks ul{ margin:0; padding-left:18px; display:flex; flex-direction:column; gap:6px; }
+  .risks li{ font-size:13.5px; line-height:1.5; color:var(--ink-soft); }
+
+  .foot{ text-align:center; }
+  .foot p{ font-size:12px; color:var(--ink-faint); margin:0; }
+
+  @media (max-width: 760px){
+    .markets{ grid-template-columns:1fr; }
+    .cols2{ grid-template-columns:1fr; }
+    .roles-grid{ grid-template-columns:repeat(2,1fr); }
+    .controls{ flex-direction:column; align-items:flex-start; }
+  }
+  @media (max-width: 460px){ .roles-grid{ grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">Market Access · Industria Farmacéutica · Colombia</p>
+    <h1>Acceso Estratégico a Medicamentos</h1>
+    <p class="lead">Ruta operativa de dos mercados — <strong>Institucional</strong> (con su segmento Especializado) y <strong>Retail</strong> (OTC y Ético/Rx) — que conecta a <strong>Medical</strong>, <strong>Acceso</strong>, <strong>Marketing</strong>, <strong>Comercial</strong>, <strong>Regulatorio/GA</strong> y <strong>Finanzas</strong>, más los actores externos (EPS, INVIMA, ADRES, PSP y otros) y mecanismos del SGSSS, a lo largo de las cuatro estaciones por las que un medicamento recorre para llegar, y permanecer, con el paciente.</p>
+  </header>
+
+  <section aria-label="Mercado y segmento" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="markets" id="markets"></div>
+    <p class="channel-intro" id="channelIntro"></p>
+  </section>
+
+  <section class="controls" aria-label="Equipos y convenciones">
+    <div class="team-pills" id="teamPills"></div>
+    <div class="raci-key" aria-label="Significado de niveles RACI">
+      <span><b>+++++</b>Responsable</span>
+      <span><b>+++</b>Apoya</span>
+      <span><b>++</b>Consultado</span>
+      <span><b>+</b>Informado</span>
+    </div>
+  </section>
+
+  <section class="map-wrap" aria-label="Mapa de ruta de acceso">
+    <div class="map-scroll">
+      <div class="map" id="map">
+        <div class="stations" id="stations"><div class="station-line"></div></div>
+        <div class="tracks" id="tracks"></div>
+      </div>
+    </div>
+    <p class="hint">Elige un mercado y segmento, una estación o un equipo para explorar la ruta</p>
+  </section>
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <footer class="foot">
+    <p>Framework adaptable — ajusta mercados, segmentos, etapas, equipos, actores y mecanismos a la estructura de tu organización.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var TEAMS = [
+    { key:'medical',     name:'Medical',       color:'--team-medical',     soft:'--team-medical-soft' },
+    { key:'acceso',      name:'Acceso',        color:'--team-acceso',      soft:'--team-acceso-soft' },
+    { key:'marketing',   name:'Marketing',     color:'--team-marketing',   soft:'--team-marketing-soft' },
+    { key:'comercial',   name:'Comercial',     color:'--team-comercial',   soft:'--team-comercial-soft' },
+    { key:'regulatorio', name:'Regulatorio / GA', color:'--team-regulatorio', soft:'--team-regulatorio-soft' },
+    { key:'finanzas',    name:'Finanzas',      color:'--team-finanzas',    soft:'--team-finanzas-soft' }
+  ];
+
+  var RACI = {
+    R: { label:'Responsable', weight:5 },
+    A: { label:'Apoya',       weight:3 },
+    C: { label:'Consultado',  weight:2 },
+    I: { label:'Informado',   weight:1 }
+  };
+
+  var EXTERNOS_META = {
+    invima:       'INVIMA',
+    cientificas:  'Sociedades Científicas',
+    pacientes:    'Sociedades de Pacientes',
+    importadores: 'Importadores',
+    adres:        'ADRES',
+    eps:          'EPS (Asegurador)',
+    psp:          'Programa de Soporte al Paciente (PSP)',
+    logisticos:   'Operadores Logísticos',
+    gestores:     'Gestores Farmacéuticos',
+    dispensacion: 'Centros de Dispensación / Infusión'
+  };
+
+  var MECANISMOS = {
+    vnp: {
+      name:'Vital No Disponible (VNP)',
+      desc:'Mecanismo administrado por INVIMA que permite el ingreso y uso de un medicamento sin registro sanitario vigente en Colombia, cuando constituye la única alternativa terapéutica disponible para una condición que pone en riesgo la vida. El importador gestiona el ingreso bajo condiciones especiales de vigilancia y trazabilidad.'
+    },
+    giro: {
+      name:'Giro Directo',
+      desc:'Mecanismo de ADRES que gira los recursos directamente a la IPS o al prestador, sin pasar por la EPS, para reducir los tiempos de pago y la cartera que puede afectar la disponibilidad de tratamientos de alto costo.'
+    },
+    unirs: {
+      name:'UNIRS · Uso No Incluido en Registro Sanitario',
+      desc:'Mecanismo del Ministerio de Salud e INVIMA que permite prescribir un medicamento ya registrado en una indicación, dosis, vía o población distinta a la aprobada, cuando existe evidencia de eficacia y seguridad. Las sociedades científicas nominan el uso, INVIMA lo evalúa y publica el listado, y la prescripción se habilita en MIPRES con aprobación de la Junta de Profesionales de la Salud.'
+    }
+  };
+
+  // Two-level structure: Mercado -> Segmento (leaf channel)
+  var MARKETS = [
+    {
+      key:'institucional', name:'Mercado Institucional', icon:'🏥',
+      segments:[
+        { key:'general', name:'General', sub:'Hospitales y clínicas', color:'--ch-institucional', soft:'--ch-institucional-soft',
+          intro:'Estrategia orientada a la inclusión y disponibilidad del medicamento en el canal hospitalario general, donde la decisión recae en comités de farmacia, comités técnico-científicos y áreas de compras de IPS y clínicas.' },
+        { key:'especializado', name:'Especializado', sub:'Oncológicos, infusión, huérfanas', color:'--ch-especializado', soft:'--ch-especializado-soft',
+          intro:'Sub-segmento del mercado institucional para medicamentos de alto costo y alta complejidad, donde intervienen centros de referencia, unidades de infusión y mecanismos especiales de registro y financiación.' }
+      ]
+    },
+    {
+      key:'retail', name:'Mercado Retail', icon:'🛒',
+      segments:[
+        { key:'otc', name:'OTC', sub:'Venta libre — autocuidado', color:'--ch-retail', soft:'--ch-retail-soft',
+          intro:'Estrategia centrada en la disponibilidad y rotación de medicamentos de venta libre (OTC) en farmacias, cadenas y grandes superficies, con decisión de compra impulsada por el consumidor y el personal de mostrador.' },
+        { key:'etico', name:'Ético / Rx', sub:'Prescripción — canal farmacia', color:'--ch-etico', soft:'--ch-etico-soft',
+          intro:'Estrategia para medicamentos éticos (de prescripción) dispensados en el canal retail, donde la demanda depende del prescriptor externo y la continuidad depende de la renovación de fórmula y el reconocimiento del asegurador.' }
+      ]
+    }
+  ];
+
+  var DATA = {
+    'institucional-general': [
+      {
+        num:1, short:'Priorización', name:'Priorización de Instituciones',
+        objetivo:'Priorizar hospitales y clínicas según nivel de complejidad, volumen de pacientes y relación contractual con EPS, enfocando el esfuerzo donde el medicamento tiene mayor pertinencia clínica.',
+        actividades:[
+          'Nivel de complejidad: hospitales de II, III y IV nivel según pertinencia del medicamento',
+          'Volumen de pacientes: servicios de hospitalización, cirugía, UCI y consulta especializada',
+          'Pertenencia a redes: grupos hospitalarios, clínicas privadas y hospitales universitarios',
+          'Comité de Farmacia: mapeo de integrantes y calendario de sesiones',
+          'Relación con EPS: contratos y modalidades de pago que impactan la compra institucional'
+        ],
+        badges:['Matriz de priorización','Comité de Farmacia','Nivel de complejidad'],
+        roles:{
+          acceso:{level:'R', desc:'Lidera el mapeo de cuentas y la relación contractual con EPS/IPS'},
+          comercial:{level:'A', desc:'Ejecuta el relacionamiento con comités de farmacia y compras'},
+          medical:{level:'C', desc:'Aporta el sustento clínico de pertinencia por nivel de complejidad'},
+          marketing:{level:'I', desc:'Alinea el posicionamiento institucional del producto'},
+          regulatorio:{level:'C', desc:'Anticipa cambios normativos (circulares, resoluciones) que puedan alterar el mapa de instituciones priorizadas'},
+          finanzas:{level:'I', desc:'Evalúa el riesgo crediticio y el histórico de cartera de las instituciones candidatas antes de priorizarlas'}
+        },
+        externos:{
+          eps:'Define la red de IPS habilitadas y las condiciones contractuales que determinan qué instituciones priorizar',
+          cientificas:'Orientan la priorización clínica de instituciones según guías de manejo por especialidad',
+          pacientes:'Señalan brechas de acceso percibidas en las instituciones de referencia para la patología'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Priorizar por tamaño del hospital sin considerar la pertinencia clínica real',
+          'Cambios en contratos EPS-IPS que reconfiguran el mapa de cuentas priorizadas'
+        ]
+      },
+      {
+        num:2, short:'Codificación', name:'Codificación del Producto',
+        objetivo:'Formalizar el registro y homologación del medicamento en los sistemas institucionales, desde el registro INVIMA hasta la parametrización de precio, facturación y flujo de pago.',
+        actividades:[
+          'Registro INVIMA: vigencia y condiciones para uso institucional',
+          'Homologación en el maestro institucional: códigos CUM, IUM y CUPS en el sistema del hospital',
+          'Presentaciones hospitalarias: viales, ampollas, bolsas de infusión y empaques clínicos',
+          'Codificación para facturación: integración con el sistema de cuentas médicas y auditoría',
+          'Precio institucional: negociación y alineación con techos regulatorios'
+        ],
+        badges:['CUM','IUM','CUPS','Presentación hospitalaria'],
+        roles:{
+          acceso:{level:'R', desc:'Negocia el precio institucional y gestiona la homologación CUM/IUM/CUPS'},
+          comercial:{level:'A', desc:'Coordina con compras y facturación la activación operativa del código'},
+          medical:{level:'A', desc:'Sustenta condiciones de uso y presentación ante el comité técnico'},
+          marketing:{level:'I', desc:'Provee material técnico de soporte a la negociación'},
+          regulatorio:{level:'A', desc:'Verifica el cumplimiento del registro sanitario vigente y el techo de precio CNPMDM en la homologación institucional'},
+          finanzas:{level:'A', desc:'Define las condiciones de pago, plazos y cupo de crédito en la negociación del precio institucional'}
+        },
+        externos:{
+          eps:'Reconoce el código institucional dentro de su red y determina, junto con ADRES, si aplica Giro Directo',
+          invima:'Mantiene vigente el registro sanitario que sustenta la homologación institucional (CUM/IUM)',
+          adres:'Determina si aplica Giro Directo, lo que condiciona el flujo de pago de la EPS hacia la IPS',
+          gestores:'Administran el maestro farmacéutico institucional y la dispensación intrahospitalaria, a menudo bajo modelos de operación tercerizada',
+          logisticos:'Garantizan el transporte, almacenamiento y cadena de frío del producto hasta la farmacia institucional'
+        },
+        mecanismos:['giro'],
+        riesgos:[
+          'Errores de homologación CUM/IUM/CUPS que bloquean la facturación',
+          'Desalineación entre el precio institucional negociado y los techos regulatorios (CNPMDM)'
+        ]
+      },
+      {
+        num:3, short:'Prescripción', name:'Prescripción del Producto',
+        objetivo:'Lograr la inclusión en guías institucionales y sostener una prescripción adecuada, respaldada por el Comité de Farmacia y Terapéutica y, cuando aplica, por el mecanismo UNIRS.',
+        actividades:[
+          'Inclusión en guías institucionales: protocolos de manejo y vías clínicas',
+          'Aprobación del Comité de Farmacia y Terapéutica: sustentación de eficacia, seguridad y costo',
+          'Formación a especialistas: médicos tratantes, anestesiólogos, oncólogos, infectólogos, etc.',
+          'Habilitación en historia clínica electrónica: prescripción dentro del sistema institucional',
+          'Uso en protocolos de alto costo: articulación con MIPRES cuando aplique'
+        ],
+        badges:['Guías institucionales','Comité de Farmacia','Historia clínica','MIPRES'],
+        roles:{
+          medical:{level:'R', desc:'Lidera la sustentación clínica ante el Comité de Farmacia y Terapéutica y la formación a especialistas'},
+          acceso:{level:'A', desc:'Habilita la prescripción en MIPRES y resuelve barreras de autorización'},
+          comercial:{level:'A', desc:'Da seguimiento a la adopción en historia clínica electrónica'},
+          marketing:{level:'C', desc:'Desarrolla materiales de soporte alineados a las guías institucionales'},
+          regulatorio:{level:'C', desc:'Evalúa el marco normativo de MIPRES y UNIRS aplicable a la inclusión en guías institucionales'},
+          finanzas:{level:'I', desc:'Monitorea el impacto de la prescripción aprobada sobre el volumen facturado proyectado'}
+        },
+        externos:{
+          eps:'Autoriza el trámite MIPRES y la junta de profesionales cuando el uso lo requiere',
+          cientificas:'Actualizan las guías de práctica clínica y pueden nominar usos UNIRS cuando la evidencia lo respalda',
+          invima:'Evalúa las nominaciones UNIRS y publica el listado que habilita su prescripción',
+          psp:'Inicia la afiliación temprana del paciente al Programa de Soporte al Paciente (PSP) desde el momento de la prescripción'
+        },
+        mecanismos:['unirs'],
+        riesgos:[
+          'Rechazo o aplazamiento en el Comité de Farmacia y Terapéutica por evidencia insuficiente',
+          'Fricciones entre el protocolo institucional y los criterios de autorización de MIPRES'
+        ]
+      },
+      {
+        num:4, short:'Continuidad', name:'Continuidad de las Terapias',
+        objetivo:'Asegurar la disponibilidad intrahospitalaria y la continuidad del tratamiento al alta, sostenida por un flujo de pago estable y sin rupturas en la transición al manejo ambulatorio.',
+        actividades:[
+          'Disponibilidad intrahospitalaria: stock de seguridad y reposición oportuna',
+          'Continuidad al alta: articulación con farmacia ambulatoria y EPS',
+          'Adherencia post-alta: seguimiento telefónico y educación al paciente',
+          'Monitoreo de desabastecimiento: alertas tempranas con el departamento de compras',
+          'Indicadores: tiempo de dispensación, cobertura y continuidad de esquemas'
+        ],
+        badges:['Stock de seguridad','Adherencia','Indicadores'],
+        roles:{
+          acceso:{level:'R', desc:'Coordina la continuidad al alta y la articulación con la EPS'},
+          medical:{level:'A', desc:'Da seguimiento clínico a la adherencia post-alta'},
+          comercial:{level:'C', desc:'Monitorea el stock de seguridad y alerta desabastecimiento'},
+          marketing:{level:'I', desc:'Apoya materiales de educación al paciente'},
+          regulatorio:{level:'I', desc:'Monitorea cambios normativos que puedan afectar la continuidad (reportes obligatorios, ajustes a Giro Directo)'},
+          finanzas:{level:'R', desc:'Gestiona la cartera y los tiempos de pago de la IPS/EPS, y activa alertas de riesgo cuando se afecta el suministro'}
+        },
+        externos:{
+          eps:'Es la responsable contractual del pago a la IPS; su cartera y tiempos de pago son la principal barrera de continuidad cuando no aplica Giro Directo',
+          adres:'El Giro Directo sostiene el pago oportuno a la IPS, reduciendo interrupciones de suministro por cartera',
+          pacientes:'Acompañan al paciente ante barreras administrativas que amenazan la continuidad',
+          psp:'Opera la adherencia, los recordatorios y la gestión de barreras administrativas del paciente a través del PSP',
+          dispensacion:'Habilitan la entrega ambulatoria o domiciliaria del medicamento tras el alta hospitalaria',
+          gestores:'Gestionan la dispensación ambulatoria y la entrega domiciliaria bajo el modelo de gestión farmacéutica de la EPS'
+        },
+        mecanismos:['giro'],
+        riesgos:[
+          'Ruptura de la continuidad al pasar de manejo hospitalario a ambulatorio',
+          'Desabastecimiento no detectado a tiempo por falta de alertas tempranas'
+        ]
+      }
+    ],
+    'institucional-especializado': [
+      {
+        num:1, short:'Priorización', name:'Priorización de Instituciones',
+        objetivo:'Mapear centros de referencia y servicios habilitados para la patología, evaluando desde el inicio si el producto requerirá mecanismos especiales de registro o financiación.',
+        actividades:[
+          'Centros de referencia: institutos oncológicos, hospitales universitarios y clínicas especializadas',
+          'Servicios habilitados: oncología, hematología, reumatología, unidad de infusión y hospital día',
+          'Población diana: pacientes con enfermedades huérfanas y diagnóstico oncológico',
+          'Alto costo y mecanismos especiales: articulación con Cuenta de Alto Costo y MIPRES',
+          'Redes de referencia: rutas de derivación y centros de excelencia'
+        ],
+        badges:['Centros de referencia','Alto costo','Cuenta de Alto Costo'],
+        roles:{
+          acceso:{level:'R', desc:'Mapea centros de referencia y articula mecanismos de alto costo (MIPRES, Cuenta de Alto Costo)'},
+          medical:{level:'A', desc:'Identifica población diana y valida la pertinencia clínica por centro'},
+          comercial:{level:'C', desc:'Apoya el relacionamiento con centros de excelencia y rutas de derivación'},
+          marketing:{level:'I', desc:'Alinea el mensaje de valor para patologías de alto costo'},
+          regulatorio:{level:'A', desc:'Evalúa la viabilidad regulatoria de ingreso (registro estándar vs. Vital No Disponible) y anticipa requisitos de Cuenta de Alto Costo'},
+          finanzas:{level:'C', desc:'Evalúa la exposición financiera y el riesgo de cartera asociado a tratamientos de alto costo antes de priorizar el centro'}
+        },
+        externos:{
+          eps:'Autoriza la remisión del paciente al centro de referencia dentro de su red',
+          invima:'Evalúa si el producto requiere ingresar mediante Vital No Disponible cuando aún no cuenta con registro sanitario vigente en el país',
+          cientificas:'Las sociedades de la especialidad (oncología, hematología, enfermedades huérfanas) validan la pertinencia clínica y priorizan centros de referencia',
+          pacientes:'Las asociaciones de pacientes con enfermedades huérfanas identifican centros de referencia reales y barreras de diagnóstico'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Subestimar la población diana real por fragmentación entre centros de referencia',
+          'Barreras de acceso no anticipadas en la Cuenta de Alto Costo'
+        ]
+      },
+      {
+        num:2, short:'Codificación', name:'Codificación del Producto',
+        objetivo:'Homologar el producto en los servicios de oncología e infusión y garantizar su reporte correcto a los mecanismos de alto costo, junto con la cadena de frío requerida.',
+        actividades:[
+          'Registro sanitario y condiciones de uso: indicaciones autorizadas y de alto rigor',
+          'Códigos CUM, IUM y CUPS: homologación en servicios de oncología e infusión',
+          'Codificación para alto costo: reporte a Cuenta de Alto Costo y MIPRES',
+          'Cadena de frío y manejo especial: requisitos de almacenamiento y transporte',
+          'Presentaciones para infusión: viales, mezclas y bolsas de administración endovenosa'
+        ],
+        badges:['CUM','MIPRES','Cadena de frío','Infusión'],
+        roles:{
+          acceso:{level:'R', desc:'Gestiona la homologación CUM/IUM/CUPS y el reporte a MIPRES y Cuenta de Alto Costo'},
+          medical:{level:'A', desc:'Valida las indicaciones autorizadas y las condiciones de uso de alto rigor'},
+          comercial:{level:'A', desc:'Coordina la cadena de frío y la logística de presentaciones para infusión'},
+          marketing:{level:'I', desc:'Documenta el valor diferencial para el dossier de alto costo'},
+          regulatorio:{level:'R', desc:'Lidera la gestión regulatoria del registro sanitario o la habilitación de Vital No Disponible ante INVIMA'},
+          finanzas:{level:'A', desc:'Estructura las condiciones de pago y el cupo de crédito para el suministro de alto costo, coordinando con Giro Directo cuando aplica'}
+        },
+        externos:{
+          eps:'Reconoce el reporte a la Cuenta de Alto Costo y pacta condiciones de pago para el tratamiento de alto costo',
+          invima:'Habilita el ingreso del medicamento mediante Vital No Disponible cuando no existe registro sanitario en Colombia',
+          importadores:'Ejecutan la importación bajo el mecanismo VNP, incluida la cadena de frío y el transporte especial',
+          adres:'El Giro Directo agiliza el pago a instituciones de alto costo, reduciendo la exposición financiera de la cartera',
+          logisticos:'Ejecutan el transporte especializado y la cadena de frío hasta el centro de infusión u oncológico'
+        },
+        mecanismos:['vnp','giro'],
+        riesgos:[
+          'Fallas en la cadena de frío que comprometen la disponibilidad del producto',
+          'Reportes incompletos a MIPRES/Cuenta de Alto Costo que retrasan el reconocimiento del gasto'
+        ]
+      },
+      {
+        num:3, short:'Prescripción', name:'Prescripción del Producto',
+        objetivo:'Sustentar el esquema ante el comité de tumores o de enfermedades huérfanas, habilitando la prescripción en MIPRES y, cuando aplica, un uso UNIRS respaldado por evidencia.',
+        actividades:[
+          'Comité de tumores y comités de enfermedades huérfanas: aprobación de esquemas',
+          'Guías de práctica clínica y protocolos especializados: alineación con evidencia',
+          'Formación a oncólogos, hematólogos y especialistas: uso, dosificación y manejo de eventos adversos',
+          'Prescripción en MIPRES: cuando el medicamento está fuera del PBS o requiere autorización',
+          'Farmacovigilancia: reporte de eventos adversos y seguimiento clínico'
+        ],
+        badges:['Comité de tumores','GPC','MIPRES','Farmacovigilancia'],
+        roles:{
+          medical:{level:'R', desc:'Lidera la sustentación ante comités de tumores/enfermedades huérfanas y la farmacovigilancia'},
+          acceso:{level:'A', desc:'Gestiona la prescripción y autorización en MIPRES para uso fuera del PBS'},
+          comercial:{level:'C', desc:'Da seguimiento a la adopción del esquema en los centros priorizados'},
+          marketing:{level:'I', desc:'Provee materiales científicos de soporte al especialista'},
+          regulatorio:{level:'A', desc:'Da soporte regulatorio a la nominación y aprobación de usos UNIRS y a la interlocución con INVIMA sobre autorizaciones'},
+          finanzas:{level:'I', desc:'Monitorea el impacto financiero de la aprobación del esquema sobre el volumen proyectado'}
+        },
+        externos:{
+          eps:'Autoriza la prescripción en MIPRES y, cuando aplica, el uso UNIRS ante la Junta de Profesionales de la Salud',
+          cientificas:'Nominan usos UNIRS ante INVIMA y respaldan el esquema ante el comité de tumores o de enfermedades huérfanas',
+          invima:'Evalúa las nominaciones UNIRS y publica el listado que habilita su prescripción vía MIPRES',
+          pacientes:'Apoyan al paciente en la interposición de tutelas y en la comprensión del esquema terapéutico',
+          psp:'Afilia al paciente al Programa de Soporte al Paciente (PSP) para acompañamiento desde el inicio del esquema oncológico o de enfermedad huérfana'
+        },
+        mecanismos:['unirs'],
+        riesgos:[
+          'Objeción del comité de tumores por evidencia clínica insuficiente',
+          'Eventos adversos no reportados oportunamente a farmacovigilancia'
+        ]
+      },
+      {
+        num:4, short:'Continuidad', name:'Continuidad de las Terapias',
+        objetivo:'Asegurar la continuidad de los ciclos de tratamiento sin interrupciones, sostenida por el flujo de pago, el abastecimiento importado y el acompañamiento al paciente y su familia.',
+        actividades:[
+          'Continuidad de ciclos oncológicos: aseguramiento de esquemas completos sin interrupción',
+          'Unidad de infusión: programación de citas y disponibilidad de mezclas',
+          'Adherencia en enfermedades huérfanas: acompañamiento al paciente y familia',
+          'Monitoreo de desabastecimiento: alertas con farmacia y servicios de alto costo',
+          'Indicadores: continuidad de ciclos, adherencia, eventos adversos y sobrevida'
+        ],
+        badges:['Ciclos oncológicos','Unidad de infusión','Adherencia','Indicadores'],
+        roles:{
+          acceso:{level:'R', desc:'Asegura la continuidad de ciclos y previene interrupciones por trámites de alto costo'},
+          medical:{level:'A', desc:'Da seguimiento clínico a eventos adversos, adherencia y sobrevida'},
+          comercial:{level:'C', desc:'Coordina la disponibilidad de mezclas con la unidad de infusión'},
+          marketing:{level:'I', desc:'Apoya el acompañamiento a paciente y familia en enfermedades huérfanas'},
+          regulatorio:{level:'C', desc:'Monitorea el entorno regulatorio de alto costo (ajustes a MIPRES, Cuenta de Alto Costo, Giro Directo) que pueda afectar la continuidad'},
+          finanzas:{level:'R', desc:'Gestiona activamente la cartera de alto costo y escala alertas cuando los tiempos de pago amenazan la continuidad del ciclo'}
+        },
+        externos:{
+          eps:'Su cartera y tiempos de pago hacia la unidad de infusión son el principal factor de riesgo para la continuidad del ciclo',
+          adres:'El Giro Directo mantiene el flujo de pago a la unidad de infusión y evita interrupciones por cartera',
+          importadores:'Garantizan la disponibilidad continua de lotes importados bajo VNP para no interrumpir los ciclos',
+          pacientes:'Sostienen el acompañamiento psicosocial y la gestión de trámites que amenazan la continuidad del ciclo',
+          psp:'El PSP gestiona la adherencia, el acompañamiento psicosocial y las alertas tempranas de discontinuación del ciclo',
+          dispensacion:'Administran la infraestructura de la unidad de infusión donde se ejecutan los ciclos de tratamiento',
+          gestores:'Coordinan el abastecimiento especializado de medicamentos de alto costo hacia los centros de infusión'
+        },
+        mecanismos:['giro'],
+        riesgos:[
+          'Interrupción de ciclos oncológicos por demoras en autorización o suministro',
+          'Pérdida de seguimiento del paciente entre el centro de referencia y su EPS de origen'
+        ]
+      }
+    ],
+    'retail-otc': [
+      {
+        num:1, short:'Priorización', name:'Priorización de Instituciones',
+        objetivo:'Priorizar cadenas, farmacias independientes y grandes superficies según cobertura geográfica, categoría de autocuidado y poder de negociación, enfocando el esfuerzo donde hay mayor rotación potencial.',
+        actividades:[
+          'Cadena o farmacia objetivo: grandes cadenas, farmacias independientes, grandes superficies y canal de conveniencia',
+          'Cobertura geográfica y densidad de puntos de venta en zonas de alto tráfico',
+          'Categoría de autocuidado priorizada: analgésicos, antigripales, dermocosméticos, vitaminas',
+          'Poder de negociación con centrales de compra para espacio en anaquel (facing)',
+          'Estacionalidad y comportamiento de compra por impulso'
+        ],
+        badges:['Autocuidado','Anaquel','Alta rotación'],
+        roles:{
+          comercial:{level:'R', desc:'Negocia el espacio en anaquel (facing) y las condiciones comerciales con cadenas y grandes superficies'},
+          marketing:{level:'A', desc:'Define la categoría de autocuidado y las campañas estacionales de alta rotación'},
+          acceso:{level:'I', desc:'Monitorea el marco de precios de venta libre'},
+          medical:{level:'I', desc:'Aporta el perfil de seguridad para el uso sin prescripción'},
+          regulatorio:{level:'C', desc:'Evalúa el marco normativo de publicidad y clasificación de venta libre aplicable a la categoría'},
+          finanzas:{level:'C', desc:'Evalúa las condiciones de pago y el riesgo crediticio de cadenas y grandes superficies'}
+        },
+        externos:{
+          pacientes:'El consumidor y las asociaciones de autocuidado orientan sobre necesidades no cubiertas y automedicación responsable'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Negociar espacio en anaquel que erosiona el margen sin ganar cobertura real',
+          'Priorizar cadenas grandes y desatender farmacias independientes con alta rotación local'
+        ]
+      },
+      {
+        num:2, short:'Codificación', name:'Codificación del Producto',
+        objetivo:'Dar de alta el producto como medicamento de venta libre en el maestro comercial de cada cadena, con su código de barras, rotulado de autocuidado y precio correctamente parametrizados.',
+        actividades:[
+          'Registro sanitario INVIMA como medicamento de venta libre (OTC)',
+          'Código de barras (EAN/UPC) y alta en el maestro comercial de cada cadena o gran superficie',
+          'Empaque, rotulado de autocuidado y material POP en anaquel',
+          'Precio de venta al público y estrategia de facing en anaquel'
+        ],
+        badges:['EAN / UPC','Rotulado OTC','Maestro de producto'],
+        roles:{
+          comercial:{level:'R', desc:'Gestiona el alta en el maestro comercial y el espacio de anaquel en cada punto'},
+          marketing:{level:'A', desc:'Diseña el empaque, el rotulado y el material POP de autocuidado'},
+          regulatorio:{level:'A', desc:'Garantiza que el rotulado y la publicidad cumplan la normativa OTC de INVIMA'},
+          acceso:{level:'C', desc:'Valida el precio de venta al público frente a la política comercial'},
+          medical:{level:'I', desc:'Confirma la información de seguridad incluida en el rotulado'},
+          finanzas:{level:'A', desc:'Define plazos de pago y condiciones de crédito en la negociación comercial'}
+        },
+        externos:{
+          invima:'Define la condición de venta libre y exige el cumplimiento de rotulado y publicidad',
+          importadores:'Gestionan el registro de productos OTC importados que abastecen el canal'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Retrasos en el alta del código EAN/UPC que dejan el producto fuera de anaquel',
+          'Rotulado o material POP no alineado con la normativa INVIMA de venta libre'
+        ]
+      },
+      {
+        num:3, short:'Recomendación', name:'Prescripción / Recomendación del Producto',
+        objetivo:'Ganar la recomendación activa del químico farmacéutico y del personal de mostrador, con publicidad masiva alineada a la normativa de venta libre.',
+        actividades:[
+          'Recomendación del regente o químico farmacéutico: clave en el canal de autocuidado',
+          'Formación al personal de mostrador en indicaciones, dosis y contraindicaciones',
+          'Publicidad masiva y material POP alineados a la normativa de venta libre',
+          'Programas de fidelización y muestras al consumidor final'
+        ],
+        badges:['Químico farmacéutico','Publicidad masiva','Fidelización'],
+        roles:{
+          marketing:{level:'R', desc:'Lidera la publicidad masiva y la formación en punto de venta'},
+          comercial:{level:'A', desc:'Ejecuta la relación con el químico farmacéutico y el personal de mostrador'},
+          medical:{level:'C', desc:'Da soporte técnico sobre indicaciones y contraindicaciones de autocuidado'},
+          regulatorio:{level:'C', desc:'Revisa que la publicidad y las piezas promocionales cumplan la normativa de venta libre'},
+          acceso:{level:'I', desc:'Monitorea el desempeño comercial de la categoría'},
+          finanzas:{level:'I', desc:'Monitorea el margen de la categoría frente a la inversión en publicidad y fidelización'}
+        },
+        externos:{
+          cientificas:'Emiten lineamientos de uso responsable de OTC que orientan la capacitación al químico farmacéutico'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Recomendación en mostrador desalineada con la ficha técnica del producto',
+          'Publicidad masiva que promueve un uso distinto al autorizado'
+        ]
+      },
+      {
+        num:4, short:'Continuidad', name:'Continuidad de las Terapias',
+        objetivo:'Sostener la recompra por hábito de autocuidado, con reposición oportuna y programas de fidelización que mantengan la participación de anaquel.',
+        actividades:[
+          'Recompra por impulso y hábito de autocuidado',
+          'Reposición oportuna de inventario en anaquel',
+          'Programas de fidelización, muestras y promociones',
+          'Indicadores de rotación y participación de anaquel (share of shelf)'
+        ],
+        badges:['Recompra','Rotación','Share of shelf'],
+        roles:{
+          comercial:{level:'R', desc:'Asegura la reposición oportuna y la participación de anaquel'},
+          marketing:{level:'A', desc:'Opera promociones, muestras y programas de fidelización'},
+          acceso:{level:'I', desc:'Monitorea indicadores de venta frente a la inversión comercial'},
+          medical:{level:'I', desc:'Disponible para consultas sobre uso correcto'},
+          regulatorio:{level:'I', desc:'Monitorea cambios regulatorios en precios y publicidad de venta libre'},
+          finanzas:{level:'A', desc:'Monitorea la cartera comercial y los tiempos de pago de cadenas y grandes superficies'}
+        },
+        externos:{
+          logisticos:'Aseguran la reposición oportuna en cada punto de venta y evitan quiebres de inventario'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Quiebres de inventario en puntos de alta rotación por fallas logísticas',
+          'Programas de fidelización que impulsan recompra sin mejorar la adherencia real'
+        ]
+      }
+    ],
+    'retail-etico': [
+      {
+        num:1, short:'Priorización', name:'Priorización de Instituciones',
+        objetivo:'Priorizar cadenas y farmacias con capacidad de dispensación bajo fórmula médica, según la prevalencia de la patología crónica y su relación con prescriptores y aseguradores.',
+        actividades:[
+          'Cadena o farmacia objetivo con servicio de dispensación bajo fórmula médica',
+          'Cobertura en zonas con alta prevalencia de la patología crónica',
+          'Relación con médicos prescriptores externos que refieren al paciente al canal retail',
+          'Perfil de compra recurrente (tratamiento crónico) frente a compra única',
+          'Alianzas con planes complementarios o pólizas que reconocen el canal retail'
+        ],
+        badges:['Dispensación bajo fórmula','Crónicos','Alianzas'],
+        roles:{
+          acceso:{level:'R', desc:'Negocia alianzas con cadenas para la dispensación de tratamientos crónicos bajo fórmula'},
+          comercial:{level:'A', desc:'Ejecuta el relacionamiento con farmacias que atienden pacientes crónicos'},
+          medical:{level:'C', desc:'Aporta el perfil clínico de la patología crónica priorizada'},
+          marketing:{level:'I', desc:'Alinea el mensaje de marca al paciente crónico'},
+          regulatorio:{level:'C', desc:'Evalúa el marco normativo de dispensación de medicamentos éticos en el canal retail'},
+          finanzas:{level:'C', desc:'Evalúa el riesgo crediticio de las cadenas con servicio de dispensación bajo fórmula'}
+        },
+        externos:{
+          eps:'Puede reconocer el canal retail como punto de dispensación dentro de su red de prestadores',
+          pacientes:'Las asociaciones de pacientes crónicos identifican barreras de acceso al tratamiento continuo'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Priorizar cadenas por tamaño sin verificar su capacidad real de dispensación bajo fórmula',
+          'Alianzas con aseguradores que no se traducen en reconocimiento efectivo en el punto de venta'
+        ]
+      },
+      {
+        num:2, short:'Codificación', name:'Codificación del Producto',
+        objetivo:'Dar de alta el producto ético en el maestro comercial de la cadena, garantizando que el rotulado y la publicidad respeten la restricción de medicamento de prescripción.',
+        actividades:[
+          'Registro sanitario INVIMA como medicamento de prescripción (ético)',
+          'Código de barras y alta en el maestro comercial bajo condición de fórmula médica',
+          'Empaque e inserto informativo para el paciente crónico, sin publicidad directa al consumidor',
+          'Precio de venta al público y, cuando aplica, coordinación con planes complementarios o pólizas'
+        ],
+        badges:['EAN / UPC','Fórmula médica','Maestro de producto'],
+        roles:{
+          comercial:{level:'R', desc:'Gestiona el alta del producto ético en el maestro comercial de la cadena'},
+          regulatorio:{level:'R', desc:'Garantiza que el rotulado, el inserto y la publicidad cumplan la restricción de medicamento de prescripción'},
+          acceso:{level:'A', desc:'Coordina condiciones de precio con planes complementarios y pólizas cuando aplica'},
+          medical:{level:'A', desc:'Sustenta la información científica del inserto y el material para el prescriptor'},
+          marketing:{level:'I', desc:'Desarrolla material informativo dirigido al paciente, sin fines publicitarios directos'},
+          finanzas:{level:'A', desc:'Coordina condiciones de pago con la cadena y, cuando aplica, con el plan complementario o asegurador'}
+        },
+        externos:{
+          eps:'Define si reconoce el precio pactado dentro del plan complementario o póliza asociada',
+          invima:'Define la condición de prescripción y restringe la publicidad directa al consumidor',
+          gestores:'Pueden administrar la red de dispensación ambulatoria de la EPS con la que la cadena retail está articulada'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Material dirigido al paciente que se interpreta como publicidad no permitida para un ético',
+          'Desalineación entre el precio pactado y el reconocimiento efectivo del plan complementario'
+        ]
+      },
+      {
+        num:3, short:'Prescripción', name:'Prescripción del Producto',
+        objetivo:'Sostener la prescripción de médicos externos que refieren al paciente al canal retail, verificando la fórmula médica y resolviendo barreras de dispensación y copago.',
+        actividades:[
+          'Visita médica a prescriptores externos que refieren al paciente al canal retail',
+          'Educación científica y generación de evidencia de vida real en el entorno ambulatorio',
+          'Verificación de la fórmula médica en el punto de dispensación',
+          'Resolución de barreras de dispensación: interoperabilidad con la EPS y copagos'
+        ],
+        badges:['Visita médica','Fórmula médica','Copagos'],
+        roles:{
+          medical:{level:'R', desc:'Lidera la educación médica científica dirigida a los prescriptores externos'},
+          comercial:{level:'A', desc:'Da seguimiento a la verificación de la fórmula médica en el punto de dispensación'},
+          acceso:{level:'A', desc:'Resuelve barreras de copago y de reconocimiento por parte de la EPS o el plan complementario'},
+          marketing:{level:'C', desc:'Desarrolla materiales científico-informativos para el prescriptor'},
+          regulatorio:{level:'I', desc:'Vigila el cumplimiento de la normativa de promoción a profesionales de la salud'},
+          finanzas:{level:'I', desc:'Monitorea el impacto de la adopción del prescriptor sobre el volumen proyectado del canal'}
+        },
+        externos:{
+          cientificas:'Respaldan con guías y evidencia el uso del producto en el manejo ambulatorio de la patología crónica',
+          psp:'Vincula al paciente crónico al Programa de Soporte (PSP) para reforzar la adherencia desde el inicio'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Fórmulas rechazadas en el punto de dispensación por inconsistencias administrativas',
+          'Prescriptores externos sin visibilidad de las barreras reales de acceso en el canal retail'
+        ]
+      },
+      {
+        num:4, short:'Continuidad', name:'Continuidad de las Terapias',
+        objetivo:'Sostener la persistencia del tratamiento crónico mediante la renovación oportuna de la fórmula y la disponibilidad continua en el punto de dispensación.',
+        actividades:[
+          'Recompra recurrente del tratamiento crónico bajo fórmula',
+          'Reposición oportuna y disponibilidad continua en el punto de dispensación',
+          'Programas de adherencia y recordatorios de renovación de fórmula',
+          'Indicadores de persistencia y tasa de renovación de fórmula'
+        ],
+        badges:['Persistencia','Renovación de fórmula','Adherencia'],
+        roles:{
+          comercial:{level:'R', desc:'Asegura la disponibilidad continua en el punto de dispensación'},
+          acceso:{level:'A', desc:'Facilita la renovación de fórmula y resuelve barreras de reconocimiento por el asegurador'},
+          medical:{level:'A', desc:'Da seguimiento a la persistencia y a eventos adversos del tratamiento crónico'},
+          marketing:{level:'I', desc:'Apoya recordatorios de renovación de fórmula al paciente'},
+          regulatorio:{level:'I', desc:'Monitorea cambios regulatorios en dispensación y reconocimiento de pólizas'},
+          finanzas:{level:'A', desc:'Da seguimiento a la cartera y a los tiempos de reconocimiento del asegurador'}
+        },
+        externos:{
+          eps:'El reconocimiento y pago oportuno de la EPS o el asegurador condiciona la renovación continua de la fórmula',
+          psp:'El PSP opera recordatorios de renovación de fórmula y seguimiento de adherencia del paciente crónico',
+          gestores:'Coordinan la disponibilidad y renovación de fórmula dentro de la red de dispensación ambulatoria de la EPS',
+          dispensacion:'Actúan como puntos de dispensación especializados para tratamientos crónicos de alto volumen'
+        },
+        mecanismos:[],
+        riesgos:[
+          'Interrupción de la persistencia por demoras en la renovación de fórmula',
+          'Pérdida del paciente crónico hacia el canal institucional u otra cadena por desabastecimiento'
+        ]
+      }
+    ]
+  };
+
+  var state = { market:'institucional', segment:'general', stage:0, team:null };
+
+  var marketsEl = document.getElementById('markets');
+  var channelIntroEl = document.getElementById('channelIntro');
+  var stationsEl = document.getElementById('stations');
+  var tracksEl = document.getElementById('tracks');
+  var detailEl = document.getElementById('detail');
+  var pillsEl = document.getElementById('teamPills');
+  var pageEl = document.querySelector('.page');
+
+  function currentMarket(){ for (var i=0;i<MARKETS.length;i++) if (MARKETS[i].key === state.market) return MARKETS[i]; }
+  function currentSegment(){
+    var m = currentMarket();
+    for (var i=0;i<m.segments.length;i++) if (m.segments[i].key === state.segment) return m.segments[i];
+  }
+  function leafKey(){ return state.market + '-' + state.segment; }
+  function currentStages(){ return DATA[leafKey()]; }
+
+  function plusText(level){ return '+'.repeat(RACI[level].weight); }
+
+  function renderMarkets(){
+    marketsEl.innerHTML = '';
+    MARKETS.forEach(function(m){
+      var group = document.createElement('div');
+      group.className = 'market-group' + (state.market === m.key ? ' is-active' : '');
+      var firstSeg = m.segments[0];
+      group.style.setProperty('--mc', 'var('+firstSeg.color+')');
+
+      var label = document.createElement('div');
+      label.className = 'market-label';
+      label.innerHTML = '<span class="mk-icon">' + m.icon + '</span>' + m.name;
+      group.appendChild(label);
+
+      var row = document.createElement('div');
+      row.className = 'segment-row';
+      m.segments.forEach(function(seg){
+        var b = document.createElement('button');
+        b.className = 'segment-btn';
+        b.type = 'button';
+        b.style.setProperty('--sc', 'var('+seg.color+')');
+        b.style.setProperty('--ss', 'var('+seg.soft+')');
+        var isActive = state.market === m.key && state.segment === seg.key;
+        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        b.innerHTML = '<span class="seg-name">' + seg.name + '</span><span class="seg-sub">' + seg.sub + '</span>';
+        b.addEventListener('click', function(mk, sk){
+          return function(){ state.market = mk; state.segment = sk; state.stage = 0; renderAll(); };
+        }(m.key, seg.key));
+        row.appendChild(b);
+      });
+      group.appendChild(row);
+      marketsEl.appendChild(group);
+    });
+    channelIntroEl.textContent = currentSegment().intro;
+  }
+
+  function renderPills(){
+    pillsEl.innerHTML = '';
+    TEAMS.forEach(function(t){
+      var b = document.createElement('button');
+      b.className = 'pill';
+      b.type = 'button';
+      b.style.setProperty('--dot', 'var('+t.color+')');
+      b.style.setProperty('--soft', 'var('+t.soft+')');
+      b.setAttribute('aria-pressed', state.team === t.key ? 'true' : 'false');
+      b.innerHTML = '<span class="dot"></span>' + t.name;
+      b.addEventListener('click', function(k){
+        return function(){ state.team = (state.team === k) ? null : k; renderAll(); };
+      }(t.key));
+      pillsEl.appendChild(b);
+    });
+  }
+
+  function renderStations(){
+    var stages = currentStages();
+    var seg = currentSegment();
+    stationsEl.innerHTML = '<div class="station-line"></div>';
+    stationsEl.style.setProperty('--sc', 'var('+seg.color+')');
+    stages.forEach(function(s, i){
+      var b = document.createElement('button');
+      b.className = 'station';
+      b.type = 'button';
+      b.setAttribute('aria-pressed', state.stage === i ? 'true' : 'false');
+      b.innerHTML =
+        '<span class="station-num">' + String(s.num).padStart(2,'0') + '</span>' +
+        '<span class="station-label">' + s.short + '</span>';
+      b.addEventListener('click', function(idx){
+        return function(){ state.stage = idx; renderAll(); };
+      }(i));
+      stationsEl.appendChild(b);
+    });
+  }
+
+  function renderTracks(){
+    var stages = currentStages();
+    tracksEl.innerHTML = '';
+    TEAMS.forEach(function(t){
+      var row = document.createElement('div');
+      row.className = 'track-row';
+      if (state.team && state.team !== t.key) row.classList.add('dimmed');
+
+      var nameCell = document.createElement('div');
+      nameCell.className = 'track-name';
+      nameCell.style.setProperty('--tcolor', 'var('+t.color+')');
+      nameCell.textContent = t.name;
+      row.appendChild(nameCell);
+
+      stages.forEach(function(s, i){
+        var cell = document.createElement('div');
+        cell.className = 'track-cell';
+        var role = s.roles[t.key];
+        var mark = document.createElement('span');
+        mark.className = 'plus';
+        mark.style.setProperty('--tcolor', 'var('+t.color+')');
+        mark.style.setProperty('--tsoft', 'var('+t.soft+')');
+        if (role){
+          mark.textContent = plusText(role.level);
+          mark.title = t.name + ' · ' + RACI[role.level].label;
+        } else {
+          mark.textContent = '–';
+          mark.classList.add('none');
+          mark.title = t.name + ' · sin rol definido en esta etapa';
+        }
+        if (i === state.stage) mark.classList.add('active-col');
+        cell.appendChild(mark);
+        row.appendChild(cell);
+      });
+
+      tracksEl.appendChild(row);
+    });
+  }
+
+  function renderDetail(){
+    var stages = currentStages();
+    var s = stages[state.stage];
+    var seg = currentSegment();
+    var market = currentMarket();
+    var html = '';
+    html += '<div class="detail-head">';
+    html += '<p class="detail-eyebrow">' + market.name + ' · ' + seg.name + ' · Estación ' + s.num + ' de ' + stages.length + '</p>';
+    html += '<h2 class="detail-title">' + s.name + '</h2>';
+    html += '<p class="detail-objetivo">' + s.objetivo + '</p>';
+    html += '</div>';
+
+    html += '<div class="cols2">';
+    html += '<div class="block"><h3>Actividades clave</h3><ul>' + s.actividades.map(function(a){return '<li>'+a+'</li>';}).join('') + '</ul></div>';
+    html += '<div class="block"><h3>Marcadores de la etapa</h3><div class="badges">' + s.badges.map(function(b){return '<span class="badge">'+b+'</span>';}).join('') + '</div></div>';
+    html += '</div>';
+
+    html += '<div class="block"><h3>Rol de cada equipo</h3><div class="roles-grid">';
+    TEAMS.forEach(function(t){
+      var role = s.roles[t.key];
+      if (!role) return;
+      var focus = state.team === t.key;
+      html += '<div class="role-card' + (focus ? ' focus' : '') + '" style="--dot:var('+t.color+'); --soft:var('+t.soft+'); --ring-local:var(--ring);">';
+      html += '<div class="role-top"><span class="role-team">' + t.name + '</span><span class="role-badge">' + role.level + '</span></div>';
+      html += '<p class="role-desc">' + role.desc + '</p>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+
+    var extKeys = Object.keys(s.externos || {});
+    if (extKeys.length){
+      html += '<div class="block"><h3>Actores externos involucrados</h3><div class="ext-grid">';
+      extKeys.forEach(function(k){
+        html += '<div class="ext-card"><span class="ext-name">' + EXTERNOS_META[k] + '</span><p class="ext-desc">' + s.externos[k] + '</p></div>';
+      });
+      html += '</div></div>';
+    }
+
+    if (s.mecanismos && s.mecanismos.length){
+      html += '<div class="block"><h3>Mecanismos especiales aplicables</h3><div class="mech-list">';
+      s.mecanismos.forEach(function(mk){
+        var m = MECANISMOS[mk];
+        html += '<div class="mech-item"><span class="mech-name">' + m.name + '</span><p class="mech-desc">' + m.desc + '</p></div>';
+      });
+      html += '</div></div>';
+    }
+
+    html += '<div class="risks"><h3>Riesgos y cuellos de botella comunes</h3><ul>' + s.riesgos.map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul></div>';
+
+    detailEl.innerHTML = html;
+  }
+
+  function renderAll(){
+    var seg = currentSegment();
+    pageEl.style.setProperty('--sc', 'var('+seg.color+')');
+    pageEl.style.setProperty('--ss', 'var('+seg.soft+')');
+    renderMarkets();
+    renderPills();
+    renderStations();
+    renderTracks();
+    renderDetail();
+  }
+
+  renderAll();
+})();
+</script>

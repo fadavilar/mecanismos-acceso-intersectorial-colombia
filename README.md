@@ -26,6 +26,7 @@ Todas las cifras del proceso de selección PRISMA, la tabla de estudios incluido
 - **CFIR (Damschroder et al., 2009), RE-AIM (Glasgow et al., 2009) y difusión de innovaciones (Rogers, 2003)** — citadas tal como las reúne el recuadro 10 de Peters, Tran & Adam (2013).
 - **Checklist TICD (Flottorp et al., 2013)**, *Implementation Science* 8:35 — 57 determinantes de la práctica en 7 dominios; base del diagrama de dinámica de sistemas.
 - **Frost & Reich (2008)** — arquitectura, disponibilidad, asequibilidad y adopción, presentados como un banner de arquitectura sobre una cuadrícula de los tres factores. La imagen original (`img/frost-reich-2008-framework.png`) se reprodujo, bajo licencia CC BY-NC-SA 3.0, en Brooks et al. (2012), *BMC Public Health*, 12:683 — fuente usada también para completar la cita bibliográfica de Frost & Reich, que en el archivo original solo indicaba "Reich, 2008" sin coautoría ni datos completos; queda disponible como referencia plegable.
+- **Caso aplicado: acceso estratégico a medicamentos** — no es un marco académico externo, sino una herramienta interactiva propia del autor (`acceso-estrategico-medicamentos.html`, enlazada desde "Marco de acceso") que operacionaliza disponibilidad/asequibilidad/adopción en 4 etapas (Priorización → Codificación → Prescripción → Continuidad) para 2 mercados farmacéuticos en Colombia, con roles RACI por equipo y los mecanismos reales del SGSSS (Vital No Disponible, Giro Directo, UNIRS).
 - **IR Toolkit — Implementation Research Competency: Self-assessment tool** (TDR/OMS y Alliance for Health Policy and Systems Research, `adphealth.org/irtoolkit/`) — los 6 focos y 16 competencias reales de la autoevaluación interactiva; la escala de calificación de 4 niveles es una adaptación propia del autor para esta interfaz.
 - **Homer & Hirsch (2006)**, *System dynamics modeling for public health* — metodología de diagramación de bucles causales, ya usada en la app hermana del XXI Congreso.
 
@@ -55,6 +56,7 @@ HTML/CSS/JS sin build step ni frameworks, siguiendo el mismo sistema de diseño 
 - `js/data.js` — todo el contenido editorial (problema de implementación, marcos de referencia, mapa mental, dinámica de sistemas, autoevaluación, métodos, PRISMA, estudios incluidos, ejes temáticos, recomendaciones, lagunas).
 - `js/app.js` — renderizado, tema claro/oscuro persistente, acordeón, diagramas SVG (PRISMA, mapa mental, bucles causales), autoevaluación con persistencia en `localStorage`, índice/scrollspy, buscador, exportación a PDF.
 - `img/` — las figuras originales de los marcos de resultados de implementación y de acceso.
+- `acceso-estrategico-medicamentos.html` — página independiente, autocontenida (propio HTML/CSS/JS, sin dependencia del resto de la app): la herramienta interactiva del caso aplicado de acceso a medicamentos, enlazada desde "Marco de acceso".
 
 Para editar contenido, generalmente basta con modificar `js/data.js`; el resto se renderiza automáticamente.
 

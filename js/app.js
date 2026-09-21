@@ -990,6 +990,34 @@
     });
     body.appendChild(grid);
 
+    if(fr.appliedCase){
+      const ac = fr.appliedCase;
+      body.appendChild(el("h4",{style:"font-size:.86rem;margin-top:22px"},[ac.title]));
+      body.appendChild(el("p",{},[ac.intro]));
+
+      const stageTrack = el("div",{class:"access-stage-track"});
+      ac.stages.forEach((s,i)=>{
+        stageTrack.appendChild(el("div",{class:"access-stage"},[
+          el("div",{class:"access-stage-num"},[String(i+1).padStart(2,"0")]),
+          el("h4",{},[s.name]),
+          el("p",{},[s.desc]),
+        ]));
+      });
+      body.appendChild(stageTrack);
+
+      body.appendChild(el("h4",{style:"font-size:.86rem;margin-top:18px"},["Mecanismos especiales del SGSSS ilustrados en el caso"]));
+      const mechList = el("div",{class:"mech-list"});
+      ac.mechanisms.forEach(m=>{
+        mechList.appendChild(el("div",{class:"mech-item"},[
+          el("span",{class:"mech-name"},[m.name]),
+          el("p",{class:"mech-desc"},[m.desc]),
+        ]));
+      });
+      body.appendChild(mechList);
+
+      body.appendChild(el("a",{href:ac.link.href, target:"_blank", rel:"noopener noreferrer", class:"btn btn-primary", style:"margin-top:14px;display:inline-flex"},[ac.link.label]));
+    }
+
     const details = el("details",{style:"margin-top:14px"});
     details.appendChild(el("summary",{style:"cursor:pointer;font-weight:700;font-size:.82rem"},["Ver figura original (inglés) y cita completa"]));
     details.appendChild(el("div",{class:"card", style:"margin-top:10px"},[
@@ -1488,6 +1516,7 @@
     idx.push({ type:"Sección", label:"Resultados de implementación", detail:"Proctor et al. (2011)", sectionId:"marcos", anchorId:"marcos-resultados" });
     idx.push({ type:"Sección", label:"Teorías y determinantes", detail:"CFIR, RE-AIM, difusión de innovaciones, checklist TICD", sectionId:"marcos", anchorId:"marcos-teorias" });
     idx.push({ type:"Sección", label:"Marco de acceso", detail:"Frost & Reich (2008)", sectionId:"marcos", anchorId:"marcos-acceso" });
+    idx.push({ type:"Sección", label:"Acceso estratégico a medicamentos", detail:"Caso aplicado: 4 etapas, herramienta interactiva del autor", sectionId:"marcos", anchorId:"marcos-acceso" });
     idx.push({ type:"Sección", label:"Mapa mental interactivo", detail:"Los seis marcos de referencia conectados", sectionId:"marcos", anchorId:"marcos-mapa" });
     idx.push({ type:"Sección", label:"Autoevaluación de competencias en IR", detail:"IR Toolkit (TDR/OMS) — 16 competencias en 6 focos", sectionId:"marcos", anchorId:"marcos-autoevaluacion" });
     idx.push({ type:"Sección", label:"Dinámica de sistemas", detail:"Bucles R1 (vacío de rectoría) y B1 (mecanismos operativos)", sectionId:"dinamica", anchorId:"sec-dinamica" });

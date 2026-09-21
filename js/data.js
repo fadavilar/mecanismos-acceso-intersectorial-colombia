@@ -317,6 +317,22 @@ const DATA = {
         { name: "Asequibilidad", items: ["Asequibilidad gubernamental", "Asequibilidad de agencias no gubernamentales", "Asequibilidad para el usuario final"] },
         { name: "Adopción", items: ["Adopción global", "Adopción nacional", "Adopción por el proveedor", "Adopción y uso apropiado por el usuario final (aceptabilidad)"] },
       ],
+      appliedCase: {
+        title: "Caso aplicado: acceso estratégico a medicamentos en Colombia",
+        intro: "Herramienta interactiva propia del autor (no un marco académico externo) que operacionaliza disponibilidad, asequibilidad y adopción en cuatro etapas operativas, para dos mercados —Institucional (general y especializado) y Retail (OTC y ético/Rx)— y seis equipos de una organización farmacéutica. Se incluye aquí porque hace tangible, con un caso real del sector salud colombiano, lo que el marco de Frost & Reich describe en abstracto.",
+        stages: [
+          { name: "Priorización", desc: "Identificar y priorizar instituciones o canales (hospitales, centros de referencia, cadenas, farmacias) según pertinencia clínica, volumen y relación contractual — la primera decisión de disponibilidad: dónde enfocar el esfuerzo de acceso." },
+          { name: "Codificación", desc: "Formalizar el registro sanitario (INVIMA) y la homologación administrativa del medicamento (CUM/IUM/CUPS o EAN/UPC), el precio y las condiciones de pago — habilita su circulación y es donde se juega buena parte de la asequibilidad." },
+          { name: "Prescripción", desc: "Lograr la inclusión en guías, comités o rutas de decisión (comité de farmacia, comité de tumores, recomendación en mostrador) y habilitar la prescripción efectiva, incluyendo mecanismos especiales cuando el uso o el registro lo requieren — el núcleo de la adopción." },
+          { name: "Continuidad", desc: "Sostener la disponibilidad y la adherencia en el tiempo, evitando interrupciones por desabastecimiento, cartera o discontinuidad entre el manejo hospitalario y el ambulatorio — el mismo problema de sostenibilidad que documenta el eje B de esta revisión para la coordinación intersectorial." },
+        ],
+        mechanisms: [
+          { name: "Vital No Disponible (VNP)", desc: "Mecanismo administrado por INVIMA que permite el ingreso y uso de un medicamento sin registro sanitario vigente en Colombia cuando constituye la única alternativa terapéutica disponible para una condición que pone en riesgo la vida." },
+          { name: "Giro Directo", desc: "Mecanismo de ADRES que gira los recursos directamente a la IPS o al prestador, sin pasar por la EPS, para reducir los tiempos de pago y la cartera que puede afectar la disponibilidad de tratamientos de alto costo." },
+          { name: "UNIRS (Uso No Incluido en Registro Sanitario)", desc: "Mecanismo del Ministerio de Salud e INVIMA que permite prescribir un medicamento ya registrado en una indicación, dosis, vía o población distinta a la aprobada, cuando existe evidencia de eficacia y seguridad." },
+        ],
+        link: { label: "Abrir la herramienta interactiva completa (mapa de ruta por mercado, segmento y equipo, con roles RACI)", href: "acceso-estrategico-medicamentos.html" },
+      },
     },
   },
 
