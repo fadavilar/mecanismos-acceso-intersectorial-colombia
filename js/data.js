@@ -13,13 +13,13 @@ const DATA = {
 
   meta: {
     title: "Acceso e implementación en Colombia",
-    subtitle: "Del vacío de implementación a las estrategias de acceso — revisión sistemática exploratoria (scoping review, PRISMA-ScR) sobre mecanismos de acceso intersectorial, leída desde la investigación de implementación",
+    subtitle: "El vacío entre la arquitectura normativa y la coordinación operativa — y los mecanismos que sí funcionan cuando el acceso intersectorial se vuelve una estrategia concreta, no solo una declaración. Evidencia propia (scoping review, PRISMA-ScR) leída de principio a fin desde la investigación de implementación.",
     author: "Fabian Dávila Ramírez",
     credentials: "MD, MBA, PhD",
     affiliation: "Universidad de Navarra · Universidad de Bogotá Jorge Tadeo Lozano (Doctorado en Gestión y Modelado de Políticas Públicas)",
     period: "Revisión completada el 16 de septiembre de 2026 · horizonte de búsqueda 2021–2026",
-    framework: "Revisión sistemática exploratoria · metodología PRISMA 2020 y su extensión PRISMA-ScR",
-    disclaimer: "Esta aplicación sintetiza una revisión sistemática exploratoria (scoping review) de autoría propia sobre los mecanismos de acceso intersectorial y su aplicación al contexto colombiano, leída a través de la lente de la investigación de implementación (implementation research). Todas las cifras del proceso de selección, la tabla de estudios incluidos y las citas provienen del documento completo (PDF) y de las fuentes primarias que este verifica explícitamente. La clasificación por ejes temáticos, las recomendaciones, el diagrama de dinámica de sistemas y los marcos de referencia de implementación y acceso (Peters, Tran & Adam 2013; Proctor et al. 2011; CFIR; RE-AIM; difusión de innovaciones; TICD; Frost & Reich 2008) son una elaboración propia del autor para facilitar la lectura — no sustituyen ni alteran los hallazgos originales del documento.",
+    framework: "Investigación de implementación · mecanismos de acceso intersectorial",
+    disclaimer: "Esta aplicación trata el acceso intersectorial en Colombia como un problema de implementación: por qué una arquitectura normativa disponible no siempre se traduce en coordinación operativa, y qué mecanismos sí lo logran. La base empírica es una revisión sistemática exploratoria (scoping review) de autoría propia; todas las cifras del proceso de selección, la tabla de estudios incluidos y las citas provienen del documento completo (PDF) y de las fuentes primarias que este verifica explícitamente. La clasificación por ejes temáticos, las recomendaciones, el diagrama de dinámica de sistemas y los marcos de referencia de implementación y acceso (Peters, Tran & Adam 2013; Proctor et al. 2011; CFIR; RE-AIM; difusión de innovaciones; TICD; Frost & Reich 2008) son una elaboración propia del autor para facilitar la lectura — no sustituyen ni alteran los hallazgos originales del documento.",
     license: {
       name: "Creative Commons Atribución 4.0 Internacional (CC BY 4.0)",
       url: "https://creativecommons.org/licenses/by/4.0/deed.es",
@@ -40,10 +40,10 @@ const DATA = {
   },
 
   stats: [
-    { value: "45", label: "Registros identificados", detail: "44 en 5 bases de datos + 1 en literatura gris institucional" },
-    { value: "15", label: "Estudios y documentos incluidos", detail: "14 procedentes de bases de datos + 1 de búsqueda dirigida" },
-    { value: "6", label: "Fuentes de información", detail: "PubMed/MEDLINE, LILACS/BVS, SciELO, Cochrane Library, Google Scholar, literatura gris" },
-    { value: "2021–2026", label: "Horizonte temporal de búsqueda", detail: "Ventana acordada con el solicitante de la revisión" },
+    { value: "4", label: "Mecanismos de acceso documentados", detail: "Ejes de convergencia temática — qué facilita y qué bloquea la coordinación intersectorial en el terreno" },
+    { value: "2", label: "Bucles causales del vacío de implementación", detail: "R1 (vacío de rectoría) y B1 (mecanismos operativos) — dinámica de sistemas" },
+    { value: "3", label: "Estrategias de acceso propuestas", detail: "Cada una vinculada a un punto de apalancamiento de los bucles causales" },
+    { value: "15", label: "Estudios que sustentan el diagnóstico", detail: "45 registros identificados, 14 de bases de datos + 1 de búsqueda dirigida — ver Metodología y evidencia" },
   ],
 
   intro: "Objetivo: sintetizar la evidencia sobre los mecanismos de acceso intersectorial —arreglos de gobernanza que articulan sectores distintos al de la salud para garantizar el acceso a servicios y al bienestar— y examinar su aplicación al contexto colombiano. Métodos: se realizó una revisión sistemática exploratoria siguiendo la metodología PRISMA 2020 y su extensión para revisiones de alcance (PRISMA-ScR), a partir de una pregunta en formato Población-Concepto-Contexto (PCC). Se consultaron PubMed/MEDLINE, LILACS/BVS, SciELO, Cochrane Library, Google Scholar y literatura gris institucional, con ecuaciones booleanas adaptadas a cada fuente y un horizonte de 2021 a 2026. La calidad se evaluó con las herramientas EQUATOR Network pertinentes a cada diseño (SRQR, PRISMA-ScR), declarando los documentos sin checklist aplicable. Resultados: de 45 registros identificados (44 en bases de datos, 1 en literatura gris), se eliminaron 13 duplicados, se examinaron 32 y se incluyeron 15 estudios y documentos: cinco cualitativos indexados en PubMed, un estudio de caso institucional de la OPS/OMS, ocho registros de Google Scholar y una revisión de alcance regional. (Cifras actualizadas tras la publicación inicial: una tesis de la Universidad Externado de Colombia, identificada originalmente sin URL verificable, fue localizada y verificada por el autor — ver la nota en \"Materiales y métodos\".) Los hallazgos convergen en que la gobernanza formal, el financiamiento compartido y la participación comunitaria determinan una acción intersectorial efectiva, mientras que la fragmentación institucional y la débil rectoría son las barreras más citadas. Conclusiones: Colombia dispone de una arquitectura normativa relevante, pero enfrenta brechas de implementación, financiamiento sostenido y evidencia de efectividad medida con rigor.",

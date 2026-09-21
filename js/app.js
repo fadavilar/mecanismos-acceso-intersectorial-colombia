@@ -85,7 +85,12 @@
         { id:"problema-narrativa", label:"Por qué la eficacia no basta" },
         { id:"problema-lectura", label:"Cómo leer este documento" },
       ] },
-    { id:"marcos", num:"03", title:"Marcos de referencia: implementación y acceso", sub:"Seis piezas conceptuales para leer esta revisión como evidencia de implementación", open:false,
+    { id:"mecanismos", num:"03", title:"Mecanismos de acceso intersectorial: qué documenta la evidencia", sub:"Ejes de convergencia temática — qué facilita y qué bloquea la coordinación intersectorial en el terreno", open:false,
+      subs: [
+        { id:"mecanismos-ejes", label:"Ejes de convergencia temática" },
+        ...DATA.categories.map(c=>({ id:"eje-"+c.id, label:"Eje "+c.id+" — "+c.title })),
+      ] },
+    { id:"marcos", num:"04", title:"Marcos de referencia: implementación y acceso", sub:"Seis piezas conceptuales para interpretar los mecanismos que acabas de leer", open:false,
       subs: [
         { id:"marcos-continuo", label:"El continuo de la investigación de implementación" },
         { id:"marcos-resultados", label:"Resultados de implementación (Proctor et al., 2011)" },
@@ -94,26 +99,21 @@
         { id:"marcos-mapa", label:"Mapa mental interactivo" },
         { id:"marcos-autoevaluacion", label:"Autoevaluación de competencias en IR" },
       ] },
-    { id:"metodos", num:"04", title:"Materiales y métodos", sub:"Diseño PRISMA-ScR, fuentes, estrategia de búsqueda y estudios incluidos", open:false,
-      subs: [
-        { id:"metodos-diseno", label:"Diseño, fuentes y regla de citación" },
-        { id:"metodos-prisma", label:"Selección de estudios (diagrama PRISMA)" },
-        { id:"metodos-estudios", label:"Estudios incluidos (n = "+DATA.studies.length+")" },
-        { id:"metodos-fuentes", label:"Fuentes consultadas y limitaciones" },
-      ] },
-    { id:"resultados", num:"05", title:"Resultados", sub:"Evaluación de calidad y ejes de convergencia temática", open:false,
-      subs: [
-        { id:"resultados-calidad", label:"Evaluación de la calidad de la evidencia" },
-        { id:"resultados-ejes", label:"Ejes de convergencia temática" },
-        ...DATA.categories.map(c=>({ id:"eje-"+c.id, label:"Eje "+c.id+" — "+c.title })),
-      ] },
-    { id:"dinamica", num:"06", title:"Dinámica de sistemas", sub:"El vacío de implementación: hipótesis causales del autor sobre las barreras de acceso más frecuentes", open:false },
-    { id:"discusion", num:"07", title:"Discusión y estrategias de acceso", sub:"De la discusión al cierre del vacío de implementación: integridad bibliográfica, estrategias de acceso y lagunas", open:false,
+    { id:"dinamica", num:"05", title:"Dinámica de sistemas", sub:"El vacío de implementación: hipótesis causales del autor sobre las barreras de acceso más frecuentes", open:false },
+    { id:"discusion", num:"06", title:"Discusión y estrategias de acceso", sub:"De la discusión al cierre del vacío de implementación: integridad bibliográfica, estrategias de acceso y lagunas", open:false,
       subs: [
         { id:"discusion-texto", label:"Discusión" },
         { id:"discusion-integridad", label:"Un caso de integridad bibliográfica" },
         { id:"discusion-recomendaciones", label:"Estrategias de acceso" },
         { id:"discusion-lagunas", label:"Lagunas de evidencia" },
+      ] },
+    { id:"metodos", num:"07", title:"Metodología y evidencia", sub:"Cómo se construyó la base empírica: diseño PRISMA-ScR, fuentes, calidad y estudios incluidos", open:false,
+      subs: [
+        { id:"metodos-diseno", label:"Diseño, fuentes y regla de citación" },
+        { id:"metodos-prisma", label:"Selección de estudios (diagrama PRISMA)" },
+        { id:"metodos-estudios", label:"Estudios incluidos (n = "+DATA.studies.length+")" },
+        { id:"metodos-calidad", label:"Evaluación de la calidad de la evidencia" },
+        { id:"metodos-fuentes", label:"Fuentes consultadas y limitaciones" },
       ] },
     { id:"conclusion", num:"08", title:"Conclusión", sub:"Síntesis final de la revisión", open:false },
   ];
@@ -549,11 +549,11 @@
   }
 
   /* ============================================================
-     RENDER: 04 Resultados — Evaluación de calidad
+     RENDER: 07 Metodología y evidencia — Evaluación de calidad
      ============================================================ */
   function renderCalidad(){
-    const body = document.getElementById("body-resultados");
-    sectionDivider(body, "resultados-calidad", "Evaluación de la calidad de la evidencia",
+    const body = document.getElementById("body-metodos");
+    sectionDivider(body, "metodos-calidad", "Evaluación de la calidad de la evidencia",
       "Herramienta EQUATOR Network aplicada según el diseño de cada estudio, en vez de forzar un único instrumento genérico.");
     const tableWrap = el("div",{class:"table-wrap"});
     const table = el("table",{class:"data-table"},[
@@ -571,14 +571,14 @@
   }
 
   /* ============================================================
-     RENDER: 04 Resultados — Ejes de convergencia temática
+     RENDER: 03 Mecanismos de acceso intersectorial — Ejes de convergencia temática
      ============================================================ */
   function renderEjes(){
-    const body = document.getElementById("body-resultados");
-    sectionDivider(body, "resultados-ejes", "Ejes de convergencia temática",
+    const body = document.getElementById("body-mecanismos");
+    sectionDivider(body, "mecanismos-ejes", "Ejes de convergencia temática",
       "Clasificación editorial propia del autor de los hallazgos de la sección de discusión, agrupados por el patrón que documentan.");
     body.appendChild(el("p",{},[
-      "Cada hallazgo cita, entre paréntesis, el número del estudio incluido (ver \"Estudios incluidos\" en Materiales y métodos) que lo respalda — pasa el cursor sobre la cita para ver el título y el autor."
+      "Cada hallazgo cita, entre paréntesis, el número del estudio incluido que lo respalda — pasa el cursor sobre la cita para ver el título y el autor, o consulta la tabla completa y el proceso de selección PRISMA en \"Metodología y evidencia\", más adelante."
     ]));
     DATA.categories.forEach(cat=>{
       const block = el("div",{class:"category-block "+cat.color, id:"eje-"+cat.id});
@@ -1500,7 +1500,7 @@
     });
     DATA.categories.forEach(cat=>{
       cat.codes.forEach(code=>{
-        idx.push({ type:"Eje "+cat.id, label: code.text.length>90? code.text.slice(0,90)+"…" : code.text, detail: cat.title, sectionId:"resultados", anchorId:"eje-"+cat.id });
+        idx.push({ type:"Eje "+cat.id, label: code.text.length>90? code.text.slice(0,90)+"…" : code.text, detail: cat.title, sectionId:"mecanismos", anchorId:"eje-"+cat.id });
       });
     });
     DATA.recommendations.forEach(r=>{
@@ -1699,6 +1699,7 @@
     renderResumen();
     renderProblemaNarrativa();
     renderProblemaLectura();
+    renderEjes();
     renderMarcosIntro();
     renderMarcosContinuo();
     renderMarcosResultados();
@@ -1706,17 +1707,16 @@
     renderMarcosAcceso();
     renderMarcosMapa();
     renderMarcosAutoevaluacion();
-    renderMetodosDiseno();
-    renderPrisma();
-    renderEstudios();
-    renderMetodologiaFuentes();
-    renderCalidad();
-    renderEjes();
     renderDinamica();
     renderDiscusionTexto();
     renderIntegridad();
     renderRecomendaciones();
     renderLagunas();
+    renderMetodosDiseno();
+    renderPrisma();
+    renderEstudios();
+    renderCalidad();
+    renderMetodologiaFuentes();
     renderConclusion();
 
     renderSidebarTOC();
