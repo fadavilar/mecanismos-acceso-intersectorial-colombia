@@ -86,10 +86,10 @@
         { id:"problema-modelo", label:"Modelo de recorrido: etapas, actores y RACI" },
         { id:"problema-lectura", label:"Cómo leer este documento" },
       ] },
-    { id:"mecanismos", num:"03", title:"Mecanismos de acceso intersectorial: qué documenta la evidencia", sub:"Ejes de convergencia temática — qué facilita y qué bloquea la coordinación intersectorial en el terreno", open:false,
+    { id:"mecanismos", num:"03", title:"Mitos, realidades y desafíos: qué documenta la evidencia", sub:"Tres categorías editoriales — qué creencias no resisten los datos, qué muestra la evidencia y qué queda pendiente", open:false,
       subs: [
-        { id:"mecanismos-ejes", label:"Ejes de convergencia temática" },
-        ...DATA.categories.map(c=>({ id:"eje-"+c.id, label:"Eje "+c.id+" — "+c.title })),
+        { id:"mecanismos-ejes", label:"Mitos, realidades y desafíos" },
+        ...DATA.categories.map(c=>({ id:"eje-"+c.id, label:c.id+" — "+c.title })),
       ] },
     { id:"marcos", num:"04", title:"Marcos de referencia: implementación y acceso", sub:"Seis piezas conceptuales para interpretar los mecanismos que acabas de leer", open:false,
       subs: [
@@ -409,6 +409,9 @@
       srcList.appendChild(el("li",{},[ el("strong",{},[s.name+": "]), s.note ]));
     });
     body.appendChild(srcList);
+    if(DATA.methods.excludedSourcesNote){
+      body.appendChild(el("p",{style:"font-size:.82rem;color:var(--text-muted)"},[DATA.methods.excludedSourcesNote]));
+    }
 
     body.appendChild(el("h4",{style:"font-size:.86rem;margin-top:18px"},["Ecuaciones de búsqueda por fuente"]));
     const eqList = el("div",{class:"selfcheck-wrap"});
@@ -447,7 +450,7 @@
   function renderPrisma(){
     const body = document.getElementById("body-metodos");
     sectionDivider(body, "metodos-prisma", "Selección de estudios",
-      "45 registros identificados → 32 examinados → "+DATA.methods.prisma.includedTotal+" incluidos. Diagrama de flujo PRISMA construido con las cifras reales del documento.");
+      DATA.methods.prisma.identifiedTotal+DATA.methods.prisma.identifiedOtherTotal+" registros identificados → "+DATA.methods.prisma.screenedTotal+" examinados → "+DATA.methods.prisma.includedTotal+" incluidos. Diagrama de flujo PRISMA construido con las cifras reales del documento.");
     body.appendChild(el("p",{},[
       "Diagrama de flujo PRISMA 2020 de la selección de estudios. Toca o pasa el cursor sobre cada caja para ver el detalle si aplica; la tabla debajo desagrega el proceso por fuente de información."
     ]));
@@ -483,6 +486,9 @@
       DATA.methods.prisma.notRetrievedReasons.forEach(r=> nrList.appendChild(el("li",{},[r])));
       body.appendChild(nrList);
     }
+    if(DATA.methods.prisma.includedReportsNote){
+      body.appendChild(el("p",{style:"font-size:.82rem;color:var(--text-muted);margin-top:10px"},[DATA.methods.prisma.includedReportsNote]));
+    }
   }
 
   function buildPrismaSVG(p){
@@ -494,7 +500,7 @@
 
     const svg = document.createElementNS(svgNS,"svg");
     svg.setAttribute("role","img");
-    svg.setAttribute("aria-label","Diagrama de flujo PRISMA de selección de estudios: 45 registros identificados, 32 examinados, 14 incluidos");
+    svg.setAttribute("aria-label","Diagrama de flujo PRISMA de selección de estudios: "+(p.identifiedTotal+p.identifiedOtherTotal)+" registros identificados, "+p.screenedTotal+" examinados, "+p.includedTotal+" incluidos");
 
     const defs = document.createElementNS(svgNS,"defs");
     defs.innerHTML = `
@@ -579,7 +585,9 @@
     y = row3MaxBottom + 26;
 
     const hG = box(mainX, y, boxW, `Informes evaluados para determinar elegibilidad (n = ${p.assessedTotal})`, []);
-    const hH = box(sideX, y, sideW, `Excluidos en elegibilidad (n = ${p.excludedAtEligibilityTotal})`, [], "prisma-removed");
+    const eligibilityExcludedLines = [];
+    (p.excludedAtEligibilityReasons||[]).forEach(r=> wrapLabel(r, 44).forEach((l,i)=> eligibilityExcludedLines.push((i===0?"– ":"   ")+l)));
+    const hH = box(sideX, y, sideW, `Excluidos en elegibilidad (n = ${p.excludedAtEligibilityTotal})`, eligibilityExcludedLines, "prisma-removed");
     arrowH(mainX+boxW, sideX-2, y + hG/2);
     const row4MainBottom = y + hG;
     y = row4MainBottom + 26;
@@ -611,7 +619,7 @@
     sectionDivider(body, "metodos-estudios", "Estudios y documentos incluidos (n = "+DATA.studies.length+")",
       "Extracción de datos completa, con el título enlazado a su fuente verificable.");
     body.appendChild(el("p",{},[
-      "Cinco estudios cualitativos indexados en PubMed centrados en el sector salud, un estudio de caso institucional de la OPS/OMS, ocho registros de Google Scholar (cinco de los cuales documentan mecanismos de gobernanza intersectorial en sectores distintos al de la salud, incluidos como evidencia comparativa) y una revisión de alcance regional."
+      "De los 17 estudios y documentos incluidos, la mayoría son artículos indexados en PubMed, SciELO y Google Scholar sobre evaluación económica en el SGSSS colombiano; el resto son manuales y notas técnicas institucionales (IETS, MinSalud, OPS, BID) recuperados directamente de sus organizaciones. Ver el diagrama PRISMA y la tabla de fuentes en \"Metodología y evidencia\", más adelante, para el detalle completo del proceso de selección."
     ]));
     const actions = el("div",{class:"data-table-actions"});
     actions.appendChild(makeDownloadLink("estudios_incluidos.csv",
@@ -699,14 +707,17 @@
     ]);
     tableWrap.appendChild(table);
     body.appendChild(tableWrap);
+    if(DATA.qualityAssessmentNote){
+      body.appendChild(el("p",{style:"font-size:.78rem;color:var(--text-muted);margin-top:8px"},[DATA.qualityAssessmentNote]));
+    }
   }
 
   /* ============================================================
-     RENDER: 03 Mecanismos de acceso intersectorial — Ejes de convergencia temática
+     RENDER: 03 Mitos, realidades y desafíos de la evaluación económica
      ============================================================ */
   function renderEjes(){
     const body = document.getElementById("body-mecanismos");
-    sectionDivider(body, "mecanismos-ejes", "Ejes de convergencia temática",
+    sectionDivider(body, "mecanismos-ejes", "Mitos, realidades y desafíos",
       "Clasificación editorial propia del autor de los hallazgos de la sección de discusión, agrupados por el patrón que documentan.");
     body.appendChild(el("p",{},[
       "Cada hallazgo cita, entre paréntesis, el número del estudio incluido que lo respalda — pasa el cursor sobre la cita para ver el título y el autor, o consulta la tabla completa y el proceso de selección PRISMA en \"Metodología y evidencia\", más adelante."
@@ -714,7 +725,7 @@
     DATA.categories.forEach(cat=>{
       const block = el("div",{class:"category-block "+cat.color, id:"eje-"+cat.id});
       block.appendChild(el("h4",{},[
-        el("span",{class:"chip "+cat.color, style:"margin-right:8px"},["Eje "+cat.id]),
+        el("span",{class:"chip "+cat.color, style:"margin-right:8px"},[cat.id]),
         cat.title
       ]));
       const list = el("ul",{class:"code-list"});
@@ -734,7 +745,7 @@
   function renderDinamica(){
     const body = document.getElementById("body-dinamica");
     body.appendChild(el("p",{},[
-      "Diagrama de bucles causales — no un modelo estadístico ajustado, sino una síntesis interpretativa del autor que traduce los ejes A, B y D de la sección \"Resultados\" (arriba) en hipótesis causales explícitas sobre por qué persiste la brecha de acceso intersectorial. Toca o pasa el cursor sobre un nodo para ver los estudios que lo respaldan, o sobre las etiquetas R1 / B1 para leer la explicación completa de cada bucle."
+      "Diagrama de bucles causales — no un modelo estadístico ajustado, sino una síntesis interpretativa del autor que traduce los mitos y realidades de la sección \"Resultados\" (arriba) en hipótesis causales explícitas sobre por qué la evaluación económica no siempre se traduce en una decisión vinculante de cobertura o precio. Toca o pasa el cursor sobre un nodo para ver los estudios que lo respaldan, o sobre las etiquetas R1 / B1 para leer la explicación completa de cada bucle."
     ]));
     const wrap = el("div",{class:"diagram-wrap"});
     wrap.appendChild(buildCausalSVG());
@@ -746,8 +757,8 @@
     addAccessibleListToggle(body, wrap, buildCausalAccessibleList());
 
     body.appendChild(el("div",{class:"loop-legend"},[
-      el("span",{class:"swatch"},[el("span",{class:"sw sw-r"}), "R1 · bucle de refuerzo (el vacío de rectoría se refuerza a sí mismo)"]),
-      el("span",{class:"swatch"},[el("span",{class:"sw sw-b"}), "B1 · bucle de balance, con demora (mecanismos operativos concretos)"]),
+      el("span",{class:"swatch"},[el("span",{class:"sw sw-r"}), "R1 · bucle de refuerzo (el umbral no vinculante se refuerza a sí mismo)"]),
+      el("span",{class:"swatch"},[el("span",{class:"sw sw-b"}), "B1 · bucle de balance, con demora (tutela y mecanismos de pago ágiles)"]),
       el("span",{class:"swatch"},[el("span",{style:"color:var(--danger);font-weight:800"},["−"]), " las variables cambian en sentido opuesto"]),
       el("span",{class:"swatch"},[el("span",{style:"color:var(--success);font-weight:800"},["+"]), " las variables cambian en el mismo sentido"]),
     ]));
@@ -772,7 +783,7 @@
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
     svg.setAttribute("width","100%");
     svg.setAttribute("role","img");
-    svg.setAttribute("aria-label","Diagrama de bucles causales de las barreras de acceso intersectorial: bucle de refuerzo del vacío de rectoría y bucle de balance de mecanismos operativos");
+    svg.setAttribute("aria-label","Diagrama de bucles causales de la implementación de la evaluación económica: bucle de refuerzo del umbral no vinculante y bucle de balance de tutela y mecanismos de pago ágiles");
 
     const defs = document.createElementNS(svgNS,"defs");
     defs.innerHTML = `
@@ -787,7 +798,7 @@
     r1Group.innerHTML = `
       <rect x="${cx-70}" y="${cy-26}" width="140" height="46" rx="10"></rect>
       <text x="${cx}" y="${cy-6}" text-anchor="middle" class="loop-tag r">R1</text>
-      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="10" style="fill:var(--text-muted)">vacío de rectoría</text>`;
+      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="10" style="fill:var(--text-muted)">umbral no vinculante</text>`;
     if(r1Loop) attachLoopTooltip(r1Group, r1Loop);
     svg.appendChild(r1Group);
 
@@ -813,8 +824,8 @@
       svg.appendChild(label);
     });
 
-    // B1 loop: node 3 (déficit de coordinación operativa) <-> external "Mecanismos operativos concretos"
-    const n3 = pos[3];
+    // B1 loop: node 5 (brecha entre capacidad técnica y asignación de recursos) <-> external "Tutela y mecanismos de pago ágiles"
+    const n3 = pos[5];
     const bx = n3.x, by = n3.y - 170;
     const ext = DATA.causalLoop.externalNode;
     const bnode = document.createElementNS(svgNS,"g");
@@ -1300,7 +1311,7 @@
     sectionDivider(body, "discusion-recomendaciones", "Estrategias de acceso",
       "El cierre del recorrido de esta app: del problema de implementación (sección 02) y sus marcos de referencia (03), pasando por la evidencia (04-05) y las hipótesis causales de \"Dinámica de sistemas\" (06), a estrategias concretas para cerrar el vacío de implementación y mejorar el acceso.");
     body.appendChild(el("p",{},[
-      "Síntesis propia del autor. No son conclusiones de los estudios incluidos ni posiciones oficiales de ninguna de las instituciones citadas. Cada estrategia responde a un punto de apalancamiento distinto del bucle de refuerzo R1 (\"el vacío de rectoría se refuerza a sí mismo\") o del bucle de balance B1 (\"mecanismos operativos concretos\") descritos en la sección 06."
+      "Síntesis propia del autor. No son conclusiones de los estudios incluidos ni posiciones oficiales de ninguna de las instituciones citadas. Cada estrategia responde a un punto de apalancamiento distinto del bucle de refuerzo R1 (\"el umbral no vinculante se refuerza a sí mismo\") o del bucle de balance B1 (\"tutela y mecanismos de pago ágiles\") descritos en la sección 06."
     ]));
     DATA.recommendations.forEach(rec=>{
       const card = el("div",{class:"rec-card"});
@@ -1559,7 +1570,7 @@
     });
     DATA.categories.forEach(cat=>{
       cat.codes.forEach(code=>{
-        idx.push({ type:"Eje "+cat.id, label: code.text.length>90? code.text.slice(0,90)+"…" : code.text, detail: cat.title, sectionId:"mecanismos", anchorId:"eje-"+cat.id });
+        idx.push({ type:cat.id, label: code.text.length>90? code.text.slice(0,90)+"…" : code.text, detail: cat.title, sectionId:"mecanismos", anchorId:"eje-"+cat.id });
       });
     });
     DATA.recommendations.forEach(r=>{
@@ -1578,8 +1589,8 @@
     idx.push({ type:"Sección", label:"Marco de acceso", detail:"Frost & Reich (2008)", sectionId:"marcos", anchorId:"marcos-acceso" });
     idx.push({ type:"Sección", label:"Acceso estratégico a medicamentos", detail:"Caso aplicado: 4 etapas, herramienta interactiva del autor", sectionId:"marcos", anchorId:"marcos-acceso" });
     idx.push({ type:"Sección", label:"Mapa mental interactivo", detail:"Los seis marcos de referencia conectados", sectionId:"marcos", anchorId:"marcos-mapa" });
-    idx.push({ type:"Sección", label:"Dinámica de sistemas", detail:"Bucles R1 (vacío de rectoría) y B1 (mecanismos operativos)", sectionId:"dinamica", anchorId:"sec-dinamica" });
-    idx.push({ type:"Sección", label:"Caso de integridad bibliográfica", detail:"Corrección de una cita mal atribuida (PMID 20957426)", sectionId:"discusion", anchorId:"discusion-integridad" });
+    idx.push({ type:"Sección", label:"Dinámica de sistemas", detail:"Bucles R1 (umbral no vinculante) y B1 (tutela y mecanismos de pago ágiles)", sectionId:"dinamica", anchorId:"sec-dinamica" });
+    idx.push({ type:"Sección", label:"Caso de integridad bibliográfica", detail:"Corrección de un artefacto de metadatos en Google Scholar (PMID 38995492)", sectionId:"discusion", anchorId:"discusion-integridad" });
     return idx;
   }
   function openSearch(){
